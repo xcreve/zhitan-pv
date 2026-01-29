@@ -6,6 +6,7 @@
 ## 关键变更点（本仓库）
 1. **依赖与基础版本对齐**
    - 根 `pom.xml` 将 `ruoyi.version` 升级为 `3.9.1`，并对齐 v3.9.1 的依赖版本（Druid、Fastjson2、PageHelper、OSHI、Tomcat、Spring Security、Spring Framework 等）。
+   - 增加 Lombok 版本与编译工具链配置，并通过 Enforcer 固定 JDK8 构建环境，避免 javac NoSuchFieldError。
 2. **配置对齐**
    - `application.yml` 中 `ruoyi.version` 更新为 `3.9.1`，新增 `referer` 防盗链配置。
    - 保留项目自定义配置（`profile` 路径、`mybatis-plus` 扩展配置等）。
