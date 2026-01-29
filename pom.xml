@@ -229,6 +229,17 @@
         </dependencies>
     </dependencyManagement>
 
+    <dependencies>
+        <!-- 让所有子模块继承到 lombok，解决 pvadmin DTO/VO 分散在不同模块的问题 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
     <modules>
         <module>ruoyi-admin</module>
         <module>ruoyi-framework</module>
