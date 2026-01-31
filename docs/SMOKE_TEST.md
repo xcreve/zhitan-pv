@@ -63,3 +63,53 @@ JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 PATH=/usr/lib/jvm/java-8-openjdk-amd
 ```
 
 结果：启动失败，报错 `Failed to configure a DataSource: 'url' attribute is not specified`，提示未能解析 JDBC URL（dev profile 生效，但缺少有效数据库配置）。因此本次冒烟步骤（login/getInfo/getRouters/匿名 /wxLogin）未执行。
+
+---
+
+## 2026-01-31 dev 启动 + 冒烟验证
+
+启动命令（dev profile）：
+
+```bash
+JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH java -jar ruoyi-admin/target/ruoyi-admin.jar --spring.profiles.active=dev
+```
+
+> 为跳过验证码，已将 `sys.account.captchaEnabled` 设置为 `false`。
+
+### 1) 登录 login
+
+```bash
+curl -s -X POST "http://127.0.0.1:9050/login" \
+  -H "Content-Type: application/json" \
+  -d '{"username":"admin","password":"admin123"}'
+```
+
+结果：`code=200`，返回 token。
+
+### 2) getInfo
+
+```bash
+curl -s -X GET "http://127.0.0.1:9050/getInfo" \
+  -H "Authorization: Bearer <token>"
+```
+
+结果：`code=200`，返回 `user/roles/permissions`。
+
+### 3) getRouters
+
+```bash
+curl -s -X GET "http://127.0.0.1:9050/getRouters" \
+  -H "Authorization: Bearer <token>"
+```
+
+结果：`code=200`，返回路由 `data` 数组。
+
+### 4) /wxLogin 匿名访问
+
+```bash
+curl -s -X POST "http://127.0.0.1:9050/wxLogin" \
+  -H "Content-Type: application/json" \
+  -d '{"username":"admin","password":"admin123"}'
+```
+
+结果：`code=200`，匿名访问正常（返回 token）。

@@ -55,9 +55,9 @@ spring:
     druid:
       # 主库数据源
       master:
-        #        url: jdbc:mysql://127.0.0.1:3306/pv_admin?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-        #        username: root
-        #        password: 123456
+        url: jdbc:mysql://127.0.0.1:3306/pv_admin?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+        username: root
+        password: 123456
       # 从库数据源
       slave:
         # 从数据源开关/默认关闭
@@ -108,19 +108,19 @@ spring:
         wall:
           config:
             multi-statement-allow: true
-    # 文件上传
+  # 文件上传
   servlet:
     multipart:
       # 单个文件大小
       max-file-size: 10MB
       # 设置总上传的文件大小
       max-request-size: 20MB
-    # 服务模块
+  # 服务模块
   devtools:
     restart:
       # 热部署开关
       enabled: true
-    # redis 配置
+  # redis 配置
   redis:
     # 地址
     host: 127.0.0.1
@@ -229,6 +229,10 @@ influxdb:
 wx:
   appid: wx
   secret: abc
+  token: demo-token
+  encodingAesKey: demo-encoding-aes-key
+  page: pages/index/index
+  template_id: demo-template-id
   env_version: "develop"
   ## 正式版为 "release" 开发版为 "develop" 体验版为 "trial"
 alarm:

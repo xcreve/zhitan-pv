@@ -37,3 +37,47 @@ JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 PATH=/usr/lib/jvm/java-8-openjdk-amd
 ```
 
 Result: **BUILD SUCCESS** (ruoyi-admin packaged successfully). Warnings were limited to Lombok-generated equals/hashCode callSuper notices and a mysql-connector relocation warning.
+
+---
+
+## 2026-01-31 dev 启动失败记录
+
+1) 启动命令（dev profile）：
+
+```
+JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH java -jar ruoyi-admin/target/ruoyi-admin.jar --spring.profiles.active=dev
+```
+
+失败原因：Druid 初始化数据库连接时 `Access denied for user 'root'@'localhost'`（MySQL root 账号未设置密码/权限与 `application-dev.yml` 不一致）。
+
+2) 调整 MySQL root 密码后再次启动，失败原因：
+
+```
+Could not resolve placeholder 'wx.token' in value "${wx.token}"
+```
+
+结论：dev 配置需补齐 `wx.token`，否则 WeChat 相关 Bean 无法创建。
+
+3) 补齐 `wx.token` 后再次启动，失败原因：
+
+```
+Could not resolve placeholder 'wx.encodingAesKey' in value "${wx.encodingAesKey}"
+```
+
+结论：dev 配置需补齐 `wx.encodingAesKey`。
+
+4) 补齐 `wx.encodingAesKey` 后再次启动，失败原因：
+
+```
+Could not resolve placeholder 'wx.page' in value "${wx.page}"
+```
+
+结论：dev 配置需补齐 `wx.page`。
+
+5) 补齐 `wx.page` 后再次启动，失败原因：
+
+```
+Could not resolve placeholder 'wx.template_id' in value "${wx.template_id}"
+```
+
+结论：dev 配置需补齐 `wx.template_id`。
