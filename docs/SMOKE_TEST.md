@@ -51,3 +51,15 @@ curl -X GET "http://localhost:8080/device/1" \
 2. **验证码失败**：检查验证码开关与缓存（Redis）是否正常。
 3. **菜单为空**：检查账号权限与 `sys_menu` 数据是否初始化。
 4. **数据库报错**：确认执行了 `sql/upgrade/3.8.6_to_3.9.1.sql`，并保持业务表不被覆盖。
+
+---
+
+## 2026-01-31 ruoyi-admin 启动/冒烟记录
+
+启动命令（dev profile）：
+
+```bash
+JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH java -jar ruoyi-admin/target/ruoyi-admin.jar --spring.profiles.active=dev
+```
+
+结果：启动失败，报错 `Failed to configure a DataSource: 'url' attribute is not specified`，提示未能解析 JDBC URL（dev profile 生效，但缺少有效数据库配置）。因此本次冒烟步骤（login/getInfo/getRouters/匿名 /wxLogin）未执行。
