@@ -84,19 +84,14 @@
 
 ## 在线体验
 
-- guestUser/guest@123456
+
 
 演示地址：  
-http://pvadmin.zhitancloud.com/
+
 
 ## 快速启动（后端）
 
 请参考升级前基线文档：`docs/BASELINE.md`。
 
-## 沟通交流
 
-扫码添加微信交流，加微信请备注：pv。
 
-<p align="center">
-  <img src="readme/img/image.png" width=50% height=50%>
-</p>
