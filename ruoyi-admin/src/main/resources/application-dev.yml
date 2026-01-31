@@ -51,13 +51,14 @@ user:
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    driverClassName: com.mysql.cj.jdbc.Driver
+    driverClassName: org.h2.Driver
     druid:
       # 主库数据源
       master:
-        url: jdbc:mysql://127.0.0.1:3306/pv_admin?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-        username: root
-        password: 123456
+        url: jdbc:h2:mem:ruoyi;MODE=MySQL;DB_CLOSE_DELAY=-1;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
+        username: sa
+        password: ""
+        driverClassName: org.h2.Driver
       # 从库数据源
       slave:
         # 从数据源开关/默认关闭
@@ -142,6 +143,17 @@ spring:
         max-active: 8
         # #连接池最大阻塞等待时间（使用负值表示没有限制）
         max-wait: -1ms
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
 
 # token配置
 token:

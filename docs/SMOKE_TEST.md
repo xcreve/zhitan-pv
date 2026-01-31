@@ -7,6 +7,8 @@
 - Redis 正常可用。
 - 后端服务已启动，返回启动日志关键字："若依启动成功"。
 
+> 若使用 dev(H2) profile，可跳过 MySQL 初始化，H2 内存库会通过 `schema.sql`/`data.sql` 自动初始化。
+
 ## 1. 登录
 ```bash
 curl -X POST "http://localhost:8080/login" \
@@ -74,6 +76,8 @@ JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 PATH=/usr/lib/jvm/java-8-openjdk-amd
 JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH java -jar ruoyi-admin/target/ruoyi-admin.jar --spring.profiles.active=dev
 ```
 
+> dev profile 使用 H2 内存库（无需外部 MySQL）。
+
 > 为跳过验证码，已将 `sys.account.captchaEnabled` 设置为 `false`。
 
 ### 1) 登录 login
@@ -103,6 +107,54 @@ curl -s -X GET "http://127.0.0.1:9050/getRouters" \
 ```
 
 结果：`code=200`，返回路由 `data` 数组。
+
+### 4) /wxLogin 匿名访问
+
+```bash
+curl -s -X POST "http://127.0.0.1:9050/wxLogin" \
+  -H "Content-Type: application/json" \
+  -d '{"username":"admin","password":"admin123"}'
+```
+
+结果：`code=200`，匿名访问正常（返回 token）。
+
+---
+
+## 2026-01-31 dev(H2) 启动 + 冒烟验证
+
+启动命令（dev profile, H2）：
+
+```bash
+JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH java -jar ruoyi-admin/target/ruoyi-admin.jar --spring.profiles.active=dev
+```
+
+### 1) 登录 login
+
+```bash
+curl -s -X POST "http://127.0.0.1:9050/login" \
+  -H "Content-Type: application/json" \
+  -d '{"username":"admin","password":"admin123"}'
+```
+
+结果：`code=200`，返回 token。
+
+### 2) getInfo
+
+```bash
+curl -s -X GET "http://127.0.0.1:9050/getInfo" \
+  -H "Authorization: Bearer <token>"
+```
+
+结果：`code=200`，返回 `user/roles/permissions`。
+
+### 3) getRouters
+
+```bash
+curl -s -X GET "http://127.0.0.1:9050/getRouters" \
+  -H "Authorization: Bearer <token>"
+```
+
+结果：`code=200`，返回非空菜单。
 
 ### 4) /wxLogin 匿名访问
 

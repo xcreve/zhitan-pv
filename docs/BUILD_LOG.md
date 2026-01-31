@@ -81,3 +81,61 @@ Could not resolve placeholder 'wx.template_id' in value "${wx.template_id}"
 ```
 
 结论：dev 配置需补齐 `wx.template_id`。
+
+---
+
+## 2026-01-31 dev(H2) build + 启动记录
+
+Command executed:
+
+```
+JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH mvn -DskipTests -Denforcer.skip=true clean package
+```
+
+Result: **BUILD SUCCESS** (H2 dev schema/data included).
+
+Startup command:
+
+```
+JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH java -jar ruoyi-admin/target/ruoyi-admin.jar --spring.profiles.active=dev
+```
+
+Result: **STARTED** (RuoYiApplication started with H2 in-memory datasource).
+
+---
+
+## 2026-01-31 dev(H2) 启动失败记录
+
+启动命令（dev profile, H2）：
+
+```
+JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH java -jar ruoyi-admin/target/ruoyi-admin.jar --spring.profiles.active=dev
+```
+
+失败原因：`sys_job` 表缺失，Quartz 初始化查询失败。
+
+```
+Table "sys_job" not found; SQL statement: select job_id, job_name, job_group, invoke_target, cron_expression, misfire_policy, concurrent, status, create_by, create_time, remark from sys_job
+```
+
+结论：补齐 H2 schema 中 `sys_job` 表，并通过 dev profile 初始化脚本加载。
+
+---
+
+## 2026-01-31 dev(H2) 修复后启动记录
+
+Command executed:
+
+```
+JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH mvn -DskipTests -Denforcer.skip=true clean package
+```
+
+Result: **BUILD SUCCESS**.
+
+Startup command:
+
+```
+JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH java -jar ruoyi-admin/target/ruoyi-admin.jar --spring.profiles.active=dev
+```
+
+Result: **STARTED** (H2 schema/data initialized via dev profile).
