@@ -89,6 +89,15 @@
 演示地址：  
 http://pvadmin.zhitancloud.com/
 
+## 快速启动（后端）
+
+请参考升级前基线文档：`docs/BASELINE.md`。
+
+补充说明：
+- dev profile 默认使用 H2 内存库启动（端口 9050）。
+- 如需使用 MySQL，请按 `docs/BASELINE.md` 准备数据库并执行初始化 SQL。
+- H2 Console（仅 dev）：`http://localhost:9050/h2-console`。
+
 ## 沟通交流
 
 扫码添加微信交流，加微信请备注：pv。

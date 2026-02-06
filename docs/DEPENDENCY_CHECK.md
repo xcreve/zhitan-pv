@@ -1,0 +1,25 @@
+# 依赖安全扫描记录（OWASP Dependency-Check）
+
+## 扫描方式
+使用 OWASP Dependency-Check Maven 插件：
+
+```
+mvn -DskipTests org.owasp:dependency-check-maven:check \
+  -Dformat=JSON \
+  -DoutputDirectory=docs/dependency-check \
+  -DfailBuildOnCVSS=11 \
+  -DfailOnError=false
+```
+
+## 首轮扫描结果
+- 扫描在同步 NVD 数据库时提示缺少 API key，下载进度在约 3%～6% 阶段耗时过长。
+- 为避免占用过久，本次扫描被手动终止；完整报告未生成。
+
+## 修复建议（下一步）
+1. 在 CI/本地配置 `NVD_API_KEY`（NVD 官方 API key），以加速数据库更新并完成扫描。
+2. 扫描完成后优先处理 **CVSS ≥ 7.0** 的依赖项：
+   - 重点关注 Web 容器、序列化/JSON 组件、HTTP 客户端等核心链路依赖。
+3. 在升级依赖前对关键组件进行回归（登录/权限/路由/微信链路）。
+
+## CI 建议
+- 已添加 GitHub Actions 工作流 `.github/workflows/dependency-check.yml`，建议在仓库 Secrets 中配置 `NVD_API_KEY`，生成完整报告并上传为构建产物。
