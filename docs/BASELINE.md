@@ -41,10 +41,7 @@
 - 默认端口：`8080`（`application.yml`）。
 - 开发环境端口：`9050`（`application-dev.yml`）。
 
-## 数据库与初始化
 
-- 数据源：MySQL + Druid（`application-prod.yml`）。
-- 开发环境支持 H2 内存库（`application-dev.yml`，使用 `schema.sql` + `data.sql` 初始化）。
 - JDBC Driver：`com.mysql.cj.jdbc.Driver`。
 - 数据库初始化脚本：
   - `sql/ry_20230706.sql`（业务/基础数据）。

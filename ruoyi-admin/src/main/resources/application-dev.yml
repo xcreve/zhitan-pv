@@ -144,16 +144,7 @@ spring:
         # #连接池最大阻塞等待时间（使用负值表示没有限制）
         max-wait: -1ms
 
-  sql:
-    init:
-      mode: always
-      schema-locations: classpath:schema.sql
-      data-locations: classpath:data.sql
 
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
 
 # token配置
 token:
@@ -239,6 +230,7 @@ influxdb:
   measurement: pv
 
 wx:
+  # 开发环境占位配置，生产请使用真实值或外部配置覆盖
   appid: wx
   secret: abc
   token: demo-token
