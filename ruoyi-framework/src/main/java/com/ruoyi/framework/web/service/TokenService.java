@@ -150,6 +150,7 @@ public class TokenService {
         String ip = IpUtils.getIpAddr();
         loginUser.setIpaddr(ip);
         loginUser.setLoginLocation(AddressUtils.getRealAddressByIP(ip));
+
     }
 
     /**

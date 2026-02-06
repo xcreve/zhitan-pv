@@ -25,3 +25,4 @@ Excerpt around the current failure (no NoSuchFieldError reproduced; compilation 
 [ERROR] /workspace/zhitan-pv/ruoyi-system/src/main/java/com/ruoyi/pvadmin/domain/model/AlarmLevelAnalysisItem.java:[10,2] cannot find symbol
 [ERROR]   symbol: class Data
 ```
+

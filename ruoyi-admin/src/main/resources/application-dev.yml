@@ -51,13 +51,14 @@ user:
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    driverClassName: com.mysql.cj.jdbc.Driver
+    driverClassName: org.h2.Driver
     druid:
       # 主库数据源
       master:
-        #        url: jdbc:mysql://127.0.0.1:3306/pv_admin?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-        #        username: root
-        #        password: 123456
+        url: jdbc:h2:mem:ruoyi;MODE=MySQL;DB_CLOSE_DELAY=-1;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
+        username: sa
+        password: ""
+        driverClassName: org.h2.Driver
       # 从库数据源
       slave:
         # 从数据源开关/默认关闭
@@ -108,19 +109,19 @@ spring:
         wall:
           config:
             multi-statement-allow: true
-    # 文件上传
+  # 文件上传
   servlet:
     multipart:
       # 单个文件大小
       max-file-size: 10MB
       # 设置总上传的文件大小
       max-request-size: 20MB
-    # 服务模块
+  # 服务模块
   devtools:
     restart:
       # 热部署开关
       enabled: true
-    # redis 配置
+  # redis 配置
   redis:
     # 地址
     host: 127.0.0.1
@@ -142,6 +143,7 @@ spring:
         max-active: 8
         # #连接池最大阻塞等待时间（使用负值表示没有限制）
         max-wait: -1ms
+
 
 # token配置
 token:
@@ -227,8 +229,13 @@ influxdb:
   measurement: pv
 
 wx:
+  # 开发环境占位配置，生产请使用真实值或外部配置覆盖
   appid: wx
   secret: abc
+  token: demo-token
+  encodingAesKey: demo-encoding-aes-key
+  page: pages/index/index
+  template_id: demo-template-id
   env_version: "develop"
   ## 正式版为 "release" 开发版为 "develop" 体验版为 "trial"
 alarm:
