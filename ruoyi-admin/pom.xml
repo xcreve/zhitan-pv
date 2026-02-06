@@ -62,11 +62,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.commons.codec</groupId>
+            <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.9</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/resources/lib/commons-codec-1.9.jar</systemPath>
         </dependency>
 
         <dependency>

@@ -13,6 +13,8 @@ import com.ruoyi.common.utils.uuid.IdUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -29,6 +31,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 public class TokenService {
+    private static final Logger log = LoggerFactory.getLogger(TokenService.class);
     // 令牌自定义标识
     @Value("${token.header}")
     private String header;
@@ -45,7 +48,7 @@ public class TokenService {
 
     protected static final long MILLIS_MINUTE = 60 * MILLIS_SECOND;
 
-    private static final Long MILLIS_MINUTE_TEN = 20 * 60 * 1000L;
+    private static final Long MILLIS_MINUTE_TWENTY = 20 * 60 * 1000L;
 
     @Autowired
     private RedisCache redisCache;
@@ -67,6 +70,7 @@ public class TokenService {
                 LoginUser user = redisCache.getCacheObject(userKey);
                 return user;
             } catch (Exception e) {
+                log.error("获取用户信息异常'{}'", e.getMessage());
             }
         }
         return null;
@@ -105,6 +109,7 @@ public class TokenService {
 
         Map<String, Object> claims = new HashMap<>();
         claims.put(Constants.LOGIN_USER_KEY, token);
+        claims.put(Constants.JWT_USERNAME, loginUser.getUsername());
         return createToken(claims);
     }
 
@@ -117,7 +122,7 @@ public class TokenService {
     public void verifyToken(LoginUser loginUser) {
         long expireTime = loginUser.getExpireTime();
         long currentTime = System.currentTimeMillis();
-        if (expireTime - currentTime <= MILLIS_MINUTE_TEN) {
+        if (expireTime - currentTime <= MILLIS_MINUTE_TWENTY) {
             refreshToken(loginUser);
         }
     }
@@ -145,8 +150,6 @@ public class TokenService {
         String ip = IpUtils.getIpAddr();
         loginUser.setIpaddr(ip);
         loginUser.setLoginLocation(AddressUtils.getRealAddressByIP(ip));
-        loginUser.setBrowser(UserAgentUtils.getBrowser(userAgent));
-        loginUser.setOs(UserAgentUtils.getOperatingSystem(userAgent));
     }
 
     /**

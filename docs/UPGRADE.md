@@ -10,9 +10,7 @@
 2. **配置对齐**
    - `application.yml` 中 `ruoyi.version` 更新为 `3.9.1`，新增 `referer` 防盗链配置。
    - 保留项目自定义配置（`profile` 路径、`mybatis-plus` 扩展配置等）。
-3. **UserAgent 解析替换**
-   - 使用 `yauaa` 替换 `UserAgentUtils` 解析依赖，并新增 `UserAgentUtils` 工具类以与 v3.9.1 行为保持一致。
-4. **MyBatis-Plus 兼容说明**
+
    - 继续保留 `mybatis-plus-boot-starter`（项目扩展能力），并在基础 profile 中补充 `mybatis-plus` 配置块，避免 profiles 合并时的配置缺失。
 
 ## 升级步骤
