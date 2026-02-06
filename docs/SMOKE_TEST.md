@@ -8,6 +8,7 @@
 - 后端服务已启动，返回启动日志关键字："若依启动成功"。
 
 
+
 ## 1. 登录
 ```bash
 curl -X POST "http://localhost:8080/login" \
@@ -52,5 +53,4 @@ curl -X GET "http://localhost:8080/device/1" \
 2. **验证码失败**：检查验证码开关与缓存（Redis）是否正常。
 3. **菜单为空**：检查账号权限与 `sys_menu` 数据是否初始化。
 4. **数据库报错**：确认执行了 `sql/upgrade/3.8.6_to_3.9.1.sql`，并保持业务表不被覆盖。
-
 

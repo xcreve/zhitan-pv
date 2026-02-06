@@ -8,7 +8,6 @@
    - 根 `pom.xml` 将 `ruoyi.version` 升级为 `3.9.1`，并对齐 v3.9.1 的依赖版本（Druid、Fastjson2、PageHelper、OSHI、Tomcat、Spring Security、Spring Framework 等）。
    - 增加 Lombok 版本与编译工具链配置，并通过 Enforcer 固定 JDK8 构建环境，避免 javac NoSuchFieldError。
 
-
 ## 升级步骤
 1. 确认环境：JDK8 + Maven 3.6+ + MySQL + Redis。
 2. 执行 SQL 增量脚本（详见下节）。
@@ -32,6 +31,7 @@
 
 ### 回滚建议
 - 执行前请备份库；如需回滚，请使用备份恢复或回退新增字段。
+
 
 
 > 实际冒烟验证步骤见 `docs/SMOKE_TEST.md`。
