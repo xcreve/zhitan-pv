@@ -7,19 +7,7 @@
 1. **依赖与基础版本对齐**
    - 根 `pom.xml` 将 `ruoyi.version` 升级为 `3.9.1`，并对齐 v3.9.1 的依赖版本（Druid、Fastjson2、PageHelper、OSHI、Tomcat、Spring Security、Spring Framework 等）。
    - 增加 Lombok 版本与编译工具链配置，并通过 Enforcer 固定 JDK8 构建环境，避免 javac NoSuchFieldError。
-   - `ruoyi-admin` 显式补齐 `commons-codec` 坐标（避免上游依赖缺失导致运行时报错）。
-2. **Token / 登录链路对齐**
-   - 登录验证码校验与登录信息更新逻辑对齐上游（新增 `updateLoginInfo`，Token claims 增加 `JWT_USERNAME`）。
-3. **SecurityFilterChain 与 CORS/Resources 对齐**
-   - Security 配置切换为 v3.9.1 的 `SecurityFilterChain` 风格，同时保留业务侧的 `/wxLogin` 与 `/wx/**` 匿名访问白名单。
-   - 跨域配置与资源映射保持上游行为（`CorsFilter` 允许携带凭证）。
-4. **UserAgent 解析替换**
-   - 使用 `yauaa` 替换 `UserAgentUtils` 解析依赖，并新增 `UserAgentUtils` 工具类以与 v3.9.1 行为保持一致。
-5. **开发环境启动补齐（dev-only）**
-   - 新增 H2 内存库启动通道，`application-dev.yml` 启用 `spring.sql.init.*` 并加载 `schema.sql`/`data.sql`（只对 dev 生效）。
-   - dev profile 提供 `wx.*` 占位值，避免开发环境缺少配置导致启动失败。
-   - **生产环境**仍保持 MySQL + Druid，`spring.sql.init.*` 不出现在 prod；`wx.*` 需通过外部配置提供真实值。
-   - H2 Console 仅在 dev 开启（`/h2-console`），生产环境不启用。
+
 
 ## 升级步骤
 1. 确认环境：JDK8 + Maven 3.6+ + MySQL + Redis。
@@ -45,13 +33,5 @@
 ### 回滚建议
 - 执行前请备份库；如需回滚，请使用备份恢复或回退新增字段。
 
-## 已验证清单
-- JDK8 全量构建成功记录（见 `docs/BUILD_LOG.md` 的 2026-01-31 记录）。
-- dev(H2) 启动成功，基础鉴权链路（/login、/getInfo、/getRouters、/wxLogin）冒烟通过（见 `docs/SMOKE_TEST.md`）。
-
-## 未验证清单
-- 生产环境 MySQL/Redis 启动及真实 wx 配置联调。
-- Quartz 定时任务、代码生成器（ruoyi-generator）运行级验证。
-- pvadmin 业务接口的完整链路回归。
 
 > 实际冒烟验证步骤见 `docs/SMOKE_TEST.md`。
