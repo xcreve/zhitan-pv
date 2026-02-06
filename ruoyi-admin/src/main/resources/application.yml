@@ -3,11 +3,9 @@ ruoyi:
   # 名称
   name: RuoYi
   # 版本
-  version: 3.8.6
+  version: 3.9.1
   # 版权年份
-  copyrightYear: 2023
-  # 实例演示开关
-  demoEnabled: true
+  copyrightYear: 2025
   # 文件路径 示例（ Windows配置D:/ruoyi/uploadPath，Linux配置 /home/ruoyi/uploadPath）
   profile: ./uploadPath
   # 获取ip地址开关
@@ -108,6 +106,15 @@ mybatis:
   # 加载全局的配置文件
   configLocation: classpath:mybatis/mybatis-config.xml
 
+# MyBatis-Plus配置（业务扩展）
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  # 实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.ruoyi.**.domain
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+
 # PageHelper分页插件
 pagehelper:
   helperDialect: mysql
@@ -120,6 +127,13 @@ swagger:
   enabled: true
   # 请求前缀
   pathMapping: /dev-api
+
+# 防盗链配置
+referer:
+  # 防盗链开关
+  enabled: false
+  # 允许的域名列表
+  allowed-domains: localhost,127.0.0.1,ruoyi.vip,www.ruoyi.vip
 
 # 防止XSS攻击
 xss:
