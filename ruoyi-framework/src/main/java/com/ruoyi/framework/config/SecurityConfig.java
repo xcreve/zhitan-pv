@@ -7,6 +7,7 @@ import com.ruoyi.framework.security.handle.LogoutSuccessHandlerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
@@ -65,6 +66,9 @@ public class SecurityConfig {
     @Autowired
     private PermitAllUrlProperties permitAllUrl;
 
+    @Autowired
+    private Environment environment;
+
     /**
      * 身份验证实现
      */
@@ -107,6 +111,9 @@ public class SecurityConfig {
                 // 注解标记允许匿名访问的url
                 .authorizeHttpRequests((requests) -> {
                     permitAllUrl.getUrls().forEach(url -> requests.antMatchers(url).permitAll());
+                    if (isDevProfile()) {
+                        requests.antMatchers("/h2-console/**").permitAll();
+                    }
                     // 对于登录login 注册register 验证码captchaImage 允许匿名访问
                     requests.antMatchers("/login", "/register", "/captchaImage").permitAll()
                             // 小程序登录wxlogin
@@ -127,6 +134,15 @@ public class SecurityConfig {
                 .addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class)
                 .addFilterBefore(corsFilter, LogoutFilter.class)
                 .build();
+    }
+
+    private boolean isDevProfile() {
+        for (String profile : environment.getActiveProfiles()) {
+            if ("dev".equals(profile)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

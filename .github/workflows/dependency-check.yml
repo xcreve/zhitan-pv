@@ -1,0 +1,32 @@
+name: Dependency Check
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  dependency-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Run OWASP Dependency-Check
+        run: |
+          mvn -DskipTests org.owasp:dependency-check-maven:check \
+            -Dformat=HTML,JSON \
+            -DoutputDirectory=dependency-check-report \
+            -DnvdApiKey=${{ secrets.NVD_API_KEY }}
+
+      - name: Upload Dependency-Check report
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-check-report
+          path: dependency-check-report

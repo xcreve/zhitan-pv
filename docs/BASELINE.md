@@ -40,6 +40,17 @@
 
 - 默认端口：`8080`（`application.yml`）。
 - 开发环境端口：`9050`（`application-dev.yml`）。
+- H2 Console：`http://localhost:9050/h2-console`（仅 dev）。
+
+## 数据库与初始化
+
+- 数据源（生产）：MySQL + Druid（`application-prod.yml`）。
+- 数据源（开发）：H2 内存库（`application-dev.yml`，使用 `schema.sql` + `data.sql` 初始化）。
+- 如需在开发环境使用 MySQL，可切换到 `prod` profile 或自行改回 `application-dev.yml` 的数据源，并执行初始化脚本：
+  - `sql/ry_20230706.sql`（业务/基础数据）。
+  - `sql/quartz.sql`（定时任务表）。
+  - 默认服务端口：`9050`（`application-dev.yml`）。
+  - 若未准备 MySQL，切换为 MySQL 配置将导致启动失败（除非使用 dev 的 H2 profile）。
 
 - JDBC Driver：`com.mysql.cj.jdbc.Driver`。
 - 数据库初始化脚本：
