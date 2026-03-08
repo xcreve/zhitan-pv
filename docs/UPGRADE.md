@@ -58,5 +58,9 @@
 - 生产环境 MySQL/Redis 启动及真实 wx 配置联调。
 - Quartz 定时任务、代码生成器（ruoyi-generator）运行级验证。
 - pvadmin 业务接口的完整链路回归。
+### 回滚建议
+- 执行前请备份库；如需回滚，请使用备份恢复或回退新增字段。
+
+
 
 > 实际冒烟验证步骤见 `docs/SMOKE_TEST.md`。

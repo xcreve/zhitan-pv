@@ -4,8 +4,6 @@
 <h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">智碳光伏管理系统</h1>
 <p align="center">基于若依框架前后端分离版本</p>
 <p align="center">
-    <a href='https://gitee.com/ustcyc/zhitan-pv/stargazers'><img src='https://gitee.com/ustcyc/zhitan-pv/badge/star.svg?theme=dark' alt='star'></img></a>
-    <a href='https://gitee.com/ustcyc/zhitan-pv/members'><img src='https://gitee.com/ustcyc/zhitan-pv/badge/fork.svg?theme=dark' alt='fork'></img></a>
 </p>
 
 ## 平台简介
@@ -82,12 +80,11 @@
     小程序
 
 
-## 在线体验
 
 - guestUser/guest@123456
 
 演示地址：  
-http://pvadmin.zhitancloud.com/
+
 
 ## 快速启动（后端）
 
