@@ -19,13 +19,11 @@ jobs:
           java-version: "17"
 
       - name: Run OWASP Dependency-Check
-        env:
-          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
         run: |
           mvn -DskipTests org.owasp:dependency-check-maven:check \
             -Dformat=HTML,JSON \
             -DoutputDirectory=dependency-check-report \
-            -DnvdApiKey=${NVD_API_KEY}
+            -DnvdApiKey=${{ secrets.NVD_API_KEY }}
 
       - name: Upload Dependency-Check report
         uses: actions/upload-artifact@v4

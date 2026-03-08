@@ -6,10 +6,18 @@
 ```
 mvn -DskipTests org.owasp:dependency-check-maven:check \
   -Dformat=JSON \
-  -DoutputDirectory=docs/dependency-check \
+  -DoutputDirectory=dependency-check-report \
   -DfailBuildOnCVSS=11 \
   -DfailOnError=false
 ```
+
+
+## GitHub Secrets 配置（NVD_API_KEY）
+- 路径：`Settings → Secrets and variables → Actions → New repository secret`
+- 名称：`NVD_API_KEY`
+- 值：NVD 官方申请的 API Key
+
+> 缺少 API key 时，NVD 数据库更新会非常慢，扫描可能长时间卡住或被中断。
 
 ## 首轮扫描结果
 - 扫描在同步 NVD 数据库时提示缺少 API key，下载进度在约 3%～6% 阶段耗时过长。
