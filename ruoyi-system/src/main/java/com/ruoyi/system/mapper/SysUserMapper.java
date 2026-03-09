@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ruoyi.common.core.domain.entity.SysUser;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -76,6 +77,17 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * @return 结果
      */
     public int updateUserAvatar(@Param("userName") String userName, @Param("avatar") String avatar);
+
+    /**
+     * 更新用户登录信息
+     *
+     * @param userId    用户ID
+     * @param loginIp   登录IP地址
+     * @param loginDate 登录时间
+     * @return 结果
+     */
+    public int updateLoginInfo(@Param("userId") Long userId, @Param("loginIp") String loginIp,
+                               @Param("loginDate") Date loginDate);
 
     /**
      * 重置用户密码

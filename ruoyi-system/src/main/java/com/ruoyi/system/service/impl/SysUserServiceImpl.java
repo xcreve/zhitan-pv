@@ -24,6 +24,7 @@ import org.springframework.util.CollectionUtils;
 
 import javax.validation.Validator;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -317,6 +318,18 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public boolean updateUserAvatar(String userName, String avatar) {
         return userMapper.updateUserAvatar(userName, avatar) > 0;
+    }
+
+    /**
+     * 更新用户登录信息
+     *
+     * @param userId    用户ID
+     * @param loginIp   登录IP地址
+     * @param loginDate 登录时间
+     */
+    @Override
+    public void updateLoginInfo(Long userId, String loginIp, Date loginDate) {
+        userMapper.updateLoginInfo(userId, loginIp, loginDate);
     }
 
     /**

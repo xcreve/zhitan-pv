@@ -2,9 +2,9 @@
 server:
   # 服务器的HTTP端口，默认为8080
   port: 9050
-servlet:
-  # 应用的访问路径
-  context-path: /
+  servlet:
+    # 应用的访问路径
+    context-path: /
   tomcat:
     # tomcat的URI编码
     uri-encoding: UTF-8
@@ -21,9 +21,9 @@ ruoyi:
   # 名称
   name: RuoYi
   # 版本
-  version: 3.8.6
+  version: 3.9.1
   # 版权年份
-  copyrightYear: 2023
+  copyrightYear: 2025
   # 实例演示开关
   demoEnabled: true
   # 文件路径 示例（ Windows配置D:/ruoyi/uploadPath，Linux配置 /home/ruoyi/uploadPath）
@@ -56,8 +56,8 @@ spring:
       # 主库数据源
       master:
         url: jdbc:mysql://127.0.0.1:7373/pv_admin?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-        username: root
-        password: root
+        username: ${PROD_DB_USERNAME}
+        password: ${PROD_DB_PASSWORD}
       # 从库数据源
       slave:
         # 从数据源开关/默认关闭
@@ -96,8 +96,8 @@ spring:
         allow:
         url-pattern: /druid/*
         # 控制台管理用户名和密码
-        login-username: ruoyi
-        login-password: 123456
+        login-username: ${PROD_DRUID_LOGIN_USERNAME}
+        login-password: ${PROD_DRUID_LOGIN_PASSWORD}
       filter:
         stat:
           enabled: true
@@ -123,13 +123,14 @@ spring:
     # redis 配置
   redis:
     # 地址
-    host: localhost
+    host: ${PROD_REDIS_HOST:localhost}
     # 端口，默认为6379
-    port: 6379
+    port: ${PROD_REDIS_PORT:6379}
     # 数据库索引
-    database: 0
+    database: ${PROD_REDIS_DATABASE:0}
     # 密码
-    password:
+    username: ${PROD_REDIS_USERNAME:}
+    password: ${PROD_REDIS_PASSWORD}
     # 连接超时时间
     timeout: 10s
     lettuce:
@@ -143,12 +144,12 @@ spring:
         # #连接池最大阻塞等待时间（使用负值表示没有限制）
         max-wait: -1ms
 
-  # token配置
+# token配置
 token:
   # 令牌自定义标识
   header: Authorization
   # 令牌密钥
-  secret: abcdefuvwxyz
+  secret: ${PROD_TOKEN_SECRET}
   # 令牌有效期（默认30分钟）
   expireTime: 302400
 
@@ -170,7 +171,7 @@ pagehelper:
 # Swagger配置
 swagger:
   # 是否开启swagger
-  enabled: true
+  enabled: false
   # 请求前缀
   pathMapping: /dev-api
 
@@ -220,16 +221,21 @@ mybatis-plus:
     #meta-object-handler: com.baomidou.springboot.xxx
 
 influxdb:
-  host: http://127.0.0.1:8086
-  token: 1OB7JfUX-1Jpfx68FK177A==
-  org: pv
-  bucket: pvdata
-  measurement: pv
+  host: ${PROD_INFLUXDB_HOST:http://127.0.0.1:8086}
+  token: ${PROD_INFLUXDB_TOKEN}
+  org: ${PROD_INFLUXDB_ORG:pv}
+  bucket: ${PROD_INFLUXDB_BUCKET:pvdata}
+  measurement: ${PROD_INFLUXDB_MEASUREMENT:pv}
 
 wx:
-  appid: wx
-  secret: abc
-  env_version: "release"
+  # 生产环境请通过环境变量或外部配置覆盖以下配置项
+  appid: ${PROD_WX_APPID}
+  secret: ${PROD_WX_SECRET}
+  token: ${PROD_WX_TOKEN}
+  encodingAesKey: ${PROD_WX_ENCODING_AES_KEY}
+  page: ${PROD_WX_PAGE}
+  template_id: ${PROD_WX_TEMPLATE_ID}
+  env_version: ${PROD_WX_ENV_VERSION:release}
   ## 正式版为 "release" 开发版为 "develop" 体验版为 "trial"
 alarm:
   # 离线报警小时数
