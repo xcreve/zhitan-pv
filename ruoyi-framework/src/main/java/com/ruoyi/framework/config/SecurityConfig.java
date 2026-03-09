@@ -130,6 +130,18 @@ public class SecurityConfig {
                     requests.anyRequest().authenticated();
                 })
                                 // 添加Logout filter
+                    requests.antMatchers("/login", "/register", "/captchaImage").permitAll()
+                            // 小程序登录wxlogin
+                            .antMatchers("/wxLogin").permitAll()
+                            // 微信消息
+                            .antMatchers("/wx/**").permitAll()
+                            // 静态资源，可匿名访问
+                            .antMatchers(HttpMethod.GET, "/", "/*.html", "/**/*.html", "/**/*.css", "/**/*.js", "/profile/**").permitAll()
+                            .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/webjars/**", "/*/api-docs", "/druid/**").permitAll()
+                            // 除上面外的所有请求全部需要鉴权认证
+                            .anyRequest().authenticated();
+                })
+                // 添加Logout filter
                 .logout(logout -> logout.logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler))
                 // 添加JWT filter
                 .addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)

@@ -152,6 +152,9 @@ public class TokenService {
         loginUser.setLoginLocation(AddressUtils.getRealAddressByIP(ip));
         loginUser.setOs(UserAgentUtils.getOperatingSystem(userAgent));
         loginUser.setBrowser(UserAgentUtils.getBrowser(userAgent));
+        loginUser.setBrowser(UserAgentUtils.getOperatingSystem(userAgent));
+        loginUser.setOs(UserAgentUtils.getBrowser(userAgent));
+
     }
 
     /**

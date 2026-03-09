@@ -51,6 +51,7 @@
   - `sql/quartz.sql`（定时任务表）。
   - 默认服务端口：`9050`（`application-dev.yml`）。
   - 若未准备 MySQL，切换为 MySQL 配置将导致启动失败（除非使用 dev 的 H2 profile）。
+
 - JDBC Driver：`com.mysql.cj.jdbc.Driver`。
 - 数据库初始化脚本：
   - `sql/ry_20230706.sql`（业务/基础数据）。

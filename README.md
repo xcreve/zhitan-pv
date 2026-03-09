@@ -4,8 +4,6 @@
 <h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">智碳光伏管理系统</h1>
 <p align="center">基于若依框架前后端分离版本</p>
 <p align="center">
-    <a href='https://gitee.com/ustcyc/zhitan-pv/stargazers'><img src='https://gitee.com/ustcyc/zhitan-pv/badge/star.svg?theme=dark' alt='star'></img></a>
-    <a href='https://gitee.com/ustcyc/zhitan-pv/members'><img src='https://gitee.com/ustcyc/zhitan-pv/badge/fork.svg?theme=dark' alt='fork'></img></a>
 </p>
 
 ## 平台简介
@@ -82,12 +80,20 @@
     小程序
 
 
-## 在线体验
 
 - guestUser/guest@123456
 
 演示地址：  
-http://pvadmin.zhitancloud.com/
+
+
+## 快速启动（后端）
+
+请参考升级前基线文档：`docs/BASELINE.md`。
+
+补充说明：
+- dev profile 默认使用 H2 内存库启动（端口 9050）。
+- 如需使用 MySQL，请按 `docs/BASELINE.md` 准备数据库并执行初始化 SQL。
+- H2 Console（仅 dev）：`http://localhost:9050/h2-console`。
 
 ## 快速启动（后端）
 
@@ -136,4 +142,5 @@ http://pvadmin.zhitancloud.com/
 
 <p align="center">
   <img src="readme/img/image.png" width=50% height=50%>
+  <img src="" width=50% height=50%>
 </p>

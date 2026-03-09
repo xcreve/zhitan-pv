@@ -155,6 +155,7 @@ spring:
       enabled: true
       path: /h2-console
 
+
 # token配置
 token:
   # 令牌自定义标识

@@ -236,6 +236,13 @@ wx:
   page: ${PROD_WX_PAGE}
   template_id: ${PROD_WX_TEMPLATE_ID}
   env_version: ${PROD_WX_ENV_VERSION:release}
+  appid: ${WX_APPID}
+  secret: ${WX_SECRET}
+  token: ${WX_TOKEN}
+  encodingAesKey: ${WX_ENCODING_AES_KEY}
+  page: ${WX_PAGE}
+  template_id: ${WX_TEMPLATE_ID}
+  env_version: ${WX_ENV_VERSION:release}
   ## 正式版为 "release" 开发版为 "develop" 体验版为 "trial"
 alarm:
   # 离线报警小时数
