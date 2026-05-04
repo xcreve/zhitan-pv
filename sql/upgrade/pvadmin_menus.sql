@@ -45,3 +45,11 @@ VALUES (2060, '报警', 2000, 6, 'alarm', NULL, NULL, '1', '0', 'M', '0', '0', N
 -- 模块 7：智能报警
 INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
 VALUES (2061, '智能报警', 2060, 1, 'index', 'pvadmin/alarm/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:alarm:list', 'bug', 'admin', NOW());
+
+-- 二级目录：实时监测
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2020, '实时监测', 2000, 2, 'realtime', NULL, NULL, '1', '0', 'M', '0', '0', NULL, 'monitor', 'admin', NOW());
+
+-- 模块 8：电站实时状态
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2021, '电站实时状态', 2020, 1, 'station', 'pvadmin/realtime/station/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:realtime:station', 'list', 'admin', NOW());
