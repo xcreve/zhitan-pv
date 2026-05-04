@@ -57,3 +57,7 @@ VALUES (2021, '电站实时状态', 2020, 1, 'station', 'pvadmin/realtime/statio
 -- 模块 9：设备实时状态
 INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
 VALUES (2022, '设备实时状态', 2020, 2, 'device', 'pvadmin/realtime/device/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:realtime:device', 'monitor', 'admin', NOW());
+
+-- 模块 10：实时数据
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2023, '实时数据', 2020, 3, 'data', 'pvadmin/realtime/data/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:realtime:data', 'table', 'admin', NOW());
