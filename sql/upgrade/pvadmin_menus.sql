@@ -37,3 +37,11 @@ VALUES (2015, '峰平谷配置', 2010, 5, 'electricityTypeSetting', 'pvadmin/ope
 -- 模块 6：备品备件
 INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
 VALUES (2016, '备品备件', 2010, 6, 'spareParts', 'pvadmin/operation/spareParts/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:spareParts:list', 'shopping', 'admin', NOW());
+
+-- 二级目录：报警
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2060, '报警', 2000, 6, 'alarm', NULL, NULL, '1', '0', 'M', '0', '0', NULL, 'bug', 'admin', NOW());
+
+-- 模块 7：智能报警
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2061, '智能报警', 2060, 1, 'index', 'pvadmin/alarm/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:alarm:list', 'bug', 'admin', NOW());
