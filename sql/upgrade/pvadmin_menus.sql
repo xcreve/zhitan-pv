@@ -21,3 +21,7 @@ VALUES (2011, '电站管理', 2010, 1, 'powerStation', 'pvadmin/operation/powerS
 -- 模块 2：设备类型管理
 INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
 VALUES (2012, '设备类型管理', 2010, 2, 'deviceType', 'pvadmin/operation/deviceType/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:deviceType:list', 'tree-table', 'admin', NOW());
+
+-- 模块 3：设备管理
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2013, '设备管理', 2010, 3, 'device', 'pvadmin/operation/device/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:device:list', 'monitor', 'admin', NOW());
