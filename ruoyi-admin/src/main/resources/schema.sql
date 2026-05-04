@@ -231,6 +231,8 @@ create table sys_job (
     status char(1) default '0',
     create_by varchar(64) default '',
     create_time timestamp,
+    update_by varchar(64) default '',
+    update_time timestamp,
     remark varchar(500) default null
 );
 

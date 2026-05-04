@@ -1,5 +1,6 @@
 package com.ruoyi.common.constant;
 
+import java.math.BigDecimal;
 import java.util.Locale;
 import io.jsonwebtoken.Claims;
 
@@ -170,6 +171,140 @@ public class Constants
      */
     public static final String[] JOB_ERROR_STR = { "java.net.URL", "javax.naming.InitialContext", "org.yaml.snakeyaml",
             "org.springframework", "org.apache", "com.ruoyi.common.utils.file", "com.ruoyi.common.config", "com.ruoyi.generator" };
+
+    public static final int DIGIT_0 = 0;
+
+    public static final int DIGIT_1 = 1;
+
+    public static final int DIGIT_2 = 2;
+
+    public static final int DIGIT_3 = 3;
+
+    public static final int DIGIT_4 = 4;
+
+    public static final int DIGIT_100 = 100;
+
+    public static final int DIGIT_1000 = 1000;
+
+    public static final int DIGIT_10000 = 10000;
+
+    public static final int DIGIT_3600 = 3600;
+
+    public static final int DIGIT_MINUS_1 = -1;
+
+    public static final double DIGIT_DOUBLE_0 = 0D;
+
+    public static final double DIGIT_DOUBLE_00 = 0.00D;
+
+    public static final double DIGIT_DOUBLE_1 = 1.0D;
+
+    public static final double DIGIT_DOUBLE_100 = 100D;
+
+    public static final double MIN_INIT_VALUE = -99;
+
+    public static final BigDecimal UNIT_CONVERSION_100 = new BigDecimal(100);
+
+    public static final BigDecimal UNIT_CONVERSION_1000 = new BigDecimal(1000);
+
+    public static final BigDecimal UNIT_CONVERSION_10000 = new BigDecimal(10000);
+
+    public static final String STR_NUMBER_0 = "0";
+
+    public static final String STR_NUMBER_1 = "1";
+
+    public static final String STR_NUMBER_2 = "2";
+
+    public static final String STR_MINUS_1 = "-1";
+
+    public static final String EMPTY = "";
+
+    public static final String SINGLE_MINUS_SIGN = "-";
+
+    public static final String DOUBLE_MINUS_SIGN = "--";
+
+    public static final String STR_UNDERLINE = "_";
+
+    public static final String STR_LINE = "-";
+
+    public static final String ENERGY_COMPARISON_YOY = "YOY";
+
+    public static final String ENERGY_COMPARISON_MOM = "MOM";
+
+    public static final String TAG_CODE_ZYGGL = "_PW";
+
+    public static final String TAG_CODE_Q = "_Q";
+
+    public static final String TAG_CODE_HZ = "_HZ";
+
+    public static final String TAG_CODE_UA = "_UA";
+
+    public static final String TAG_CODE_UB = "_UB";
+
+    public static final String TAG_CODE_UC = "_UC";
+
+    public static final String TAG_CODE_IA = "_IA";
+
+    public static final String TAG_CODE_IB = "_IB";
+
+    public static final String TAG_CODE_IC = "_IC";
+
+    public static final String TAG_CODE_ACC = "_Acc";
+
+    public static final String TAG_CODE_CGL = "_CGL";
+
+    public static final String TAG_CODE_IE = "_IE";
+
+    public static final String WORD_M = "M";
+
+    public static final String WORD_Y = "Y";
+
+    public static final String WORD_D = "D";
+
+    public static final String WORD_H = "H";
+
+    public static final String ELECTRIC_LOAD_UNIT = "(kW)";
+
+    public static final String ELECTRIC_LOAD_UNIT_SHOW = "kW";
+
+    public static final String ELECTRIC_LOAD_UNIT_MW = "MW";
+
+    public static final String ELECTRIC_UNIT_KWH = "kWh";
+
+    public static final String ELECTRIC_UNIT_W_KWH = "万kWh";
+
+    public static final String UNIT_PCS = "个";
+
+    public static final String UNIT_YUAN = "元";
+
+    public static final String UNIT_W_YUAN = "万元";
+
+    public static final String UNIT_KG = "kg";
+
+    public static final String UNIT_T = "吨";
+
+    public static final String SYMBOL_PERCENT = "%";
+
+    public static final String COMMON_PATTERN = "yyyy-MM-dd HH:mm:ss";
+
+    public static final String COMMON_PATTERN_END_WITH_MINUTE = "yyyy-MM-dd HH:mm";
+
+    public static final String COMMON_PATTERN_HOUR_MINUTE = "HH:mm";
+
+    public static final String COMMON_PATTERN_YEAR = "yyyy";
+
+    public static final String COMMON_PATTERN_MONTH = "yyyyMM";
+
+    public static final String COMMON_PATTERN_TO_MONTH = "yyyy-MM";
+
+    public static final String COMMON_PATTERN_DAY = "yyyyMMdd";
+
+    public static final String COMMON_PATTERN_TO_DAY = "yyyy-MM-dd";
+
+    public static final String COMMON_PATTERN_DAY_OF_MONTH = "dd";
+
+    public static final String COMMON_PATTERN_HOUR = "yyyyMMddHH";
+
+    public static final String COMMON_PATTERN_TO_HOUR = "yyyy-MM-dd HH";
 
     /**
      * 部门相关常量

@@ -54,6 +54,24 @@
             <artifactId>ruoyi-generator</artifactId>
         </dependency>
 
+        <!-- ZhiTan WeChat message crypto and bare HTTP client -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+        </dependency>
+
+        <!-- dev profile uses H2 schema.sql/data.sql -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

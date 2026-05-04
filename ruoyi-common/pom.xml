@@ -118,6 +118,12 @@
             <artifactId>jakarta.servlet-api</artifactId>
         </dependency>
 
+        <!-- ZhiTan common date and object utility helpers -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>
