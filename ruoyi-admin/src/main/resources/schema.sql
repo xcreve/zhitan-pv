@@ -63,6 +63,7 @@ create table sys_user (
     del_flag char(1) default '0',
     login_ip varchar(128) default '',
     login_date timestamp,
+    pwd_update_date DATETIME COMMENT '密码最后更新时间',
     create_by varchar(64) default '',
     create_time timestamp,
     update_by varchar(64) default '',
@@ -108,6 +109,7 @@ create table sys_menu (
     path varchar(200) default '',
     component varchar(255) default null,
     query varchar(255) default null,
+    route_name VARCHAR(50) DEFAULT '' COMMENT '路由名称',
     is_frame int default 1,
     is_cache int default 0,
     menu_type char(1) default '',
@@ -234,6 +236,42 @@ create table sys_job (
     update_by varchar(64) default '',
     update_time timestamp,
     remark varchar(500) default null
+);
+
+-- RuoYi 3.9.2 新增表：定时任务调度日志表
+create table sys_job_log (
+    job_log_id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '任务日志ID',
+    job_name VARCHAR(64) NOT NULL COMMENT '任务名称',
+    job_group VARCHAR(64) NOT NULL COMMENT '任务组名',
+    invoke_target VARCHAR(500) NOT NULL COMMENT '调用目标字符串',
+    job_message VARCHAR(500) COMMENT '日志信息',
+    status CHAR(1) DEFAULT '0' COMMENT '执行状态（0正常 1失败）',
+    exception_info VARCHAR(2000) DEFAULT '' COMMENT '异常信息',
+    start_time DATETIME COMMENT '执行开始时间',
+    end_time DATETIME COMMENT '执行结束时间',
+    create_time DATETIME COMMENT '创建时间'
+);
+
+-- RuoYi 3.9.2 新增表：通知公告表
+create table sys_notice (
+    notice_id INT AUTO_INCREMENT PRIMARY KEY COMMENT '公告ID',
+    notice_title VARCHAR(50) NOT NULL COMMENT '公告标题',
+    notice_type CHAR(1) NOT NULL COMMENT '公告类型（1通知 2公告）',
+    notice_content CLOB DEFAULT NULL COMMENT '公告内容',
+    status CHAR(1) DEFAULT '0' COMMENT '公告状态（0正常 1关闭）',
+    create_by VARCHAR(64) DEFAULT '' COMMENT '创建者',
+    create_time DATETIME COMMENT '创建时间',
+    update_by VARCHAR(64) DEFAULT '' COMMENT '更新者',
+    update_time DATETIME COMMENT '更新时间',
+    remark VARCHAR(255) DEFAULT NULL COMMENT '备注'
+);
+
+-- RuoYi 3.9.2 新增表：公告已读记录表
+create table sys_notice_read (
+    read_id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '已读主键',
+    notice_id INT NOT NULL COMMENT '公告id',
+    user_id BIGINT NOT NULL COMMENT '用户id',
+    read_time DATETIME NOT NULL COMMENT '阅读时间'
 );
 
 create table power_station (

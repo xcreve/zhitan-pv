@@ -8,7 +8,7 @@ values (103, 101, '0,100,101', '研发部门', 1, '若依', '15888888888', 'ry@q
 insert into sys_user
 values (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '',
         '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1',
-        CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP, '', null, '管理员');
+        CURRENT_TIMESTAMP, null, 'admin', CURRENT_TIMESTAMP, '', null, '管理员');
 
 insert into sys_post
 values (1, 'ceo', '董事长', 1, '0', 'admin', CURRENT_TIMESTAMP, '', null, '');
@@ -21,10 +21,10 @@ values (1, '超级管理员', 'admin', 1, '1', 1, 1, '0', '0', 'admin', CURRENT_
 insert into sys_user_role values (1, 1);
 
 insert into sys_menu
-values (1, '系统管理', 0, 1, 'system', 'Layout', '', 1, 0, 'M', '0', '0', '', 'system', 'admin', CURRENT_TIMESTAMP,
+values (1, '系统管理', 0, 1, 'system', 'Layout', '', '', 1, 0, 'M', '0', '0', '', 'system', 'admin', CURRENT_TIMESTAMP,
         '', null, '系统管理目录');
 insert into sys_menu
-values (100, '用户管理', 1, 1, 'user', 'system/user/index', '', 1, 0, 'C', '0', '0', 'system:user:list', 'user', 'admin',
+values (100, '用户管理', 1, 1, 'user', 'system/user/index', '', '', 1, 0, 'C', '0', '0', 'system:user:list', 'user', 'admin',
         CURRENT_TIMESTAMP, '', null, '用户管理菜单');
 
 insert into sys_role_menu values (1, 1);
