@@ -5,7 +5,7 @@
     <parent>
         <artifactId>ruoyi</artifactId>
         <groupId>com.ruoyi</groupId>
-        <version>3.9.1</version>
+        <version>3.9.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
@@ -24,23 +24,16 @@
             <optional>true</optional> <!-- 表示依赖不会传递 -->
         </dependency>
 
-        <!-- swagger3-->
+        <!-- spring-doc -->
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
         </dependency>
 
-        <!-- 防止进入swagger页面报类型转换错误，排除3.0.0中的引用，手动增加1.6.2版本 -->
+         <!-- Mysql驱动包 -->
         <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-models</artifactId>
-            <version>1.6.2</version>
-        </dependency>
-
-        <!-- Mysql驱动包 -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
         </dependency>
 
         <!-- 核心模块-->
@@ -61,24 +54,6 @@
             <artifactId>ruoyi-generator</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>1.9</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>weixin-java-miniapp</artifactId>
-            <version>4.5.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -86,10 +61,8 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.1.1.RELEASE</version>
                 <configuration>
-                    <includeSystemScope>true</includeSystemScope>
-                    <fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
+                    <addResources>true</addResources>
                 </configuration>
                 <executions>
                     <execution>
@@ -99,15 +72,15 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.1.0</version>
+            <plugin>   
+                <groupId>org.apache.maven.plugins</groupId>   
+                <artifactId>maven-war-plugin</artifactId>   
+                <version>3.1.0</version>   
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <warName>${project.artifactId}</warName>
-                </configuration>
-            </plugin>
+                </configuration>   
+           </plugin>   
         </plugins>
         <finalName>${project.artifactId}</finalName>
     </build>

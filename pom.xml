@@ -2,63 +2,40 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
+	<modelVersion>4.0.0</modelVersion>
+	
     <groupId>com.ruoyi</groupId>
     <artifactId>ruoyi</artifactId>
-    <version>3.9.1</version>
+    <version>3.9.2</version>
 
     <name>ruoyi</name>
     <url>http://www.ruoyi.vip</url>
     <description>若依管理系统</description>
-
+    
     <properties>
-        <ruoyi.version>3.9.1</ruoyi.version>
+        <ruoyi.version>3.9.2</ruoyi.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
-        <spring-boot.version>2.5.15</spring-boot.version>
-        <druid.version>1.2.27</druid.version>
-        <yauaa.version>7.32.0</yauaa.version>
-        <swagger.version>3.0.0</swagger.version>
+        <java.version>17</java.version>
+        <spring-boot.version>4.0.3</spring-boot.version>
+        <mybatis-spring-boot.version>4.0.1</mybatis-spring-boot.version>
+        <druid.version>1.2.28</druid.version>
+        <yauaa.version>8.1.0</yauaa.version>
         <kaptcha.version>2.3.3</kaptcha.version>
-        <pagehelper.boot.version>1.4.7</pagehelper.boot.version>
-        <fastjson.version>2.0.60</fastjson.version>
-        <oshi.version>6.9.1</oshi.version>
+        <pagehelper.boot.version>2.1.1</pagehelper.boot.version>
+        <fastjson.version>2.0.61</fastjson.version>
+        <oshi.version>6.10.0</oshi.version>
         <commons.io.version>2.21.0</commons.io.version>
-        <commons.collections.version>3.2.2</commons.collections.version>
         <poi.version>4.1.2</poi.version>
         <velocity.version>2.3</velocity.version>
         <jwt.version>0.9.1</jwt.version>
-        <lombok.version>1.18.34</lombok.version>
-        <tomcat.version>9.0.117</tomcat.version>
-        <logback.version>1.2.13</logback.version>
-        <spring-security.version>5.7.14</spring-security.version>
-        <spring-framework.version>5.3.39</spring-framework.version>
+        <jaxb-api.version>2.3.1</jaxb-api.version>
+        <springdoc.version>3.0.2</springdoc.version>
     </properties>
 
     <!-- 依赖声明 -->
     <dependencyManagement>
         <dependencies>
-
-            <!-- 覆盖SpringFramework的依赖配置-->
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-framework-bom</artifactId>
-                <version>${spring-framework.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- 覆盖SpringSecurity的依赖配置-->
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-bom</artifactId>
-                <version>${spring-security.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
 
             <!-- SpringBoot的依赖配置-->
             <dependency>
@@ -69,42 +46,10 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- 覆盖logback的依赖配置-->
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-core</artifactId>
-                <version>${logback.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${logback.version}</version>
-            </dependency>
-
-            <!-- 覆盖tomcat的依赖配置-->
-            <dependency>
-                <groupId>org.apache.tomcat.embed</groupId>
-                <artifactId>tomcat-embed-core</artifactId>
-                <version>${tomcat.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.tomcat.embed</groupId>
-                <artifactId>tomcat-embed-el</artifactId>
-                <version>${tomcat.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.tomcat.embed</groupId>
-                <artifactId>tomcat-embed-websocket</artifactId>
-                <version>${tomcat.version}</version>
-            </dependency>
-
             <!-- 阿里数据库连接池 -->
             <dependency>
                 <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
+                <artifactId>druid-spring-boot-4-starter</artifactId>
                 <version>${druid.version}</version>
             </dependency>
 
@@ -122,6 +67,18 @@
                 <version>${pagehelper.boot.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>${jaxb-api.version}</version>
+            </dependency>
+
             <!-- 获取系统信息 -->
             <dependency>
                 <groupId>com.github.oshi</groupId>
@@ -129,17 +86,11 @@
                 <version>${oshi.version}</version>
             </dependency>
 
-            <!-- Swagger3依赖 -->
+            <!-- spring-doc -->
             <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-boot-starter</artifactId>
-                <version>${swagger.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>io.swagger</groupId>
-                        <artifactId>swagger-models</artifactId>
-                    </exclusion>
-                </exclusions>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc.version}</version>
             </dependency>
 
             <!-- io常用工具类 -->
@@ -161,13 +112,6 @@
                 <groupId>org.apache.velocity</groupId>
                 <artifactId>velocity-engine-core</artifactId>
                 <version>${velocity.version}</version>
-            </dependency>
-
-            <!-- collections工具类 -->
-            <dependency>
-                <groupId>commons-collections</groupId>
-                <artifactId>commons-collections</artifactId>
-                <version>${commons.collections.version}</version>
             </dependency>
 
             <!-- 阿里JSON解析器 -->
@@ -229,17 +173,6 @@
         </dependencies>
     </dependencyManagement>
 
-    <dependencies>
-        <!-- 让所有子模块继承到 lombok，解决 pvadmin DTO/VO 分散在不同模块的问题 -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-    </dependencies>
-
     <modules>
         <module>ruoyi-admin</module>
         <module>ruoyi-framework</module>
@@ -255,39 +188,18 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>3.13.0</version>
                 <configuration>
+                    <parameters>true</parameters>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                            <version>${lombok.version}</version>
-                        </path>
-                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.5.0</version>
-                <executions>
-                    <execution>
-                        <id>enforce-java</id>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <requireJavaVersion>
-                                    <version>[1.8,1.9)</version>
-                                </requireJavaVersion>
-                            </rules>
-                        </configuration>
-                    </execution>
-                </executions>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
             </plugin>
         </plugins>
     </build>
