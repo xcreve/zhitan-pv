@@ -29,3 +29,7 @@ VALUES (2013, '设备管理', 2010, 3, 'device', 'pvadmin/operation/device/index
 -- 模块 4：设备点检
 INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
 VALUES (2014, '设备点检', 2010, 4, 'inspection', 'pvadmin/operation/inspection/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:inspection:list', 'edit', 'admin', NOW());
+
+-- 模块 5：峰平谷配置
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2015, '峰平谷配置', 2010, 5, 'electricityTypeSetting', 'pvadmin/operation/electricityTypeSetting/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:electricityTypeSetting:list', 'time-range', 'admin', NOW());
