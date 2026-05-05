@@ -81,3 +81,11 @@ VALUES (2033, '同比分析', 2030, 3, 'sameCompare', 'pvadmin/analysis/sameComp
 -- 模块 14：环比分析
 INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
 VALUES (2034, '环比分析', 2030, 4, 'loopCompare', 'pvadmin/analysis/loopCompare/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:analysis:loopCompare', 'chart', 'admin', NOW());
+
+-- 二级目录：峰平谷
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2040, '峰平谷', 2000, 4, 'peakValley', NULL, NULL, '1', '0', 'M', '0', '0', NULL, 'time-range', 'admin', NOW());
+
+-- 模块 15：图表统计
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2041, '图表统计', 2040, 1, 'chart', 'pvadmin/peakValley/chart/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:peakValley:chart', 'chart', 'admin', NOW());
