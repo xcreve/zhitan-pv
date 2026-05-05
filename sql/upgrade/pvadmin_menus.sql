@@ -105,3 +105,7 @@ VALUES (2051, '负荷分析', 2050, 1, 'load', 'pvadmin/powerQuality/load/index'
 -- 模块 18：三相不平衡分析
 INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
 VALUES (2052, '三相不平衡分析', 2050, 2, 'threePhase', 'pvadmin/powerQuality/threePhase/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:powerQuality:threePhase', 'chart', 'admin', NOW());
+
+-- 模块 19：功率因数分析
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2053, '功率因数分析', 2050, 3, 'powerFactor', 'pvadmin/powerQuality/powerFactor/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:powerQuality:powerFactor', 'chart', 'admin', NOW());
