@@ -109,3 +109,17 @@ VALUES (2052, '三相不平衡分析', 2050, 2, 'threePhase', 'pvadmin/powerQual
 -- 模块 19：功率因数分析
 INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
 VALUES (2053, '功率因数分析', 2050, 3, 'powerFactor', 'pvadmin/powerQuality/powerFactor/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:powerQuality:powerFactor', 'chart', 'admin', NOW());
+
+-- 二级目录：首页大屏
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2070, '首页大屏', 2000, 7, 'dashboard', NULL, NULL, '1', '0', 'M', '0', '0', NULL, 'dashboard', 'admin', NOW());
+
+-- 模块 20：首页总览
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2071, '首页总览', 2070, 1, 'index', 'pvadmin/dashboard/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:dashboard:view', 'dashboard', 'admin', NOW());
+
+-- 关联 admin 角色（role_id=1 是 RuoYi 默认 admin）
+INSERT INTO sys_role_menu (role_id, menu_id) SELECT 1, menu_id FROM sys_menu WHERE menu_id BETWEEN 2000 AND 2999;
+
+COMMIT;
+SET FOREIGN_KEY_CHECKS = 1;
