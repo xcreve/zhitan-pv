@@ -61,3 +61,11 @@ VALUES (2022, '设备实时状态', 2020, 2, 'device', 'pvadmin/realtime/device/
 -- 模块 10：实时数据
 INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
 VALUES (2023, '实时数据', 2020, 3, 'data', 'pvadmin/realtime/data/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:realtime:data', 'table', 'admin', NOW());
+
+-- 二级目录：统计分析
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2030, '统计分析', 2000, 3, 'analysis', NULL, NULL, '1', '0', 'M', '0', '0', NULL, 'chart', 'admin', NOW());
+
+-- 模块 11：电站发电统计
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2031, '电站发电统计', 2030, 1, 'powerStation', 'pvadmin/analysis/powerStation/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:analysis:powerStation', 'chart', 'admin', NOW());
