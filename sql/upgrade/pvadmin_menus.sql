@@ -89,3 +89,7 @@ VALUES (2040, '峰平谷', 2000, 4, 'peakValley', NULL, NULL, '1', '0', 'M', '0'
 -- 模块 15：图表统计
 INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
 VALUES (2041, '图表统计', 2040, 1, 'chart', 'pvadmin/peakValley/chart/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:peakValley:chart', 'chart', 'admin', NOW());
+
+-- 模块 16：报表统计
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2042, '报表统计', 2040, 2, 'report', 'pvadmin/peakValley/report/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:peakValley:report', 'form', 'admin', NOW());
