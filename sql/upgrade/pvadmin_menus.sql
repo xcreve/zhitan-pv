@@ -77,3 +77,7 @@ VALUES (2032, '设备发电统计', 2030, 2, 'device', 'pvadmin/analysis/device/
 -- 模块 13：同比分析
 INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
 VALUES (2033, '同比分析', 2030, 3, 'sameCompare', 'pvadmin/analysis/sameCompare/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:analysis:sameCompare', 'chart', 'admin', NOW());
+
+-- 模块 14：环比分析
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2034, '环比分析', 2030, 4, 'loopCompare', 'pvadmin/analysis/loopCompare/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:analysis:loopCompare', 'chart', 'admin', NOW());
