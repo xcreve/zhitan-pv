@@ -93,3 +93,11 @@ VALUES (2041, '图表统计', 2040, 1, 'chart', 'pvadmin/peakValley/chart/index'
 -- 模块 16：报表统计
 INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
 VALUES (2042, '报表统计', 2040, 2, 'report', 'pvadmin/peakValley/report/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:peakValley:report', 'form', 'admin', NOW());
+
+-- 二级目录：电能质量
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2050, '电能质量', 2000, 5, 'powerQuality', NULL, NULL, '1', '0', 'M', '0', '0', NULL, 'skill', 'admin', NOW());
+
+-- 模块 17：负荷分析
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2051, '负荷分析', 2050, 1, 'load', 'pvadmin/powerQuality/load/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:powerQuality:load', 'chart', 'admin', NOW());
