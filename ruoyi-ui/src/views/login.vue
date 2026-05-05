@@ -73,7 +73,7 @@ import defaultSettings from '@/settings'
 import type { CaptchaInfoResult } from '@/types/api/login'
 import type { LoginForm } from '@/types/api/login'
 
-const title = import.meta.env.VITE_APP_TITLE
+const title = '智碳光伏管理系统'
 const footerContent = defaultSettings.footerContent
 const userStore = useUserStore()
 const route = useRoute()
