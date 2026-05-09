@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 @RestController
@@ -76,11 +75,9 @@ public class WXController {
             reader.close();
             log.debug("接收到推送的消息：" + requestContent);
             return "success";
-        } catch (IOException e) {
-            // 处理异常情况
-            e.printStackTrace();
-            log.error("异常：" + e.getMessage());
-            return e.toString();
+        } catch (Exception e) {
+            log.error("微信消息处理异常", e);
+            return "处理失败";
         }
     }
 
