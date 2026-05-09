@@ -41,6 +41,7 @@
 import NoticeDetailView from './DetailView.vue'
 import { listNoticeTop, markNoticeRead, markNoticeReadAll } from '@/api/system/notice'
 import type { SysNotice } from '@/types/api/system/notice'
+import { useProxy } from '@/composables/useProxy'
 
 interface PopperElement extends HTMLElement {
   _noticeBound?: boolean
@@ -52,7 +53,7 @@ const unreadCount = ref<number>(0)
 const noticeLoading = ref<boolean>(false)
 const noticeVisible = ref<boolean>(false)
 const noticeLeaveTimer = ref<ReturnType<typeof setTimeout> | null>(null)
-  const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 
 // 加载顶部公告列表
 function loadNoticeTop(): void {

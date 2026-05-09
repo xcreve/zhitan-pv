@@ -17,6 +17,7 @@
 
 <script setup lang="ts">
 import useAppStore from "@/store/modules/app"
+import { useProxy } from '@/composables/useProxy'
 
 interface SizeOption {
   label: string
@@ -25,7 +26,7 @@ interface SizeOption {
 
 const appStore = useAppStore()
 const size = computed(() => appStore.size)
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 const sizeOptions = ref<SizeOption[]>([
   { label: "较大", value: "large" },
   { label: "默认", value: "default" },

@@ -74,6 +74,7 @@ import { getNormalPath } from '@/utils/ruoyi'
 import useTagsViewStore from '@/store/modules/tagsView'
 import useSettingsStore from '@/store/modules/settings'
 import usePermissionStore from '@/store/modules/permission'
+import { useProxy } from '@/composables/useProxy'
 
 const visible = ref<boolean>(false)
 const top = ref<number>(0)
@@ -86,7 +87,7 @@ const canScrollRight = ref<boolean>(false)
 const isFullscreen = ref<boolean>(false)
 const hiddenElements = ref<any>([])
 
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 const route = useRoute()
 const router = useRouter()
 const settingsStore = useSettingsStore()

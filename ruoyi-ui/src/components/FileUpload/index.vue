@@ -44,6 +44,7 @@
 import { getToken } from "@/utils/auth"
 import Sortable from 'sortablejs'
 import type { UploadFileResult } from '@/types/api/common'
+import { useProxy } from '@/composables/useProxy'
 
 interface UploadFileItem {
   uid?: number | string;
@@ -94,7 +95,7 @@ const props = defineProps({
   }
 })
 
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 const emit = defineEmits()
 const number = ref(0)
 const uploadList = ref<UploadFileItem[]>([])

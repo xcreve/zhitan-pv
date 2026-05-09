@@ -11,9 +11,10 @@
 
 <script setup lang="ts">
 import useTagsViewStore from '@/store/modules/tagsView'
+import { useProxy } from '@/composables/useProxy'
 
 const tagAndTagSpacing = ref<number>(4)
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 
 const scrollWrapper = computed(() => proxy.$refs.scrollContainer.$refs.wrapRef)
 
