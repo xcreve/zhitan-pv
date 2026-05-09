@@ -41,7 +41,7 @@ public class InfluxDBRepository {
             client = InfluxDBClientFactory.create(config.getHost(), token, config.getOrg(),
                     config.getBucket());
         }
-        log.error("--------------------实时数据库连接成功--------------------");
+        log.info("--------------------实时数据库连接成功--------------------");
         HealthCheck health = client.health();
         if (health.getStatus() == HealthCheck.StatusEnum.FAIL) {
             client.close();
