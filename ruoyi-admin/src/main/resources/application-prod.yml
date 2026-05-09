@@ -45,6 +45,24 @@ spring:
           config:
             multi-statement-allow: true
 
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  typeAliasesPackage: com.ruoyi.**.domain
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+  global-config:
+    banner: false
+    refresh: true
+    db-config:
+      id-type: auto
+      field-strategy: not_empty
+      db-column-underline: true
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      db-type: mysql
+
 influxdb:
   host: http://127.0.0.1:8086
   token: ${INFLUXDB_TOKEN}
