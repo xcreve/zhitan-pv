@@ -208,7 +208,7 @@ public class RealtimeDatabaseServiceImpl implements RealtimeDatabaseService {
     @Override
     public List<TagValue> queryOneHour(String tagCodes, Long dataTime) {
         try {
-            List<String> tagCodeList = Arrays.asList(StrUtil.split(tagCodes, StrUtil.COMMA));
+            List<String> tagCodeList = StrUtil.split(tagCodes, StrUtil.COMMA);
             LocalDateTime beginL = LocalDateTime.ofEpochSecond(dataTime, 0, ZoneOffset.ofHours(8));
             Date begin = Date.from(beginL.atZone(ZoneId.systemDefault()).toInstant());
             List<TagValue> tagValues = influxDB.queryOneHour(tagCodeList, begin);

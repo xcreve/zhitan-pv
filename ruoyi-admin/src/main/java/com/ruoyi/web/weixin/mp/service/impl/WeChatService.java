@@ -155,7 +155,7 @@ public class WeChatService implements IWeChatService {
                 .build();
         try (Response response = httpClient.newCall(request).execute()) {
             if (response.body() != null) {
-                System.out.println(response.body().string());
+                log.info("订阅消息响应: {}", response.body().string());
             }
             if (!response.isSuccessful()) {
                 throw new BaseException("发送订阅消息失败: " + response.message());

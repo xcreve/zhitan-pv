@@ -26,7 +26,7 @@
         <fastjson.version>2.0.61</fastjson.version>
         <oshi.version>6.10.0</oshi.version>
         <commons.io.version>2.21.0</commons.io.version>
-        <poi.version>4.1.2</poi.version>
+        <poi.version>5.3.0</poi.version>
         <velocity.version>2.3</velocity.version>
         <jwt.version>0.9.1</jwt.version>
         <jaxb-api.version>2.3.1</jaxb-api.version>
@@ -35,7 +35,7 @@
         <lombok.version>1.18.42</lombok.version>
         <mybatis-plus.version>3.5.16</mybatis-plus.version>
         <influxdb-client-java.version>6.10.0</influxdb-client-java.version>
-        <hutool.version>5.6.5</hutool.version>
+        <hutool.version>5.8.38</hutool.version>
         <joda-time.version>2.10.13</joda-time.version>
         <okhttp.version>4.12.0</okhttp.version>
     </properties>

@@ -69,7 +69,7 @@ service.interceptors.request.use((config: any) => {
   return config
 }, (error: any) => {
     console.log(error)
-    Promise.reject(error)
+    return Promise.reject(error)
 })
 
 // 响应拦截器
