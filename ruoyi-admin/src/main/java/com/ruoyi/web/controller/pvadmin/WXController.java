@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 @RestController
 @RequestMapping("/wx")
@@ -65,14 +67,14 @@ public class WXController {
         if (!signature.equals(msgSignature)) {
             throw new AesException(AesException.ValidateSignatureError);
         }
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()));
+        try (InputStream is = request.getInputStream();
+             InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+             BufferedReader reader = new BufferedReader(isr)) {
             StringBuilder requestContent = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
                 requestContent.append(line);
             }
-            reader.close();
             log.debug("接收到推送的消息：" + requestContent);
             return "success";
         } catch (Exception e) {

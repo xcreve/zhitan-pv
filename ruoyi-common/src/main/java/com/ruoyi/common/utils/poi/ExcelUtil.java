@@ -628,13 +628,14 @@ public class ExcelUtil<T>
             return AjaxResult.error("导出数据不能为空");
         }
         SXSSFWorkbook wb = buildWorkbook(sheets);
-        OutputStream out = null;
         try
         {
             ExcelUtil firstUtil = new ExcelUtil(sheets.get(0).getClazz());
             String filename = firstUtil.encodingFilename(sheets.get(0).getSheetName());
-            out = new FileOutputStream(firstUtil.getAbsoluteFile(filename));
-            wb.write(out);
+            try (OutputStream out = new FileOutputStream(firstUtil.getAbsoluteFile(filename)))
+            {
+                wb.write(out);
+            }
             return AjaxResult.success(filename);
         }
         catch (Exception e)
@@ -645,7 +646,6 @@ public class ExcelUtil<T>
         finally
         {
             IOUtils.closeQuietly(wb);
-            IOUtils.closeQuietly(out);
         }
     }
 
@@ -775,13 +775,14 @@ public class ExcelUtil<T>
      */
     public AjaxResult exportExcel()
     {
-        OutputStream out = null;
         try
         {
             writeSheet();
             String filename = encodingFilename(sheetName);
-            out = new FileOutputStream(getAbsoluteFile(filename));
-            wb.write(out);
+            try (OutputStream out = new FileOutputStream(getAbsoluteFile(filename)))
+            {
+                wb.write(out);
+            }
             return AjaxResult.success(filename);
         }
         catch (Exception e)
@@ -792,7 +793,6 @@ public class ExcelUtil<T>
         finally
         {
             IOUtils.closeQuietly(wb);
-            IOUtils.closeQuietly(out);
         }
     }
 

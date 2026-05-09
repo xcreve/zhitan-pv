@@ -12,7 +12,6 @@ import java.nio.charset.StandardCharsets;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import com.ruoyi.common.config.RuoYiConfig;
 import com.ruoyi.common.constant.Constants;
@@ -38,30 +37,19 @@ public class FileUtils
      */
     public static void writeBytes(String filePath, OutputStream os) throws IOException
     {
-        FileInputStream fis = null;
-        try
+        File file = new File(filePath);
+        if (!file.exists())
         {
-            File file = new File(filePath);
-            if (!file.exists())
-            {
-                throw new FileNotFoundException(filePath);
-            }
-            fis = new FileInputStream(file);
+            throw new FileNotFoundException(filePath);
+        }
+        try (FileInputStream fis = new FileInputStream(file))
+        {
             byte[] b = new byte[1024];
             int length;
             while ((length = fis.read(b)) > 0)
             {
                 os.write(b, 0, length);
             }
-        }
-        catch (IOException e)
-        {
-            throw e;
-        }
-        finally
-        {
-            IOUtils.close(os);
-            IOUtils.close(fis);
         }
     }
 
@@ -87,19 +75,13 @@ public class FileUtils
      */
     public static String writeBytes(byte[] data, String uploadDir) throws IOException
     {
-        FileOutputStream fos = null;
         String pathName = "";
-        try
+        String extension = getFileExtendName(data);
+        pathName = DateUtils.datePath() + "/" + IdUtils.fastUUID() + "." + extension;
+        File file = FileUploadUtils.getAbsoluteFile(uploadDir, pathName);
+        try (FileOutputStream fos = new FileOutputStream(file))
         {
-            String extension = getFileExtendName(data);
-            pathName = DateUtils.datePath() + "/" + IdUtils.fastUUID() + "." + extension;
-            File file = FileUploadUtils.getAbsoluteFile(uploadDir, pathName);
-            fos = new FileOutputStream(file);
             fos.write(data);
-        }
-        finally
-        {
-            IOUtils.close(fos);
         }
         return FileUploadUtils.getPathFileName(uploadDir, pathName);
     }
