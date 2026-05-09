@@ -60,3 +60,6 @@ ruoyi-ui/playwright-report/
 .preserve/
 RuoYi-Vue-ref/
 RuoYi-Vue3-ref/
+
+# Redis dump 运行产物
+*.rdb
