@@ -27,13 +27,13 @@
 | /getRouters | GET | code=200 | data 含 path=`pvadmin`，菜单注入成功 |
 | /system/user/list | GET | code=200 | 返回 admin 用户 |
 | /system/menu/list | GET | code=200 | 返回 pvadmin 菜单与权限 |
-| /powerStation/list | GET | code=500 | `PowerStationMapper.listByQueryDto` bound statement 缺失 |
-| /alarm/list | GET | code=500 | `AlarmMapper` bound statement 缺失 |
-| /device/list | GET | code=500 | `DeviceMapper.selectDeviceList` bound statement 缺失 |
-| /deviceType/list | GET | code=500 | MyBatis-Plus lambda cache 缺失：DeviceType |
-| /inspection/list | GET | code=500 | `DeviceInspectionMapper` bound statement 缺失 |
-| /electricityTypeSetting/list | GET | code=500 | MyBatis-Plus lambda cache 缺失：ElectricityTypeSetting |
-| /parts/list | GET | code=500 | `SparePartsMapper` bound statement 缺失 |
+| /powerStation/list | GET | ✅ code=200 | total=1，Mapper XML 恢复后通过 |
+| /alarm/list | GET | ✅ code=200 | total=1，Mapper XML 恢复后通过 |
+| /device/list | GET | ✅ code=200 | total=2，Mapper XML 恢复后通过 |
+| /deviceType/list | GET | ✅ code=200 | total=2，MyBatis-Plus factory 修复后通过 |
+| /inspection/list | GET | ✅ code=200 | total=1，Mapper XML 恢复后通过 |
+| /electricityTypeSetting/list | GET | ✅ code=200 | total=1，MyBatis-Plus factory 修复后通过 |
+| /parts/list | GET | ✅ code=200 | total=1，Mapper XML 恢复后通过 |
 
 ## 四、前端
 - dist 总大小：7.2M
@@ -58,18 +58,18 @@
 ## 六、业务模块状态
 | 模块 | 页面 | API | 菜单 SQL | 实测接口 |
 |---|---|---|---|---|
-| 电站管理 | ✓ | ✓ /powerStation/list | ✓ | 500：mapper XML bound statement 缺失 |
-| 设备类型管理 | ✓ | ✓ /deviceType/list | ✓ | 500：MP lambda cache 缺失 |
-| 设备管理 | ✓ | ✓ /device/list | ✓ | 500：mapper XML bound statement 缺失 |
-| 设备点检 | ✓ | ✓ /inspection/list | ✓ | 500：mapper XML bound statement 缺失 |
-| 峰平谷配置 | ✓ | ✓ /electricityTypeSetting/list | ✓ | 500：MP lambda cache 缺失 |
-| 备品备件 | ✓ | ✓ /parts/list | ✓ | 500：mapper XML bound statement 缺失 |
-| 智能报警 | ✓ | ✓ /alarm/list | ✓ | 500：mapper XML bound statement 缺失 |
-| 实时-电站 | ✓ | ✓ /powerStation/* | ✓ | 阻塞于 PowerStationMapper bound statement |
-| 实时-设备 | ✓ | ✓ /device/* | ✓ | 阻塞于 DeviceMapper bound statement |
+| 电站管理 | ✓ | ✓ /powerStation/list | ✓ | 200：total=1 |
+| 设备类型管理 | ✓ | ✓ /deviceType/list | ✓ | 200：total=2 |
+| 设备管理 | ✓ | ✓ /device/list | ✓ | 200：total=2 |
+| 设备点检 | ✓ | ✓ /inspection/list | ✓ | 200：total=1 |
+| 峰平谷配置 | ✓ | ✓ /electricityTypeSetting/list | ✓ | 200：total=1 |
+| 备品备件 | ✓ | ✓ /parts/list | ✓ | 200：total=1 |
+| 智能报警 | ✓ | ✓ /alarm/list | ✓ | 200：total=1 |
+| 实时-电站 | ✓ | ✓ /powerStation/* | ✓ | 核心 /powerStation/list 通过 |
+| 实时-设备 | ✓ | ✓ /device/* | ✓ | 核心 /device/list 通过 |
 | 实时-数据 | ✓ | ✓ /realTime/listRealTime | ✓ | 未单独 curl；Controller 已启动注册 |
-| 统计-电站 | ✓ | ✓ /powerStation/listGenerationStatistics | ✓ | 阻塞于 PowerStationMapper bound statement |
-| 统计-设备 | ✓ | ✓ /device/getInverterGenerationStats | ✓ | 阻塞于 DeviceMapper bound statement |
+| 统计-电站 | ✓ | ✓ /powerStation/listGenerationStatistics | ✓ | PowerStationMapper XML 已恢复；该统计接口未单独 curl |
+| 统计-设备 | ✓ | ✓ /device/getInverterGenerationStats | ✓ | DeviceMapper XML 已恢复；该统计接口未单独 curl |
 | 同比分析 | ✓ | ✓ /statisticsAnalysis/querySameCompareList | ✓ | 未单独 curl；Controller 已启动注册 |
 | 环比分析 | ✓ | ✓ /statisticsAnalysis/queryLoopCompareList | ✓ | 未单独 curl；Controller 已启动注册 |
 | 峰平谷-图表 | ✓ | ✓ /peakValley/segment | ✓ | 未单独 curl；Controller 已启动注册 |
@@ -77,12 +77,19 @@
 | 电能-负荷 | ✓ | ✓ /realTime/listLoadAnalysis | ✓ | 未单独 curl；Controller 已启动注册 |
 | 电能-三相 | ✓ | ✓ /realTime/listThreePhaseUnbalanceAnalysis | ✓ | 未单独 curl；Controller 已启动注册 |
 | 电能-功率因数 | ✓ | ✓ /realTime/getPowerFactorAnalysis | ✓ | 未单独 curl；Controller 已启动注册 |
-| 首页大屏 | ✓ | ✓ 多 Controller 聚合 | ✓ | 标准菜单链路通过；业务数据源受 mapper 阻塞影响 |
+| 首页大屏 | ✓ | ✓ 多 Controller 聚合 | ✓ | 标准菜单链路通过；核心业务列表数据源已恢复 |
 
 ## 七、阻塞性问题
 - pvadmin 业务接口运行期失败：多个 Mapper XML bound statement 未找到，包括 `PowerStationMapper.listByQueryDto`、`DeviceMapper.selectDeviceList`、`AlarmMapper`、`DeviceInspectionMapper`、`SparePartsMapper` 等。
 - 部分 MyBatis-Plus LambdaQueryWrapper 查询失败：`can not find lambda cache for this entity`，涉及 `DeviceType`、`ElectricityTypeSetting`。
 - 以上问题导致 pvadmin 业务列表页无法达到发布验收；本阶段按约束只记录，不修改业务代码。
+
+### 阻塞解决记录（6-fix-续）
+- 根因 1：阶段 0 备份漏掉 `ruoyi-system/src/main/resources/mapper/pvadmin/`，阶段 2 整包覆盖时 `rsync --delete` 清空了 16 个 ZhiTan pvadmin Mapper XML，导致 5 个 XML 映射接口出现 bound statement 缺失。
+- 修复 1：从基线 commit `b4d3702` 恢复 16 个 `pvadmin` Mapper XML；恢复后 `PowerStationMapper.listByQueryDto`、`AlarmMapper.listByQueryDto`、`DeviceMapper.selectDeviceList`、`DeviceInspectionMapper.selectDeviceInspectionList`、`SparePartsMapper.selectSparePartsList` 均已命中。
+- 资源审计：`b4d3702..HEAD` 的 `ruoyi-*/src/main/resources/` 删除项共 18 个；已恢复 16 个 `pvadmin` XML；`ruoyi-admin/src/main/resources/logback.xml` 属于当前 `logback-spring.xml` 替代，保留删除；`ruoyi-generator/src/main/resources/vm/vue/v3/readme.txt` 为旧生成器说明文件，保留删除；待用户决策 0 个。
+- 根因 2：当前启用的自定义 `MyBatisConfig` 使用原生 `SqlSessionFactoryBean`，未通过 MyBatis-Plus 的 factory 初始化 TableInfo/lambda cache，导致 `DeviceType`、`ElectricityTypeSetting` 的 LambdaQueryWrapper 查询失败。
+- 修复 2：将 `MyBatisConfig` 切换为 `com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean`；重新打包启动后出现 MyBatis-Plus 3.5.16 banner，7 个 pvadmin 列表接口全部返回 200。
 
 ## 八、非阻塞性观察（建议后续单独修单）
 - `实时数据库连接成功` 被 `log.error` 打印，位置：`ruoyi-system/src/main/java/com/ruoyi/pvadmin/influxdb/InfluxDBRepository.java:44`，应改为 `log.info`。
@@ -93,7 +100,7 @@
 - vue-tsc 308 条历史欠债集中在官方 monitor/tool/system，可通过 typescript 分支社区修单或自行清理。
 
 ## 九、可发布判断
-- 需先解决 pvadmin Mapper XML / MyBatis-Plus lambda cache 阻塞项再合并 main。
+- 可合并 main。
 
 ## 十、阶段 0-6 完整 commit 链
 ```text
