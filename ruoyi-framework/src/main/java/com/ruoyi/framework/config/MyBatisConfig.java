@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import javax.sql.DataSource;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.io.VFS;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.boot.autoconfigure.SpringBootVFS;
@@ -29,6 +30,7 @@ import com.ruoyi.common.utils.StringUtils;
  * 
  * @author ruoyi
  */
+@Slf4j
 @Configuration
 public class MyBatisConfig
 {
@@ -64,7 +66,7 @@ public class MyBatisConfig
                             }
                             catch (ClassNotFoundException e)
                             {
-                                e.printStackTrace();
+                                log.error("扫描 mapper 路径异常", e);
                             }
                         }
                     }
@@ -86,7 +88,7 @@ public class MyBatisConfig
         }
         catch (IOException e)
         {
-            e.printStackTrace();
+            log.error("加载 sqlSessionFactory 异常", e);
         }
         return typeAliasesPackage;
     }

@@ -10,12 +10,14 @@ package com.ruoyi.web.weixin.mp.aes;
 
 import java.security.MessageDigest;
 import java.util.Arrays;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * SHA1 class
  *
  * 计算公众平台的消息签名接口.
  */
+@Slf4j
 public class SHA1 {
 
     /**
@@ -53,7 +55,7 @@ public class SHA1 {
             }
             return hexStr.toString();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("SHA1 计算失败", e);
             throw new AesException(AesException.ComputeSignatureError);
         }
     }
@@ -95,7 +97,7 @@ public class SHA1 {
             }
             return hexStr.toString();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("SHA1 计算失败", e);
             throw new AesException(AesException.ComputeSignatureError);
         }
     }

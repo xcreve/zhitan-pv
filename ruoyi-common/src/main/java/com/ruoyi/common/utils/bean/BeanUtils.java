@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Bean 工具类
  * 
  * @author ruoyi
  */
+@Slf4j
 public class BeanUtils extends org.springframework.beans.BeanUtils
 {
     /** Bean方法名中属性名开始的下标 */
@@ -36,7 +38,7 @@ public class BeanUtils extends org.springframework.beans.BeanUtils
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            log.error("Bean 属性拷贝失败", e);
         }
     }
 

@@ -26,6 +26,7 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 
 /**
@@ -43,6 +44,7 @@ import org.apache.commons.codec.binary.Base64;
  * 	<li>如果安装了JDK，将两个jar文件放到%JDK_HOME%\jre\lib\security目录下覆盖原来文件</li>
  * </ol>
  */
+@Slf4j
 public class WXBizMsgCrypt {
     static Charset CHARSET = Charset.forName("utf-8");
     Base64 base64 = new Base64();
@@ -142,7 +144,7 @@ public class WXBizMsgCrypt {
 
             return base64Encrypted;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("AES 加密失败", e);
             throw new AesException(AesException.EncryptAESError);
         }
     }
@@ -169,7 +171,7 @@ public class WXBizMsgCrypt {
             // 解密
             original = cipher.doFinal(encrypted);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("AES 解密失败", e);
             throw new AesException(AesException.DecryptAESError);
         }
 
@@ -187,7 +189,7 @@ public class WXBizMsgCrypt {
             from_appid = new String(Arrays.copyOfRange(bytes, 20 + xmlLength, bytes.length),
                     CHARSET);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("解析 XML 失败", e);
             throw new AesException(AesException.IllegalBuffer);
         }
 

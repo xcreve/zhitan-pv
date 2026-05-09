@@ -13,6 +13,7 @@ import java.io.StringReader;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import lombok.extern.slf4j.Slf4j;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -23,6 +24,7 @@ import org.xml.sax.InputSource;
  *
  * 提供提取消息格式中的密文及生成回复消息格式的接口.
  */
+@Slf4j
 class XMLParse {
 
 	/**
@@ -55,7 +57,7 @@ class XMLParse {
 			result[2] = nodelist2.item(0).getTextContent();
 			return result;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("微信 XML 解析失败", e);
 			throw new AesException(AesException.ParseXmlError);
 		}
 	}
