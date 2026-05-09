@@ -34,11 +34,7 @@ spring:
       webStatFilter:
         enabled: true
       statViewServlet:
-        enabled: true
-        allow:
-        url-pattern: /druid/*
-        login-username: ruoyi
-        login-password: 123456
+        enabled: false
       filter:
         stat:
           enabled: true
