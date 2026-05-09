@@ -171,9 +171,10 @@
 
 <script setup lang="ts">
 import { getServer } from '@/api/monitor/server'
+import { useProxy } from '@/composables/useProxy'
 
 const server = ref<any>([])
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 
 function getList() {
   proxy.$modal.loading("正在加载服务监控数据，请稍候！")

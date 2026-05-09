@@ -98,6 +98,7 @@
 <script setup lang="ts">
 import draggable from "vuedraggable/dist/vuedraggable.common"
 import ClipboardJS from 'clipboard'
+import { useProxy } from '@/composables/useProxy'
 //@ts-ignore
 import beautifier from 'js-beautify'
 import logo from '@/assets/logo/logo.png'
@@ -116,7 +117,7 @@ import CodeTypeDialog from './CodeTypeDialog.vue'
 initDrawingDefaultValue()
 
 const drawingList = ref<any[]>(drawingDefaultValue)
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 const dialogVisible = ref<boolean>(false)
 const showFileName = ref<boolean>(false)
 const operationType = ref<string>('')

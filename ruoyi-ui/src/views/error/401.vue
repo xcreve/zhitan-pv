@@ -27,8 +27,9 @@
 
 <script setup lang="ts">
 import errImage from "@/assets/401_images/401.gif"
+import { useProxy } from '@/composables/useProxy'
 
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 
 const errGif = ref<string>(errImage + "?" + +new Date())
 

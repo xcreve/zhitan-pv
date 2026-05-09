@@ -63,9 +63,10 @@ import "vue-cropper/dist/index.css"
 import { VueCropper } from "vue-cropper"
 import { uploadAvatar } from "@/api/system/user"
 import useUserStore from "@/store/modules/user"
+import { useProxy } from '@/composables/useProxy'
 
 const userStore = useUserStore()
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 
 const open = ref<boolean>(false)
 const visible = ref<boolean>(false)

@@ -248,9 +248,10 @@ import type { SysRole, RoleQueryParams } from '@/types/api/system/role'
 import type { TreeSelect } from '@/types/api/common'
 import type { RoleDeptTreeResult } from '@/types/api/system/role'
 import type { RoleMenuTreeselectResult } from '@/types/api/system/menu'
+import { useProxy } from '@/composables/useProxy'
 
 const router = useRouter()
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 const { sys_normal_disable } = useDict("sys_normal_disable")
 
 const roleList = ref<SysRole[]>([])

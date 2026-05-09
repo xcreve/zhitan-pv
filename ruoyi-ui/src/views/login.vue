@@ -72,13 +72,14 @@ import useUserStore from '@/store/modules/user'
 import defaultSettings from '@/settings'
 import type { CaptchaInfoResult } from '@/types/api/login'
 import type { LoginForm } from '@/types/api/login'
+import { useProxy } from '@/composables/useProxy'
 
 const title = '智碳光伏管理系统'
 const footerContent = defaultSettings.footerContent
 const userStore = useUserStore()
 const route = useRoute()
 const router = useRouter()
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 
 const loginForm = ref<LoginForm>({
   username: "admin",

@@ -32,8 +32,9 @@ import { QuillEditor } from "@vueup/vue-quill"
 import "@vueup/vue-quill/dist/vue-quill.snow.css"
 import { getToken } from "@/utils/auth"
 import type { UploadFileResult } from '@/types/api/common'
+import { useProxy } from '@/composables/useProxy'
 
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 
 const quillEditorRef = ref()
 const uploadUrl = ref(import.meta.env.VITE_APP_BASE_API + "/common/upload") // 上传的图片服务器地址

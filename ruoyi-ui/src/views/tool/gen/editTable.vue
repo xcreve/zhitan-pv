@@ -128,9 +128,10 @@ import type { GenTableInfoResult } from '@/types/api/tool/gen'
 import BasicInfoForm from "./basicInfoForm.vue"
 import GenInfoForm from "./genInfoForm.vue"
 import Sortable from 'sortablejs'
+import { useProxy } from '@/composables/useProxy'
 
 const route = useRoute()
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 
 const activeName = ref<string>("columnInfo")
 const tableHeight = ref<string>(document.documentElement.scrollHeight - 245 + "px")

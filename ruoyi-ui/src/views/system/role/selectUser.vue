@@ -63,6 +63,7 @@
 <script setup lang="ts" name="SelectUser">
 import { authUserSelectAll, unallocatedUserList } from "@/api/system/role"
 import type { SysUser, UserQueryParams } from '@/types/api/system/user'
+import { useProxy } from '@/composables/useProxy'
 
 const props = defineProps({
   roleId: {
@@ -70,7 +71,7 @@ const props = defineProps({
   }
 })
 
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 const { sys_normal_disable } = useDict("sys_normal_disable")
 
 const userList = ref<SysUser[]>([])

@@ -143,8 +143,9 @@ import { getJob } from "@/api/monitor/job"
 import { listJobLog, delJobLog, cleanJobLog } from "@/api/monitor/jobLog"
 import type { SysJobLog, JobLogQueryParams } from '@/types/api/monitor/jobLog'
 import type { SysJob } from '@/types/api/monitor/job'
+import { useProxy } from '@/composables/useProxy'
 
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 const { sys_common_status, sys_job_group } = useDict("sys_common_status", "sys_job_group")
 
 const jobLogList = ref<SysJobLog[]>([])

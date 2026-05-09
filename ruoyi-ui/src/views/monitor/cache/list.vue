@@ -157,6 +157,7 @@
 <script setup lang="ts" name="CacheList">
 import { listCacheName, listCacheKey, getCacheValue, clearCacheName, clearCacheKey, clearCacheAll } from "@/api/monitor/cache"
 import type { SysCache } from '@/types/api/monitor/cache'
+import { useProxy } from '@/composables/useProxy'
 
 interface CacheName {
   cacheName: string
@@ -169,7 +170,7 @@ interface CacheForm {
   cacheValue?: string
 }
 
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 
 const cacheNames = ref<CacheName[]>([])
 const cacheKeys = ref<string[]>([])

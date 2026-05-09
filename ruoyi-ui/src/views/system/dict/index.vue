@@ -185,8 +185,9 @@ import DictDataDrawer from './detail.vue'
 import useDictStore from '@/store/modules/dict'
 import { listType, getType, delType, addType, updateType, refreshCache } from "@/api/system/dict/type"
 import type { SysDictType, DictTypeQueryParams } from '@/types/api/system/dict'
+import { useProxy } from '@/composables/useProxy'
 
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 const { sys_normal_disable } = useDict("sys_normal_disable")
 
 const typeList = ref<SysDictType[]>([])

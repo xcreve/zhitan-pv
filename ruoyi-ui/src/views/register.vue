@@ -81,11 +81,12 @@ import { getCodeImg, register } from "@/api/login"
 import defaultSettings from '@/settings'
 import { usePasswordRule } from "@/utils/passwordRule"
 import type { RegisterForm } from '@/types/api/login'
+import { useProxy } from '@/composables/useProxy'
 
 const title = import.meta.env.VITE_APP_TITLE
 const footerContent = defaultSettings.footerContent
 const router = useRouter()
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 const { registerPwdValidator } = usePasswordRule()
 
 const registerForm = ref<RegisterForm>({

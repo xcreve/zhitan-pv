@@ -259,10 +259,11 @@
 
 <script setup lang="ts">
 import { listMenu } from "@/api/system/menu"
+import { useProxy } from '@/composables/useProxy'
 
 const subColumns = ref([])
 const menuOptions = ref([])
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 
 const props = defineProps({
   info: {

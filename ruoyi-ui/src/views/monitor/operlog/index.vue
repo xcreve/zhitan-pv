@@ -156,8 +156,9 @@
 import OperlogDetail from './detail.vue'
 import { list, delOperlog, cleanOperlog } from "@/api/monitor/operlog"
 import type { SysOperLog, OperlogQueryParams } from '@/types/api/monitor/operlog'
+import { useProxy } from '@/composables/useProxy'
 
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 const { sys_oper_type, sys_common_status } = useDict("sys_oper_type", "sys_common_status")
 
 const operlogList = ref<SysOperLog[]>([])

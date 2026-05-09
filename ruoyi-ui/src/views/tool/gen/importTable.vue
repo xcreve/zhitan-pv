@@ -53,12 +53,13 @@
 <script setup lang="ts">
 import { listDbTable, importTable } from "@/api/tool/gen"
 import type { GenQueryParams, GenTable } from '@/types/api/tool/gen'
+import { useProxy } from '@/composables/useProxy'
 
 const total = ref<number>(0)
 const visible = ref<boolean>(false)
 const tables = ref<string[]>([])
 const dbTableList = ref<GenTable[]>([])
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 
 const queryParams = reactive<GenQueryParams>({
   pageNum: 1,

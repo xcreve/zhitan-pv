@@ -25,6 +25,7 @@
 <script setup lang="ts">
 import { updateUserProfile } from "@/api/system/user"
 import type { SysUser } from '@/types/api/system/user'
+import { useProxy } from '@/composables/useProxy'
 
 interface Props {
   user?: SysUser
@@ -32,7 +33,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 
 const form = ref<SysUser>({})
 const rules = {

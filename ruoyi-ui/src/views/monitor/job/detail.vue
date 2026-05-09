@@ -187,6 +187,7 @@
 <script setup lang="ts" name="JobDetail">
 import type { SysJob } from '@/types/api/monitor/job'
 import type { SysJobLog } from '@/types/api/monitor/jobLog'
+import { useProxy } from '@/composables/useProxy'
 
 type DetailType = 'job' | 'log'
 
@@ -205,7 +206,7 @@ const dialogVisible = computed({
   set: (val: boolean) => emit('update:visible', val)
 })
 
-const { proxy } = getCurrentInstance()!
+const proxy = useProxy()
 const { sys_job_group } = useDict('sys_job_group')
 
 const jobForm = computed<SysJob>(() => props.row as SysJob)

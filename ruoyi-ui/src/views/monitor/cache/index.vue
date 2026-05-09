@@ -67,11 +67,12 @@
 <script setup lang="ts" name="Cache">
 import { getCache } from '@/api/monitor/cache'
 import * as echarts from 'echarts'
+import { useProxy } from '@/composables/useProxy'
 
 const cache = ref([])
 const commandstats = ref(null)
 const usedmemory = ref(null)
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 
 function getList(): void {
   proxy.$modal.loading("正在加载缓存监控数据，请稍候！")

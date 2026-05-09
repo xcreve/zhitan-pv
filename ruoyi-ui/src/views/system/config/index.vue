@@ -167,8 +167,9 @@
 <script setup lang="ts" name="Config">
 import type { SysConfig, ConfigQueryParams } from '@/types/api/system/config'
 import { listConfig, getConfig, delConfig, addConfig, updateConfig, refreshCache } from "@/api/system/config"
+import { useProxy } from '@/composables/useProxy'
 
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 const { sys_yes_no } = useDict("sys_yes_no")
 
 const configList = ref<SysConfig[]>([])

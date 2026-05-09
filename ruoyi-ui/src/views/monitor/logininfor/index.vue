@@ -127,8 +127,9 @@
 <script setup lang="ts" name="Logininfor">
 import { list, delLogininfor, cleanLogininfor, unlockLogininfor } from "@/api/monitor/logininfor"
 import type { SysLogininfor, LogininforQueryParams } from '@/types/api/monitor/logininfor'
+import { useProxy } from '@/composables/useProxy'
 
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 const { sys_common_status } = useDict("sys_common_status")
 
 const logininforList = ref<SysLogininfor[]>([])

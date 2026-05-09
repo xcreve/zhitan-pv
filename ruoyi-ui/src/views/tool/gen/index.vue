@@ -150,9 +150,10 @@ import { listTable, previewTable, delTable, genCode, synchDb } from "@/api/tool/
 import importTable from "./importTable.vue"
 import createTable from "./createTable.vue"
 import type { GenTable, GenQueryParams } from '@/types/api/tool/gen'
+import { useProxy } from '@/composables/useProxy'
 
 const route = useRoute()
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 
 const tableList = ref<GenTable[]>([])
 const loading = ref<boolean>(true)

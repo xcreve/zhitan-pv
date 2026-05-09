@@ -25,8 +25,9 @@
 <script setup lang="ts">
 import type {  AjaxResult } from '@/types/api/common'
 import { getToken } from '@/utils/auth'
+import { useProxy } from '@/composables/useProxy'
 
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 
 const props = defineProps({
   // 对话框标题

@@ -193,9 +193,10 @@ import type { SysUser, UserQueryParams, UserFormDataResult } from '@/types/api/s
 import type { SysRole } from '@/types/api/system/role'
 import type { SysPost } from '@/types/api/system/post'
 import type { TreeSelect, TableShowColumns, AjaxResult } from '@/types/api/common'
+import { useProxy } from '@/composables/useProxy'
 
 const router = useRouter()
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 const { pwdValidator, pwdPromptValidator } = usePasswordRule()
 const { sys_normal_disable, sys_user_sex } = useDict("sys_normal_disable", "sys_user_sex")
 

@@ -49,9 +49,10 @@
 import { getAuthRole, updateAuthRole } from "@/api/system/user"
 import type { SysRole } from '@/types/api/system/role'
 import type { SysUser } from '@/types/api/system/user'
+import { useProxy } from '@/composables/useProxy'
 
 const route = useRoute()
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 
 interface SysRoleWithFlag extends SysRole {
   /** 用户是否存在此角色标识 */

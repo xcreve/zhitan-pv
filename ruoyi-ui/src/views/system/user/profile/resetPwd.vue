@@ -19,8 +19,9 @@
 <script setup lang="ts">
 import { usePasswordRule } from "@/utils/passwordRule"
 import { updateUserPwd } from "@/api/system/user"
+import { useProxy } from '@/composables/useProxy'
 
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 const { infoPwdValidator } = usePasswordRule()
 
 interface UserProfilePwd {

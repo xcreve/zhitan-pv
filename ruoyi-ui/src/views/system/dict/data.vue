@@ -180,13 +180,14 @@ import useDictStore from '@/store/modules/dict'
 import { optionselect as getDictOptionselect, getType } from "@/api/system/dict/type"
 import { listData, getData, delData, addData, updateData } from "@/api/system/dict/data"
 import type { SysDictData, SysDictType, DictDataQueryParams } from '@/types/api/system/dict'
+import { useProxy } from '@/composables/useProxy'
 
 interface ListClassOption {
   value: string
   label: string
 }
 
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 const { sys_normal_disable } = useDict("sys_normal_disable")
 
 const dataList = ref<SysDictData[]>([])

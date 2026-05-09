@@ -310,8 +310,9 @@ import { addMenu, delMenu, getMenu, listMenu, updateMenu, updateMenuSort, } from
 import SvgIcon from "@/components/SvgIcon/index.vue"
 import IconSelect from "@/components/IconSelect/index.vue"
 import type { SysMenu, MenuQueryParams } from '@/types/api/system/menu'
+import { useProxy } from '@/composables/useProxy'
 
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 const { sys_show_hide, sys_normal_disable } = useDict("sys_show_hide", "sys_normal_disable")
 
 const menuList = ref<any[]>([])

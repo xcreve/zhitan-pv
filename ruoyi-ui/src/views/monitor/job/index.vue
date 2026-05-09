@@ -243,9 +243,10 @@ import JobDetail from './detail.vue'
 import Crontab from '@/components/Crontab/index.vue'
 import { listJob, getJob, delJob, addJob, updateJob, runJob, changeJobStatus } from "@/api/monitor/job"
 import type { JobQueryParams, SysJob } from '@/types/api/monitor/job'
+import { useProxy } from '@/composables/useProxy'
 
 const router = useRouter()
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 const { sys_job_group, sys_job_status } = useDict("sys_job_group", "sys_job_status")
 
 const jobList = ref<SysJob[]>([])

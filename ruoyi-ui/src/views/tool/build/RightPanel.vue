@@ -471,8 +471,9 @@ import { isNumberStr } from '@/utils/index'
 import IconsDialog from './IconsDialog.vue'
 import TreeNodeDialog from './TreeNodeDialog.vue'
 import { inputComponents, selectComponents } from '@/utils/generator/config'
+import { useProxy } from '@/composables/useProxy'
 
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 const dateTimeFormat: Record<string, string> = {
   date: 'YYYY-MM-DD',
   week: 'YYYY 第 ww 周',

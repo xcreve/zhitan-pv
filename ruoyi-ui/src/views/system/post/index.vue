@@ -147,8 +147,9 @@
 <script setup lang="ts" name="Post">
 import { listPost, addPost, delPost, getPost, updatePost } from "@/api/system/post"
 import type { SysPost, PostQueryParams } from '@/types/api/system/post'
+import { useProxy } from '@/composables/useProxy'
 
-const { proxy } = getCurrentInstance()
+const proxy = useProxy()
 const { sys_normal_disable } = useDict("sys_normal_disable")
 
 const postList = ref<SysPost[]>([])
