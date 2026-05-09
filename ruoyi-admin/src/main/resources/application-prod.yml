@@ -11,8 +11,8 @@ spring:
     druid:
       master:
         url: jdbc:mysql://127.0.0.1:7373/pv_admin?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-        username: ${DB_USERNAME:root}
-        password: ${DB_PASSWORD:root}
+        username: ${DB_USERNAME}
+        password: ${DB_PASSWORD}
       slave:
         enabled: false
         url:
@@ -51,7 +51,7 @@ spring:
 
 influxdb:
   host: http://127.0.0.1:8086
-  token: ${INFLUXDB_TOKEN:1OB7JfUX-1Jpfx68FK177A==}
+  token: ${INFLUXDB_TOKEN}
   org: pv
   bucket: pvdata
   measurement: pv
@@ -67,3 +67,7 @@ wx:
 
 alarm:
   offline: 1
+
+# token 配置（生产环境强制要求 JWT_SECRET 环境变量）
+token:
+  secret: ${JWT_SECRET}
