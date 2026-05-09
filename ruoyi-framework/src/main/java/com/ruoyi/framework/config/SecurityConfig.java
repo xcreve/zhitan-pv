@@ -109,11 +109,11 @@ public class SecurityConfig
                     // ZhiTan 小程序匿名访问
                     .requestMatchers("/wxLogin", "/wx/**").permitAll()
                     // 静态资源，可匿名访问
-                    .requestMatchers(HttpMethod.GET, "/", "/*.html", "/**.html", "/**.css", "/**.js", "/profile/**").permitAll()
-                    .requestMatchers("/swagger-ui.html", "/v3/api-docs/**", "/swagger-ui/**").permitAll();
-                // H2 控制台和 Druid 监控仅在开发环境开放
+                    .requestMatchers(HttpMethod.GET, "/", "/*.html", "/**.html", "/**.css", "/**.js", "/profile/**").permitAll();
+                // H2 控制台 / Druid 监控 / Swagger 文档仅在开发环境开放
                 if (Arrays.asList(env.getActiveProfiles()).contains("dev")) {
-                    requests.requestMatchers("/h2-console/**", "/druid/**").permitAll();
+                    requests.requestMatchers("/h2-console/**", "/druid/**").permitAll()
+                            .requestMatchers("/swagger-ui.html", "/v3/api-docs/**", "/swagger-ui/**").permitAll();
                 }
                 // 除上面外的所有请求全部需要鉴权认证
                 requests.anyRequest().authenticated();
