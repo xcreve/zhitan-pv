@@ -37,7 +37,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.io.Console;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -670,10 +670,10 @@ public class PowerStationServiceImpl extends ServiceImpl<PowerStationMapper, Pow
      */
     private boolean isDuplicate(PowerStationSubmitDTO dto) {
 
-        int count = baseMapper.selectCount(Wrappers.<PowerStation>lambdaQuery()
+        int count = Math.toIntExact(baseMapper.selectCount(Wrappers.<PowerStation>lambdaQuery()
                 .ne(StringUtils.isNotBlank(dto.getId()), PowerStation::getId, dto.getId())
                 .eq(PowerStation::getCode, dto.getCode()).eq(PowerStation::getName, dto.getName())
-        );
+        ));
         return count > Constants.DIGIT_0;
     }
 }

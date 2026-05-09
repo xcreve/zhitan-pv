@@ -8,8 +8,8 @@ import com.ruoyi.pvadmin.domain.dto.PeakValleyQueryDTO;
 import com.ruoyi.pvadmin.domain.model.GenerationStatisticsItemModel;
 import com.ruoyi.pvadmin.domain.vo.PeakAndValleyReportVO;
 import com.ruoyi.pvadmin.service.IElectricityDataItemService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -32,7 +32,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/peakValley")
-@Api(value = "峰平谷数据", tags = "峰平谷数据")
+@Tag(name = "峰平谷数据")
 public class ElectricityDataItemController extends BaseController {
 
     @Autowired
@@ -43,7 +43,7 @@ public class ElectricityDataItemController extends BaseController {
      * 首页-查询时段发电占比
      */
     @GetMapping("/getPeriodGenerationPercentage")
-    @ApiOperation(value = "首页-查询时段发电占比", notes = "首页-查询时段发电占比")
+    @Operation(summary = "首页-查询时段发电占比", description = "首页-查询时段发电占比")
     public AjaxResult getPeriodGenerationPercentage(@Validated HomeQueryDTO dto) {
         return AjaxResult.success(service.getPeriodGenerationPercentage(dto));
     }
@@ -52,7 +52,7 @@ public class ElectricityDataItemController extends BaseController {
      * 查询峰平谷报表
      */
     @GetMapping("/report")
-    @ApiOperation(value = "尖峰平谷时段统计查询报表", notes = "尖峰平谷时段统计查询报表")
+    @Operation(summary = "尖峰平谷时段统计查询报表", description = "尖峰平谷时段统计查询报表")
     public AjaxResult report(@Validated PeakValleyQueryDTO dto) {
         return AjaxResult.success(service.getReport(dto));
     }
@@ -119,7 +119,7 @@ public class ElectricityDataItemController extends BaseController {
      * 尖峰平谷时段统计
      */
     @GetMapping("/segment")
-    @ApiOperation(value = "尖峰平谷时段统计查询列表", notes = "尖峰平谷时段统计")
+    @Operation(summary = "尖峰平谷时段统计查询列表", description = "尖峰平谷时段统计")
     public AjaxResult segment(@Validated PeakValleyQueryDTO dto) {
         return AjaxResult.success(service.getPeakAndValleyPieAndDataList(dto));
     }

@@ -8,7 +8,7 @@ values (103, 101, '0,100,101', '研发部门', 1, '若依', '15888888888', 'ry@q
 insert into sys_user
 values (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '',
         '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1',
-        CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP, '', null, '管理员');
+        CURRENT_TIMESTAMP, null, 'admin', CURRENT_TIMESTAMP, '', null, '管理员');
 
 insert into sys_post
 values (1, 'ceo', '董事长', 1, '0', 'admin', CURRENT_TIMESTAMP, '', null, '');
@@ -21,10 +21,10 @@ values (1, '超级管理员', 'admin', 1, '1', 1, 1, '0', '0', 'admin', CURRENT_
 insert into sys_user_role values (1, 1);
 
 insert into sys_menu
-values (1, '系统管理', 0, 1, 'system', 'Layout', '', 1, 0, 'M', '0', '0', '', 'system', 'admin', CURRENT_TIMESTAMP,
+values (1, '系统管理', 0, 1, 'system', 'Layout', '', '', 1, 0, 'M', '0', '0', '', 'system', 'admin', CURRENT_TIMESTAMP,
         '', null, '系统管理目录');
 insert into sys_menu
-values (100, '用户管理', 1, 1, 'user', 'system/user/index', '', 1, 0, 'C', '0', '0', 'system:user:list', 'user', 'admin',
+values (100, '用户管理', 1, 1, 'user', 'system/user/index', '', '', 1, 0, 'C', '0', '0', 'system:user:list', 'user', 'admin',
         CURRENT_TIMESTAMP, '', null, '用户管理菜单');
 
 insert into sys_role_menu values (1, 1);
@@ -140,3 +140,92 @@ insert into device_inspection
 values
     ('INS001', 'PS001', '深圳示范光伏电站', 'INV001', '1# 逆变器', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,
      '运维员A', '运行正常，散热风道已清理', '0', '', 0, '', 'H2 dev 演示点检', 'admin', CURRENT_TIMESTAMP);
+
+-- ====================================
+-- ZhiTan-PV pvadmin 业务菜单（H2 dev 用；prod 走 sql/upgrade/pvadmin_menus.sql）
+-- ====================================
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2000, '光伏管理', 0, 5, 'pvadmin', NULL, NULL, '1', '0', 'M', '0', '0', NULL, 'monitor', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2010, '运维管理', 2000, 1, 'operation', NULL, NULL, '1', '0', 'M', '0', '0', NULL, 'tool', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2011, '电站管理', 2010, 1, 'powerStation', 'pvadmin/operation/powerStation/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:powerStation:list', 'list', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2012, '设备类型管理', 2010, 2, 'deviceType', 'pvadmin/operation/deviceType/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:deviceType:list', 'tree-table', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2013, '设备管理', 2010, 3, 'device', 'pvadmin/operation/device/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:device:list', 'monitor', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2014, '设备点检', 2010, 4, 'inspection', 'pvadmin/operation/inspection/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:inspection:list', 'edit', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2015, '峰平谷配置', 2010, 5, 'electricityTypeSetting', 'pvadmin/operation/electricityTypeSetting/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:electricityTypeSetting:list', 'time-range', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2016, '备品备件', 2010, 6, 'spareParts', 'pvadmin/operation/spareParts/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:spareParts:list', 'shopping', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2060, '报警', 2000, 6, 'alarm', NULL, NULL, '1', '0', 'M', '0', '0', NULL, 'bug', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2061, '智能报警', 2060, 1, 'index', 'pvadmin/alarm/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:alarm:list', 'bug', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2020, '实时监测', 2000, 2, 'realtime', NULL, NULL, '1', '0', 'M', '0', '0', NULL, 'monitor', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2021, '电站实时状态', 2020, 1, 'station', 'pvadmin/realtime/station/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:realtime:station', 'list', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2022, '设备实时状态', 2020, 2, 'device', 'pvadmin/realtime/device/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:realtime:device', 'monitor', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2023, '实时数据', 2020, 3, 'data', 'pvadmin/realtime/data/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:realtime:data', 'table', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2030, '统计分析', 2000, 3, 'analysis', NULL, NULL, '1', '0', 'M', '0', '0', NULL, 'chart', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2031, '电站发电统计', 2030, 1, 'powerStation', 'pvadmin/analysis/powerStation/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:analysis:powerStation', 'chart', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2032, '设备发电统计', 2030, 2, 'device', 'pvadmin/analysis/device/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:analysis:device', 'chart', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2033, '同比分析', 2030, 3, 'sameCompare', 'pvadmin/analysis/sameCompare/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:analysis:sameCompare', 'chart', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2034, '环比分析', 2030, 4, 'loopCompare', 'pvadmin/analysis/loopCompare/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:analysis:loopCompare', 'chart', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2040, '峰平谷', 2000, 4, 'peakValley', NULL, NULL, '1', '0', 'M', '0', '0', NULL, 'time-range', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2041, '图表统计', 2040, 1, 'chart', 'pvadmin/peakValley/chart/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:peakValley:chart', 'chart', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2042, '报表统计', 2040, 2, 'report', 'pvadmin/peakValley/report/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:peakValley:report', 'form', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2050, '电能质量', 2000, 5, 'powerQuality', NULL, NULL, '1', '0', 'M', '0', '0', NULL, 'skill', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2051, '负荷分析', 2050, 1, 'load', 'pvadmin/powerQuality/load/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:powerQuality:load', 'chart', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2052, '三相不平衡分析', 2050, 2, 'threePhase', 'pvadmin/powerQuality/threePhase/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:powerQuality:threePhase', 'chart', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2053, '功率因数分析', 2050, 3, 'powerFactor', 'pvadmin/powerQuality/powerFactor/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:powerQuality:powerFactor', 'chart', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2070, '首页大屏', 2000, 7, 'dashboard', NULL, NULL, '1', '0', 'M', '0', '0', NULL, 'dashboard', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time)
+VALUES (2071, '首页总览', 2070, 1, 'index', 'pvadmin/dashboard/index', NULL, '1', '0', 'C', '0', '0', 'pvadmin:dashboard:view', 'dashboard', 'admin', CURRENT_TIMESTAMP);
+
+INSERT INTO sys_role_menu (role_id, menu_id) SELECT 1, menu_id FROM sys_menu WHERE menu_id BETWEEN 2000 AND 2999;

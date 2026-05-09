@@ -4,8 +4,8 @@ import com.ruoyi.common.core.domain.BaseEntity;
 import com.ruoyi.common.enums.TimeTypeEnum;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * 负荷分析对象 alarm

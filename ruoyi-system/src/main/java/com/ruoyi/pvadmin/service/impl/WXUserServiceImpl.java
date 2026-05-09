@@ -30,7 +30,7 @@ public class WXUserServiceImpl extends ServiceImpl<WXUserMapper, WXUser> impleme
             // 判定此微信的openId是否已绑定其他账号
             LambdaQueryWrapper<WXUser> queryWrapper = new LambdaQueryWrapper<>();
             queryWrapper.eq(WXUser::getOpenId, openId);
-            Integer count = baseMapper.selectCount(queryWrapper);
+            Integer count = Math.toIntExact(baseMapper.selectCount(queryWrapper));
             if (count != null && count > 0) {
                 throw new BaseException("此微信已绑定过用户，绑定失败！");
             }

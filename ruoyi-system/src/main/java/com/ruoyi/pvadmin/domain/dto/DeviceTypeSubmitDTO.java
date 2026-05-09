@@ -2,7 +2,7 @@ package com.ruoyi.pvadmin.domain.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
 * 设备类型新建或者更新实体类

@@ -8,8 +8,8 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum TimeTypeEnum {
-
+public enum TimeTypeEnum
+{
     /**
      * 小时
      */
@@ -29,5 +29,4 @@ public enum TimeTypeEnum {
      * 年
      */
     YEAR;
-
 }

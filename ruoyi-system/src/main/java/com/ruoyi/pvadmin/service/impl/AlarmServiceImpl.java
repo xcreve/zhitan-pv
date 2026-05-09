@@ -26,7 +26,7 @@ import com.ruoyi.pvadmin.service.IAlarmService;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -243,7 +243,7 @@ public class AlarmServiceImpl extends ServiceImpl<AlarmMapper, Alarm> implements
 
         levelAnalysisItem.setRatioList(analysisVOList);
         levelAnalysisItem.setUnhandledCount(alarmList.size());
-        levelAnalysisItem.setAllCount(baseMapper.selectCount(Wrappers.lambdaQuery()));
+        levelAnalysisItem.setAllCount(Math.toIntExact(baseMapper.selectCount(Wrappers.lambdaQuery())));
         return levelAnalysisItem;
     }
 

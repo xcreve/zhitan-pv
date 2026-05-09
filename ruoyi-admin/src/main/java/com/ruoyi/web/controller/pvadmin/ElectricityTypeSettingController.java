@@ -11,8 +11,8 @@ import com.ruoyi.pvadmin.domain.dto.ElectricityTypeSettingQueryDTO;
 import com.ruoyi.pvadmin.domain.dto.ElectricityTypeSettingSubmitDTO;
 import com.ruoyi.pvadmin.domain.vo.ElectricityTypeSettingVO;
 import com.ruoyi.pvadmin.service.IElectricityTypeSettingService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/electricityTypeSetting")
-@Api(value = "峰平谷配置管理", tags = "峰平谷配置管理")
+@Tag(name = "峰平谷配置管理")
 public class ElectricityTypeSettingController extends BaseController {
 
     @Autowired
@@ -37,7 +37,7 @@ public class ElectricityTypeSettingController extends BaseController {
      * 查询峰平谷配置列表
      */
     @GetMapping("/list")
-    @ApiOperation("查询峰平谷配置列表")
+    @Operation(summary = "查询峰平谷配置列表")
     public TableDataInfo list(ElectricityTypeSettingQueryDTO dto) {
         startPage();
         List<ElectricityTypeSettingVO> list = electricityTypeSettingService.selectElectricityTypeSettingList(dto);
@@ -48,7 +48,7 @@ public class ElectricityTypeSettingController extends BaseController {
      * 获取峰平谷配置详细信息
      */
     @GetMapping(value = "/{id}")
-    @ApiOperation("获取峰平谷配置详细信息")
+    @Operation(summary = "获取峰平谷配置详细信息")
     public AjaxResult getInfo(@PathVariable("id") String id) {
 
         if (StringUtils.isBlank(id)) {
@@ -61,7 +61,7 @@ public class ElectricityTypeSettingController extends BaseController {
      * 新增峰平谷配置
      */
     @PostMapping
-    @ApiOperation("新增峰平谷配置")
+    @Operation(summary = "新增峰平谷配置")
     @Log(title = "峰平谷配置", businessType = BusinessType.INSERT)
     public AjaxResult add(@Validated @RequestBody ElectricityTypeSettingSubmitDTO dto) {
         String msg = electricityTypeSettingService.insertElectricityTypeSetting(dto);
@@ -76,7 +76,7 @@ public class ElectricityTypeSettingController extends BaseController {
      * 修改峰平谷配置
      */
     @PutMapping
-    @ApiOperation("修改峰平谷配置")
+    @Operation(summary = "修改峰平谷配置")
     @Log(title = "峰平谷配置", businessType = BusinessType.UPDATE)
     public AjaxResult edit(@RequestBody ElectricityTypeSettingSubmitDTO dto) {
         if (StringUtils.isBlank(dto.getId())) {
@@ -94,7 +94,7 @@ public class ElectricityTypeSettingController extends BaseController {
      * 删除峰平谷配置
      */
     @DeleteMapping("/{id}")
-    @ApiOperation("删除峰平谷配置")
+    @Operation(summary = "删除峰平谷配置")
     @Log(title = "删除峰平谷配置", businessType = BusinessType.DELETE)
     public AjaxResult remove(@PathVariable String id) {
         return toAjax(electricityTypeSettingService.deleteElectricityTypeSettingById(id));
@@ -104,7 +104,7 @@ public class ElectricityTypeSettingController extends BaseController {
      * 新增峰平谷子项配置
      */
     @PostMapping("/addItem")
-    @ApiOperation("新增峰平谷子项配置")
+    @Operation(summary = "新增峰平谷子项配置")
     @Log(title = "新增峰平谷子项配置", businessType = BusinessType.INSERT)
     public AjaxResult addItem(@Validated @RequestBody List<ElectricityTypeSettingItemSubmitDTO> dtoList) {
         if (CollectionUtils.isEmpty(dtoList)) {
@@ -122,7 +122,7 @@ public class ElectricityTypeSettingController extends BaseController {
      * 根据主项id查询峰平谷子项配置
      */
     @GetMapping("/listBySettingId/{settingId}")
-    @ApiOperation("根据主项id查询峰平谷子项配置")
+    @Operation(summary = "根据主项id查询峰平谷子项配置")
     @Log(title = "根据主项id查询峰平谷子项配置", businessType = BusinessType.INSERT)
     public AjaxResult listBySettingId(@PathVariable String settingId) {
         if (StringUtils.isBlank(settingId)) {

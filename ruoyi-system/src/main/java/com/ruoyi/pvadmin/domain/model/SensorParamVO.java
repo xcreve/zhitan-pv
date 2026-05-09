@@ -1,7 +1,7 @@
 package com.ruoyi.pvadmin.domain.model;
 
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
 @Data
 public class SensorParamVO {
 
-    @ApiModelProperty(value = "设备名称")
+    @Schema(description = "设备名称")
     private String deviceName;
 
     /**
@@ -23,6 +23,6 @@ public class SensorParamVO {
      */
     private boolean offline;
 
-    @ApiModelProperty(value = "点位信息")
+    @Schema(description = "点位信息")
     private List<RealTimeIndexParam> indexArray;
 }

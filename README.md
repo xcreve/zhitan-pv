@@ -88,12 +88,41 @@
 
 ## 快速启动（后端）
 
-请参考升级前基线文档：`docs/BASELINE.md`。
+请参考升级过程文档：`docs/UPGRADE_*.md`。
 
 补充说明：
-- dev profile 默认使用 H2 内存库启动（端口 9050）。
-- 如需使用 MySQL，请按 `docs/BASELINE.md` 准备数据库并执行初始化 SQL。
+- 当前后端基线：RuoYi 3.9.2 / Spring Boot 4.0.3 / JDK 17（实测兼容 JDK 21）。
+- dev profile 默认使用 H2 内存库启动，端口 9050；prod profile 使用 MySQL。
+- 启动命令：`java -jar ruoyi-admin/target/ruoyi-admin.jar --spring.profiles.active=dev`。
 - H2 Console（仅 dev）：`http://localhost:9050/h2-console`。
+
+## 快速启动（前端）
+
+- 前端基线：Vue 3.5 + TypeScript + Vite 6 + Element Plus 2.13。
+- 启动命令：`cd ruoyi-ui && npm install && npm run dev`。
+- 默认登录：`admin / admin123`（dev profile captcha 关闭）。
+
+## 升级历史
+
+### v3.9.2 全栈现代化升级（2026-05）
+
+- **后端**：Spring Boot 2.5.15 → 4.0.3，JDK 1.8 → 17，javax → jakarta，Spring Security 5.7 → 6.x
+- **前端**：自研 Vue3 → 官方 RuoYi-Vue3 TypeScript 蓝本，Pinia 2 → 3，Vite 5 → 6.4
+- **依赖**：MyBatis-Plus 3.5.16、Druid 4-starter、Springdoc OpenAPI 3.0、Pagehelper 2.1
+- **业务**：pvadmin 业务包（21 模块）整体迁回新基线；微信小程序订阅消息保持裸 HTTP；InfluxDB client 6.10
+- **菜单**：从前端硬编码改为后端 sys_menu 动态注入（SQL：`sql/upgrade/pvadmin_menus.sql`）
+
+升级过程文档：
+- [docs/UPGRADE_INVENTORY.md](docs/UPGRADE_INVENTORY.md) - 业务盘点
+- [docs/UPGRADE_REF_NOTES.md](docs/UPGRADE_REF_NOTES.md) - 官方蓝本对照
+- [docs/UPGRADE_SMOKE.md](docs/UPGRADE_SMOKE.md) - 全栈冒烟报告
+
+非阻塞性遗留观察（建议后续小修）：
+- `pvadmin/influxdb/InfluxDBRepository.java:44` 把"实时数据库连接成功"日志级别从 ERROR 改为 INFO
+- pvadmin 内 11 处 `Math.toIntExact(MP.selectCount())` 可重构为变量类型 long
+- 前端主 chunk 1.7MB 可通过 `build.rollupOptions.manualChunks` 拆分 echarts/element-plus
+- vue-tsc 308 条历史欠债集中在官方 monitor/tool/system 模板，可独立清理
+- dev profile captchaEnabled=false，生产部署前确认开启
 
 ## 沟通交流
 

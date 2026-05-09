@@ -19,8 +19,8 @@ import com.ruoyi.pvadmin.domain.vo.DeviceGenerationStatsVO;
 import com.ruoyi.pvadmin.domain.vo.DeviceIndexVO;
 import com.ruoyi.pvadmin.domain.vo.DeviceVO;
 import com.ruoyi.pvadmin.service.IDeviceService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * 设备管理Controller
  */
-@Api(value = "设备管理", tags = "设备管理")
+@Tag(name = "设备管理")
 @RestController
 @RequestMapping("/device")
 public class DeviceController extends BaseController {
@@ -43,7 +43,7 @@ public class DeviceController extends BaseController {
      * 查询设备管理列表
      */
     @GetMapping("/list")
-    @ApiOperation("查询设备管理列表")
+    @Operation(summary = "查询设备管理列表")
     public TableDataInfo list(DeviceQueryDTO dto) {
         startPage();
         List<DeviceVO> list = deviceService.selectDeviceList(dto);
@@ -54,7 +54,7 @@ public class DeviceController extends BaseController {
      * 查询逆变器发电统计
      */
     @GetMapping("/getInverterGenerationStats")
-    @ApiOperation("查询逆变器发电统计")
+    @Operation(summary = "查询逆变器发电统计")
     public TableDataInfo getInverterGenerationStats(@Validated DeviceGenerationStatsDTO dto) {
         PageDomain pageDomain = TableSupport.buildPageRequest();
         Page<DeviceGenerationStatsVO> page = PageMethod.startPage(pageDomain.getPageNum(), pageDomain.getPageSize());
@@ -70,7 +70,7 @@ public class DeviceController extends BaseController {
      * 获取设备管理详细信息
      */
     @GetMapping(value = "/{id}")
-    @ApiOperation("获取设备管理详细信息")
+    @Operation(summary = "获取设备管理详细信息")
     public AjaxResult getInfo(@PathVariable("id") String id) {
         if (StringUtils.isBlank(id)) {
             return AjaxResult.success(new DeviceVO());
@@ -83,7 +83,7 @@ public class DeviceController extends BaseController {
      * 新增设备管理
      */
     @PostMapping
-    @ApiOperation("新增设备管理")
+    @Operation(summary = "新增设备管理")
     @Log(title = "设备管理", businessType = BusinessType.INSERT)
     public AjaxResult add(@Validated @RequestBody DeviceSubmitDTO dto) {
 
@@ -99,7 +99,7 @@ public class DeviceController extends BaseController {
      * 修改设备管理
      */
     @PutMapping
-    @ApiOperation("修改设备管理")
+    @Operation(summary = "修改设备管理")
     @Log(title = "设备管理", businessType = BusinessType.UPDATE)
     public AjaxResult edit(@Validated @RequestBody DeviceSubmitDTO dto) {
         String msg = deviceService.updateDevice(dto);
@@ -114,7 +114,7 @@ public class DeviceController extends BaseController {
      * 删除设备管理
      */
     @DeleteMapping("/{id}")
-    @ApiOperation("删除设备管理")
+    @Operation(summary = "删除设备管理")
     @Log(title = "设备管理", businessType = BusinessType.DELETE)
     public AjaxResult remove(@PathVariable String id) {
         return toAjax(deviceService.deleteDeviceById(id));
@@ -124,7 +124,7 @@ public class DeviceController extends BaseController {
      * 获取设备点位
      */
     @GetMapping("/index/{id}")
-    @ApiOperation("获取设备点位")
+    @Operation(summary = "获取设备点位")
     public AjaxResult deviceIndex(@PathVariable("id") String id) {
         if (StringUtils.isBlank(id)) {
             AjaxResult.error("请先选择设备");
@@ -137,7 +137,7 @@ public class DeviceController extends BaseController {
      * 编辑设备点位
      */
     @PutMapping("/factor")
-    @ApiOperation("编辑设备点位")
+    @Operation(summary = "编辑设备点位")
     @Log(title = "编辑设备点位", businessType = BusinessType.UPDATE)
     public AjaxResult updateFactor(@RequestBody List<DeviceFactorDTO> request) {
         deviceService.updateFactor(request);
@@ -148,7 +148,7 @@ public class DeviceController extends BaseController {
      * 根据设备id查询逆变器信息
      */
     @GetMapping("/getInverterInfo")
-    @ApiOperation("设备状态-根据设备id查询逆变器信息")
+    @Operation(summary = "设备状态-根据设备id查询逆变器信息")
     public AjaxResult getInverterInfo(@RequestParam(value = "id", defaultValue = "-1") String id) {
         return AjaxResult.success(deviceService.getInverterInfo(id));
     }
@@ -157,7 +157,7 @@ public class DeviceController extends BaseController {
      * 根据设备id查询发电信息、收益信息
      */
     @GetMapping("/getPowerGenerationInfo")
-    @ApiOperation("设备状态-根据设备id查询发电信息、收益信息")
+    @Operation(summary = "设备状态-根据设备id查询发电信息、收益信息")
     public AjaxResult getPowerGenerationInfo(@RequestParam(value = "id", defaultValue = "-1") String id) {
         return AjaxResult.success(deviceService.getPowerGenerationInfo(id));
     }
@@ -166,7 +166,7 @@ public class DeviceController extends BaseController {
      * 根据设备id获取发电趋势信息
      */
     @GetMapping("/getImplementedPower")
-    @ApiOperation("设备状态-根据设备id获取发电趋势信息")
+    @Operation(summary = "设备状态-根据设备id获取发电趋势信息")
     public AjaxResult getImplementedPower(@RequestParam(value = "id", defaultValue = "-1") String id,
                                           @RequestParam(value = "timeType") TimeTypeEnum timeType) {
         return AjaxResult.success(deviceService.getImplementedPower(id, timeType));
@@ -176,7 +176,7 @@ public class DeviceController extends BaseController {
      * 根据设备id获取交流测信息
      */
     @GetMapping("/getACMeasurementsByDeviceId")
-    @ApiOperation("设备状态-根据设备id获取交流测信息")
+    @Operation(summary = "设备状态-根据设备id获取交流测信息")
     public AjaxResult getACMeasurementsByDeviceId(@RequestParam(value = "id", defaultValue = "-1") String id) {
         return AjaxResult.success(deviceService.getACMeasurementsByDeviceId(id));
     }
@@ -185,7 +185,7 @@ public class DeviceController extends BaseController {
      * 根据设备id获取点检与维修信息
      */
     @GetMapping("/listDeviceInspectionByDeviceId")
-    @ApiOperation("设备状态-根据设备id获取点检与维修信息")
+    @Operation(summary = "设备状态-根据设备id获取点检与维修信息")
     public AjaxResult listDeviceInspectionByDeviceId(@RequestParam(value = "id", defaultValue = "-1") String id) {
         return AjaxResult.success(deviceService.listDeviceInspectionByDeviceId(id));
     }

@@ -1,7 +1,7 @@
 package com.ruoyi.pvadmin.domain.vo;
 
 import com.ruoyi.pvadmin.domain.model.GenerationStatisticsItemModel;
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -11,7 +11,7 @@ import java.util.List;
  * 尖峰平谷报表 vo
  */
 @Data
-@ApiModel(value = "尖峰平谷报表 vo", description = "尖峰平谷报表 vo")
+@Schema(description = "尖峰平谷报表 vo")
 public class PeakAndValleyReportVO {
 
     /**

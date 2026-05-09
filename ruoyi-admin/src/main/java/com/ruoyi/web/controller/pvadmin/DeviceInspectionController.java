@@ -13,20 +13,20 @@ import com.ruoyi.pvadmin.domain.vo.DeviceInspectionExportVO;
 import com.ruoyi.pvadmin.domain.vo.DeviceInspectionVO;
 import com.ruoyi.pvadmin.domain.vo.SparePartsVO;
 import com.ruoyi.pvadmin.service.IDeviceInspectionService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
  * 设备点检Controller
  */
-@Api(value = "设备点检管理", tags = "设备点检管理")
+@Tag(name = "设备点检管理")
 @RestController
 @RequestMapping("/inspection")
 public class DeviceInspectionController extends BaseController {
@@ -38,7 +38,7 @@ public class DeviceInspectionController extends BaseController {
      * 查询设备点检列表
      */
     @GetMapping("/list")
-    @ApiOperation("查询设备点检列表")
+    @Operation(summary = "查询设备点检列表")
     public TableDataInfo list(DeviceInspectionQueryDTO dto) {
         startPage();
         List<DeviceInspectionVO> list = deviceInspectionService.selectDeviceInspectionList(dto);
@@ -49,7 +49,7 @@ public class DeviceInspectionController extends BaseController {
      * 获取设备点检详细信息
      */
     @GetMapping(value = "/{id}")
-    @ApiOperation("获取设备点检详细信息")
+    @Operation(summary = "获取设备点检详细信息")
     public AjaxResult getInfo(@PathVariable("id") String id) {
         return success(deviceInspectionService.selectDeviceInspectionById(id));
     }
@@ -58,7 +58,7 @@ public class DeviceInspectionController extends BaseController {
      * 新增设备点检
      */
     @PostMapping
-    @ApiOperation("新增设备点检")
+    @Operation(summary = "新增设备点检")
     @Log(title = "设备点检", businessType = BusinessType.INSERT)
     public AjaxResult add(@Validated @RequestBody DeviceInspectionSubmitDTO dto) {
         return toAjax(deviceInspectionService.insertDeviceInspection(dto));
@@ -68,7 +68,7 @@ public class DeviceInspectionController extends BaseController {
      * 修改设备点检
      */
     @PutMapping
-    @ApiOperation("修改设备点检")
+    @Operation(summary = "修改设备点检")
     @Log(title = "设备点检", businessType = BusinessType.UPDATE)
     public AjaxResult edit(@Validated @RequestBody DeviceInspectionSubmitDTO dto) {
         if (StringUtils.isBlank(dto.getId())) {
@@ -81,7 +81,7 @@ public class DeviceInspectionController extends BaseController {
      * 删除设备点检
      */
     @DeleteMapping("/{id}")
-    @ApiOperation("删除设备点检")
+    @Operation(summary = "删除设备点检")
     @Log(title = "设备点检", businessType = BusinessType.DELETE)
     public AjaxResult remove(@PathVariable String id) {
         return toAjax(deviceInspectionService.deleteDeviceInspectionById(id));

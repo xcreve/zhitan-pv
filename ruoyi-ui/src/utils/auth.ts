@@ -1,17 +1,15 @@
-const TOKEN_KEY = 'zhitan_pv_token'
+import Cookies from 'js-cookie'
 
-export function getToken(): string {
-  return localStorage.getItem(TOKEN_KEY) || ''
+const TokenKey = 'Admin-Token'
+
+export function getToken(): string | undefined {
+  return Cookies.get(TokenKey)
 }
 
-export function setToken(token: string): void {
-  localStorage.setItem(TOKEN_KEY, token)
+export function setToken(token: string): string | undefined {
+  return Cookies.set(TokenKey, token)
 }
 
 export function removeToken(): void {
-  localStorage.removeItem(TOKEN_KEY)
-}
-
-export function hasToken(): boolean {
-  return Boolean(getToken())
+  Cookies.remove(TokenKey)
 }

@@ -33,7 +33,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
@@ -609,10 +609,10 @@ public class DeviceServiceImpl extends ServiceImpl<DeviceMapper, Device> impleme
      */
     private boolean isDuplicate(DeviceSubmitDTO dto) {
 
-        int count = baseMapper.selectCount(Wrappers.<Device>lambdaQuery()
+        int count = Math.toIntExact(baseMapper.selectCount(Wrappers.<Device>lambdaQuery()
                 .ne(StringUtils.isNotBlank(dto.getId()), Device::getId, dto.getId())
                 .eq(Device::getCode, dto.getCode())
-        );
+        ));
         return count > Constants.DIGIT_0;
     }
 

@@ -36,7 +36,7 @@ public class InventoryLocationServiceImpl extends ServiceImpl<InventoryLocationM
     public void create(InventoryLocationDTO dto) {
         LambdaQueryWrapper<InventoryLocation> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(InventoryLocation::getLocation, dto.getLocation());
-        Integer count = baseMapper.selectCount(queryWrapper);
+        Integer count = Math.toIntExact(baseMapper.selectCount(queryWrapper));
         if (count > 0) {
             throw new BaseException("库存地点已存在，创建失败！");
         }
@@ -50,7 +50,7 @@ public class InventoryLocationServiceImpl extends ServiceImpl<InventoryLocationM
         LambdaQueryWrapper<InventoryLocation> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(InventoryLocation::getLocation, dto.getLocation());
         queryWrapper.ne(InventoryLocation::getId, dto.getId());
-        Integer count = baseMapper.selectCount(queryWrapper);
+        Integer count = Math.toIntExact(baseMapper.selectCount(queryWrapper));
         if (count > 0) {
             throw new BaseException("库存地点已存在，更新失败！");
         }

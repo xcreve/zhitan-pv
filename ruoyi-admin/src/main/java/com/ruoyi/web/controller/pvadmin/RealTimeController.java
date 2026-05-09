@@ -8,8 +8,8 @@ import com.ruoyi.pvadmin.domain.dto.LoadAnalysisDTO;
 import com.ruoyi.pvadmin.domain.dto.PowerFactorAnalysisDTO;
 import com.ruoyi.pvadmin.domain.dto.ThreePhaseUnbalanceAnalysisDTO;
 import com.ruoyi.pvadmin.service.IRealtimeDataService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 实时数据 控制层
  */
 @RestController
-@Api(value = "实时数据管理", tags = "实时数据管理")
+@Tag(name = "实时数据管理")
 @RequestMapping("/realTime")
 public class RealTimeController extends BaseController {
 
@@ -32,7 +32,7 @@ public class RealTimeController extends BaseController {
     /**
      * 查询电表实时数据
      */
-    @ApiOperation("查询实时数据")
+    @Operation(summary = "查询实时数据")
     @GetMapping("/listRealTime")
     public AjaxResult listRealTime(@RequestParam(value = "powerStationId", defaultValue = "-1") String powerStationId,
                                    @RequestParam(value = "ammeter", required = false) Boolean ammeter) {
@@ -46,7 +46,7 @@ public class RealTimeController extends BaseController {
     /**
      * 查询负荷分析信息
      */
-    @ApiOperation("查询负荷分析信息")
+    @Operation(summary = "查询负荷分析信息")
     @GetMapping("/listLoadAnalysis")
     public AjaxResult listLoadAnalysis(@Validated LoadAnalysisDTO dto) {
 
@@ -56,7 +56,7 @@ public class RealTimeController extends BaseController {
     /**
      * 查询负荷分析详情
      */
-    @ApiOperation("查询负荷分析详情")
+    @Operation(summary = "查询负荷分析详情")
     @GetMapping("/getLoadAnalysisDetail")
     public AjaxResult getLoadAnalysisDetail(@Validated LoadAnalysisDTO dto) {
 
@@ -66,7 +66,7 @@ public class RealTimeController extends BaseController {
     /**
      * 查询三相不平衡信息
      */
-    @ApiOperation("查询三相不平衡信息")
+    @Operation(summary = "查询三相不平衡信息")
     @GetMapping("/listThreePhaseUnbalanceAnalysis")
     public AjaxResult listThreePhaseUnbalanceAnalysis(@Validated ThreePhaseUnbalanceAnalysisDTO dto) {
 
@@ -76,7 +76,7 @@ public class RealTimeController extends BaseController {
     /**
      * 查询三相不平衡详细信息
      */
-    @ApiOperation("查询负荷分析详情")
+    @Operation(summary = "查询负荷分析详情")
     @GetMapping("/getThreePhaseUnbalanceAnalysisDetail")
     public AjaxResult getThreePhaseUnbalanceAnalysisDetail(@Validated ThreePhaseUnbalanceAnalysisDTO dto) {
 
@@ -86,7 +86,7 @@ public class RealTimeController extends BaseController {
     /**
      * 查询功率因数分析信息
      */
-    @ApiOperation("查询功率因数分析信息")
+    @Operation(summary = "查询功率因数分析信息")
     @GetMapping("/getPowerFactorAnalysis")
     public AjaxResult getPowerFactorAnalysis(@Validated PowerFactorAnalysisDTO dto) {
 

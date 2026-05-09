@@ -1,20 +1,23 @@
 package com.ruoyi.common.utils.bean;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-import javax.validation.Validator;
 import java.util.Set;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Validator;
 
 /**
  * bean对象属性验证
- *
+ * 
  * @author ruoyi
  */
-public class BeanValidators {
+public class BeanValidators
+{
     public static void validateWithException(Validator validator, Object object, Class<?>... groups)
-            throws ConstraintViolationException {
+            throws ConstraintViolationException
+    {
         Set<ConstraintViolation<Object>> constraintViolations = validator.validate(object, groups);
-        if (!constraintViolations.isEmpty()) {
+        if (!constraintViolations.isEmpty())
+        {
             throw new ConstraintViolationException(constraintViolations);
         }
     }

@@ -3,7 +3,7 @@ package com.ruoyi.pvadmin.domain.dto;
 import com.ruoyi.common.core.domain.BaseEntity;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
 /**

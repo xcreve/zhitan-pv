@@ -4,21 +4,21 @@ import com.ruoyi.pvadmin.service.IWXSubscribeService;
 import com.ruoyi.web.weixin.mp.aes.AesException;
 import com.ruoyi.web.weixin.mp.aes.SHA1;
 import com.ruoyi.web.weixin.mp.service.IWeChatService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 @RestController
 @RequestMapping("/wx")
-@Api(value = "微信", tags = "微信")
+@Tag(name = "微信")
 @Slf4j
 public class WXController {
 
@@ -40,7 +40,7 @@ public class WXController {
      * 微信平台验证接入
      */
     @GetMapping("/msg")
-    @ApiOperation("微信-验证")
+    @Operation(summary = "微信-验证")
     public String msgVerify(@RequestParam(value = "signature") String msgSignature,
                             @RequestParam(value = "timestamp") String timestamp,
                             @RequestParam(value = "nonce") String nonce,
@@ -56,7 +56,7 @@ public class WXController {
      * 微信平台处理微信的消息
      */
     @PostMapping("/msg")
-    @ApiOperation("微信-处理消息")
+    @Operation(summary = "微信-处理消息")
     @ResponseBody
     public String msg(HttpServletRequest request,
                       @RequestParam(value = "signature", required = false) String msgSignature,
@@ -85,7 +85,7 @@ public class WXController {
     }
 
     @PostMapping("/send")
-    @ApiOperation("微信-发送消息")
+    @Operation(summary = "微信-发送消息")
     @ResponseBody
     public String send() {
         weChatService.sendAlarmMessage();

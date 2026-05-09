@@ -5,7 +5,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
 import com.ruoyi.common.enums.TimeTypeEnum;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 
 /**

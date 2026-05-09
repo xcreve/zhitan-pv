@@ -17,12 +17,12 @@ import com.ruoyi.pvadmin.domain.vo.DeviceGenerationStatsVO;
 import com.ruoyi.pvadmin.domain.vo.SparePartsVO;
 import com.ruoyi.pvadmin.domain.vo.StockOperationRecordVO;
 import com.ruoyi.pvadmin.service.ISparePartsService;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -41,7 +41,7 @@ public class SparePartsController extends BaseController {
      * 查询备品备件列表
      */
     @GetMapping("/list")
-    @ApiOperation("查询备品备件列表")
+    @Operation(summary = "查询备品备件列表")
     public TableDataInfo list(SparePartsVO spareParts) {
         startPage();
         List<SparePartsVO> list = sparePartsService.selectSparePartsList(spareParts);
@@ -52,7 +52,7 @@ public class SparePartsController extends BaseController {
      * 查询出库入库操作记录列表
      */
     @GetMapping("/listOperationRecords")
-    @ApiOperation("查询出库入库操作记录列表")
+    @Operation(summary = "查询出库入库操作记录列表")
     public TableDataInfo listOperationRecords(SparePartsRecordQueryDTO dto) {
         PageDomain pageDomain = TableSupport.buildPageRequest();
         Page<DeviceGenerationStatsVO> page = PageMethod.startPage(pageDomain.getPageNum(), pageDomain.getPageSize());
@@ -83,7 +83,7 @@ public class SparePartsController extends BaseController {
 
     @Log(title = "更新备品备件", businessType = BusinessType.UPDATE)
     @PostMapping("/update")
-    @ApiOperation("更新备品备件")
+    @Operation(summary = "更新备品备件")
     public AjaxResult edit(@RequestBody SparePartsVO spareParts) {
         sparePartsService.edit(spareParts);
         return success();
@@ -91,7 +91,7 @@ public class SparePartsController extends BaseController {
 
     @Log(title = "删除备品备件", businessType = BusinessType.UPDATE)
     @DeleteMapping("/delete")
-    @ApiOperation("删除备品备件")
+    @Operation(summary = "删除备品备件")
     public AjaxResult delete(@RequestParam(name = "id") String id) {
         sparePartsService.deleteSparePartsById(id);
         return success();
@@ -101,7 +101,7 @@ public class SparePartsController extends BaseController {
      * 新增备品备件（新增/入库）
      */
     @Log(title = "备品备件", businessType = BusinessType.INSERT)
-    @ApiOperation("备品备件入库")
+    @Operation(summary = "备品备件入库")
     @PostMapping
     public AjaxResult inBound(@RequestBody SparePartsVO spareParts) {
         if (StringUtils.isEmpty(spareParts.getCode())) {
@@ -123,7 +123,7 @@ public class SparePartsController extends BaseController {
      * 修改备品备件
      */
     @Log(title = "备品备件", businessType = BusinessType.UPDATE)
-    @ApiOperation("备品备件出库")
+    @Operation(summary = "备品备件出库")
     @PutMapping
     public AjaxResult outBound(@RequestBody SparePartsVO spareParts) {
         return toAjax(sparePartsService.outBound(spareParts));

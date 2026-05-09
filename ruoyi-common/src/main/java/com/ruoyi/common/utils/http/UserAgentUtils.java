@@ -95,29 +95,29 @@ public class UserAgentUtils
         {
             return "Edge" + edgeMatcher.group(1);
         }
-        // Safari浏览器
+        // Safari浏览器（需排除Chrome）
         Matcher safariMatcher = SAFARI_PATTERN.matcher(browser);
-        if (safariMatcher.find() && browser.contains("Safari") && !browser.contains("Chrome"))
+        if (safariMatcher.find() && !browser.contains("Chrome"))
         {
             return "Safari" + safariMatcher.group(1);
         }
-        // 微信浏览器
+        // 微信内置浏览器
         Matcher wechatMatcher = WECHAT_PATTERN.matcher(browser);
         if (wechatMatcher.find())
         {
             return "WeChat" + wechatMatcher.group(1);
         }
-        // QQ浏览器
-        Matcher qqMatcher = QQ_PATTERN.matcher(browser);
-        if (qqMatcher.find())
-        {
-            return "QQBrowser" + qqMatcher.group(1);
-        }
         // UC浏览器
         Matcher ucMatcher = UC_PATTERN.matcher(browser);
         if (ucMatcher.find())
         {
-            return "UCBrowser" + ucMatcher.group(1);
+            return "UC Browser" + ucMatcher.group(1);
+        }
+        // QQ浏览器
+        Matcher qqMatcher = QQ_PATTERN.matcher(browser);
+        if (qqMatcher.find())
+        {
+            return "QQ Browser" + qqMatcher.group(1);
         }
         // 百度浏览器
         Matcher baiduMatcher = BAIDU_PATTERN.matcher(browser);
