@@ -35,6 +35,13 @@ class XMLParse {
 		Object[] result = new Object[3];
 		try {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			// XXE 防护：禁用 DOCTYPE 声明、外部实体、外部 DTD
+			dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+			dbf.setFeature("http://xml.org/sax/features/external-general-entities", false);
+			dbf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+			dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+			dbf.setXIncludeAware(false);
+			dbf.setExpandEntityReferences(false);
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			StringReader sr = new StringReader(xmltext);
 			InputSource is = new InputSource(sr);
