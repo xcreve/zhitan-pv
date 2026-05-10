@@ -43,6 +43,7 @@
 import cache from '@/plugins/cache'
 import type { TableShowColumns } from '@/types/api/common'
 import { useProxy } from '@/composables/useProxy'
+import type { CheckboxValueType, TransferKey } from 'element-plus'
 
 const props = defineProps({
   /* 是否显示检索条件 */
@@ -140,15 +141,16 @@ function refresh(): void {
 }
 
 // 右侧列表元素变化
-function dataChange(data: number[]): void {
+function dataChange(value: TransferKey[]): void {
+  const numericValue = value.map((v) => Number(v))
   if (Array.isArray(props.columns)) {
     for (let item in props.columns) {
       const key = props.columns[item].key
-      props.columns[item].visible = !data.includes(parseInt(key))
+      props.columns[item].visible = !numericValue.includes(parseInt(key))
     }
   } else {
     Object.keys(props.columns).forEach((key, index) => {
-      props.columns[key].visible = !data.includes(index)
+      props.columns[key].visible = !numericValue.includes(index)
     })
   }
   saveStorage()
@@ -194,7 +196,7 @@ if (props.showColumnsType == "transfer") {
 }
 
 // 单勾选
-function checkboxChange(event: boolean, key: string): void {
+function checkboxChange(event: CheckboxValueType, key: string): void {
   if (Array.isArray(props.columns)) {
     const col = props.columns.filter((item: any) => item.key == key)[0]
     if (col) {
@@ -207,7 +209,7 @@ function checkboxChange(event: boolean, key: string): void {
 }
 
 // 切换全选/反选
-function toggleCheckAll(): void {
+function toggleCheckAll(_value?: CheckboxValueType): void {
   const newValue = !isChecked.value
   if (Array.isArray(props.columns)) {
     props.columns.forEach((col: TableShowColumns) => (col.visible = newValue))

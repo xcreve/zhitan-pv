@@ -32,6 +32,7 @@ import { QuillEditor } from "@vueup/vue-quill"
 import "@vueup/vue-quill/dist/vue-quill.snow.css"
 import { getToken } from "@/utils/auth"
 import type { UploadFileResult } from '@/types/api/common'
+import type { UploadFile, UploadFiles } from 'element-plus'
 import { useProxy } from '@/composables/useProxy'
 
 const proxy = useProxy()
@@ -109,7 +110,7 @@ const styles = computed(() => {
 })
 
 const content = ref("")
-watch(() => props.modelValue, (v: string) => {
+watch(() => props.modelValue, (v: string | undefined) => {
   if (v !== content.value) {
     content.value = v == undefined ? "<p></p>" : v
   }
@@ -152,7 +153,8 @@ function handleBeforeUpload(file: File) {
 }
 
 // 上传成功处理
-function handleUploadSuccess(res: UploadFileResult, file: File) {
+function handleUploadSuccess(response: any, _uploadFile?: UploadFile, _uploadFiles?: UploadFiles) {
+  const res = response as UploadFileResult
   // 如果上传成功
   if (res.code == 200) {
     // 获取富文本实例
@@ -192,7 +194,7 @@ function insertImage(file: File) {
   const formData = new FormData()
   formData.append("file", file)
   axios.post(uploadUrl.value, formData, { headers: { "Content-Type": "multipart/form-data", Authorization: headers.value.Authorization } }).then((res: { data: UploadFileResult }) => {
-    handleUploadSuccess(res.data as UploadFileResult, file)
+    handleUploadSuccess(res.data, file as unknown as UploadFile, [])
   })
 }
 </script>

@@ -111,7 +111,7 @@ watch(() => props.modelValue, (val: any) => {
   if (val) {
     let temp = 1
     // 首先将值转为数组
-    const list = Array.isArray(val) ? val : props.modelValue.split(',')
+    const list = Array.isArray(val) ? val : String(val).split(',')
     // 然后将数组转为对象数组
     fileList.value = list.map((item: any) => {
       if (typeof item === "string") {
