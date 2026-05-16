@@ -66,7 +66,7 @@
                plain
                icon="Edit"
                :disabled="single"
-               @click="handleUpdate"
+               @click="handleUpdate()"
                v-hasPermi="['system:dict:edit']"
             >修改</el-button>
          </el-col>
@@ -76,7 +76,7 @@
                plain
                icon="Delete"
                :disabled="multiple"
-               @click="handleDelete"
+               @click="handleDelete()"
                v-hasPermi="['system:dict:remove']"
             >删除</el-button>
          </el-col>
@@ -201,7 +201,7 @@ const total = ref<number>(0)
 const title = ref<string>("")
 const dateRange = ref<string[]>([])
 const drawerVisible = ref<boolean>(false)
-const drawerRow = ref<SysDictType[]>([])
+const drawerRow = ref<SysDictType>({} as SysDictType)
 
 const data = reactive({
   form: {} as SysDictType,
@@ -224,7 +224,7 @@ const { queryParams, form, rules } = toRefs(data)
 function getList() {
   loading.value = true
   listType(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
-    typeList.value = response.rows
+    typeList.value = response.rows as unknown as SysDictType[]
     total.value = response.total
     loading.value = false
   })

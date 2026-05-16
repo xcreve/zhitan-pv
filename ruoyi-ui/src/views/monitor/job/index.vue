@@ -52,7 +52,7 @@
                plain
                icon="Edit"
                :disabled="single"
-               @click="handleUpdate"
+               @click="handleUpdate()"
                v-hasPermi="['monitor:job:edit']"
             >修改</el-button>
          </el-col>
@@ -62,7 +62,7 @@
                plain
                icon="Delete"
                :disabled="multiple"
-               @click="handleDelete"
+               @click="handleDelete()"
                v-hasPermi="['monitor:job:remove']"
             >删除</el-button>
          </el-col>
@@ -80,7 +80,7 @@
                type="info"
                plain
                icon="Operation"
-               @click="handleJobLog"
+               @click="handleJobLog()"
                v-hasPermi="['monitor:job:query']"
             >日志</el-button>
          </el-col>
@@ -284,7 +284,7 @@ const { queryParams, form, rules } = toRefs(data)
 function getList() {
   loading.value = true
   listJob(queryParams.value).then(response => {
-    jobList.value = response.rows
+    jobList.value = response.rows as unknown as SysJob[]
     total.value = response.total
     loading.value = false
   })
@@ -371,8 +371,8 @@ function crontabFill(value: string) {
 }
 
 /** 任务日志列表查询 */
-function handleJobLog(row: SysJob) {
-  const jobId = row.jobId || 0
+function handleJobLog(row?: SysJob) {
+  const jobId = row?.jobId || 0
   router.push('/monitor/job-log/index/' + jobId)
 }
 

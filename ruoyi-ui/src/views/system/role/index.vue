@@ -65,7 +65,7 @@
                plain
                icon="Edit"
                :disabled="single"
-               @click="handleUpdate"
+               @click="handleUpdate()"
                v-hasPermi="['system:role:edit']"
             >修改</el-button>
          </el-col>
@@ -75,7 +75,7 @@
                plain
                icon="Delete"
                :disabled="multiple"
-               @click="handleDelete"
+               @click="handleDelete()"
                v-hasPermi="['system:role:remove']"
             >删除</el-button>
          </el-col>
@@ -248,6 +248,7 @@ import type { SysRole, RoleQueryParams } from '@/types/api/system/role'
 import type { TreeSelect } from '@/types/api/common'
 import type { RoleDeptTreeResult } from '@/types/api/system/role'
 import type { RoleMenuTreeselectResult } from '@/types/api/system/menu'
+import type { CheckboxValueType } from 'element-plus'
 import { useProxy } from '@/composables/useProxy'
 
 const router = useRouter()
@@ -305,7 +306,7 @@ const { queryParams, form, rules } = toRefs(data)
 function getList() {
   loading.value = true
   listRole(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
-    roleList.value = response.rows
+    roleList.value = response.rows as unknown as SysRole[]
     total.value = response.total
     loading.value = false
   })
@@ -383,7 +384,7 @@ function handleAuthUser(row: SysRole) {
 /** 查询菜单树结构 */
 function getMenuTreeselect() {
   menuTreeselect().then(response => {
-    menuOptions.value = response.data
+    menuOptions.value = response.data ?? []
   })
 }
 
@@ -469,35 +470,44 @@ function getDeptTree(roleId: number) { Promise<RoleDeptTreeResult>
 }
 
 /** 树权限（展开/折叠）*/
-function handleCheckedTreeExpand(value: boolean, type: string) {
+function handleCheckedTreeExpand(value: CheckboxValueType, type: string) {
+  const checked = value === true
   if (type == "menu") {
     let treeList = menuOptions.value
     for (let i = 0; i < treeList.length; i++) {
-      menuRef.value.store.nodesMap[treeList[i].id].expanded = value
+      const nodeId = treeList[i].id
+      if (nodeId != undefined) {
+        menuRef.value.store.nodesMap[nodeId].expanded = checked
+      }
     }
   } else if (type == "dept") {
     let treeList = deptOptions.value
     for (let i = 0; i < treeList.length; i++) {
-      deptRef.value.store.nodesMap[treeList[i].id].expanded = value
+      const nodeId = treeList[i].id
+      if (nodeId != undefined) {
+        deptRef.value.store.nodesMap[nodeId].expanded = checked
+      }
     }
   }
 }
 
 /** 树权限（全选/全不选） */
-function handleCheckedTreeNodeAll(value: boolean, type: string) {
+function handleCheckedTreeNodeAll(value: CheckboxValueType, type: string) {
+  const checked = value === true
   if (type == "menu") {
-    menuRef.value.setCheckedNodes(value ? menuOptions.value : [])
+    menuRef.value.setCheckedNodes(checked ? menuOptions.value : [])
   } else if (type == "dept") {
-    deptRef.value.setCheckedNodes(value ? deptOptions.value : [])
+    deptRef.value.setCheckedNodes(checked ? deptOptions.value : [])
   }
 }
 
 /** 树权限（父子联动） */
-function handleCheckedTreeConnect(value: boolean, type: string) {
+function handleCheckedTreeConnect(value: CheckboxValueType, type: string) {
+  const checked = value === true
   if (type == "menu") {
-    form.value.menuCheckStrictly = value ? true : false
+    form.value.menuCheckStrictly = checked
   } else if (type == "dept") {
-    form.value.deptCheckStrictly = value ? true : false
+    form.value.deptCheckStrictly = checked
   }
 }
 
