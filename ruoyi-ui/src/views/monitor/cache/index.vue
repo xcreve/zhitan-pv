@@ -69,7 +69,7 @@ import { getCache } from '@/api/monitor/cache'
 import * as echarts from 'echarts'
 import { useProxy } from '@/composables/useProxy'
 
-const cache = ref([])
+const cache = ref<any>({})
 const commandstats = ref(null)
 const usedmemory = ref(null)
 const proxy = useProxy()
