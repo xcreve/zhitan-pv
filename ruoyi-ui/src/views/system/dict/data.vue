@@ -7,7 +7,7 @@
                   v-for="item in typeOptions"
                   :key="item.dictId"
                   :label="item.dictName"
-                  :value="item.dictType"
+                  :value="item.dictType || ''"
                />
             </el-select>
          </el-form-item>
@@ -52,7 +52,7 @@
                plain
                icon="Edit"
                :disabled="single"
-               @click="handleUpdate"
+               @click="handleUpdate()"
                v-hasPermi="['system:dict:edit']"
             >修改</el-button>
          </el-col>
@@ -62,7 +62,7 @@
                plain
                icon="Delete"
                :disabled="multiple"
-               @click="handleDelete"
+               @click="handleDelete()"
                v-hasPermi="['system:dict:remove']"
             >删除</el-button>
          </el-col>
@@ -242,7 +242,7 @@ function getTypes(dictId: number) {
 /** 查询字典类型列表 */
 function getTypeList() {
   getDictOptionselect().then(response => {
-    typeOptions.value = response.data
+    typeOptions.value = response.data || []
   })
 }
 
@@ -250,7 +250,7 @@ function getTypeList() {
 function getList() {
   loading.value = true
   listData(queryParams.value).then(response => {
-    dataList.value = response.rows
+    dataList.value = response.rows as unknown as SysDictData[]
     total.value = response.total
     loading.value = false
   })

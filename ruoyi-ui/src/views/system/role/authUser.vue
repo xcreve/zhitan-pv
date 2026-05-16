@@ -111,7 +111,7 @@ const userIds = ref<number[]>([])
 const queryParams = reactive<AuthUserQueryParams>({
   pageNum: 1,
   pageSize: 10,
-  roleId: route.params.roleId,
+  roleId: Number(route.params.roleId),
   userName: undefined,
   phonenumber: undefined,
 })
@@ -120,7 +120,7 @@ const queryParams = reactive<AuthUserQueryParams>({
 function getList() {
   loading.value = true
   allocatedUserList(queryParams).then(response => {
-    userList.value = response.rows
+    userList.value = response.rows as unknown as SysUser[]
     total.value = response.total
     loading.value = false
   })
@@ -158,7 +158,7 @@ function openSelectUser() {
 /** 取消授权按钮操作 */
 function cancelAuthUser(row: SysUser) {
   proxy.$modal.confirm('确认要取消该用户"' + row.userName + '"角色吗？').then(function () {
-    return authUserCancel({ userId: row.userId!, roleId: queryParams.roleId })
+    return authUserCancel({ userId: row.userId!, roleId: queryParams.roleId as number })
   }).then(() => {
     getList()
     proxy.$modal.msgSuccess("取消授权成功")
@@ -167,8 +167,8 @@ function cancelAuthUser(row: SysUser) {
 
 /** 批量取消授权按钮操作 */
 function cancelAuthUserAll() {
-  const roleId = queryParams.roleId
-  const uIds = userIds.value.join(",")
+  const roleId = queryParams.roleId as number
+  const uIds = userIds.value.join(",") as unknown as number[]
   proxy.$modal.confirm("是否取消选中用户授权数据项?").then(function () {
     return authUserCancelAll({ roleId: roleId, userIds: uIds })
   }).then(() => {

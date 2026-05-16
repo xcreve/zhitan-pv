@@ -41,12 +41,12 @@
     <div class="tree-wrap" v-show="!collapsed">
       <el-tree 
         ref="treeRef" 
-        :data="treeData" 
+        :data="treeDataForElement"
         :props="treeProps" 
         :expand-on-click-node="expandOnClickNode"
         :filter-node-method="filterNodeMethod"
         :default-expand-all="defaultExpandAll"
-        :default-expanded-keys="defaultExpandedKeys"
+        :default-expanded-keys="defaultExpandedKeysForElement"
         :node-key="nodeKey"
         :check-strictly="checkStrictly"
         :show-checkbox="showCheckbox"
@@ -72,6 +72,10 @@
 </template>
 
 <script setup lang="ts">
+import type { ComponentInternalInstance } from 'vue'
+import type TreeNode from 'element-plus/es/components/tree/src/model/node'
+import type { TreeKey, TreeNodeData } from 'element-plus/es/components/tree/src/tree.type'
+
 const props = defineProps({
   // 树形数据
   treeData: {
@@ -202,6 +206,9 @@ const saveWidthTimer = ref<NodeJS.Timeout | null>(null)
 const rafId = ref<number | null>(null)
 const isLoadingFromStorage = ref<boolean>(false)
 const expandedAll = ref<boolean>(props.defaultExpandAll)
+
+const treeDataForElement = computed<TreeNodeData[]>(() => props.treeData as TreeNodeData[])
+const defaultExpandedKeysForElement = computed<TreeKey[]>(() => props.defaultExpandedKeys as TreeKey[])
 
 // 计算属性
 const isExpandedAll = computed<boolean>({
@@ -352,8 +359,8 @@ const handleRefresh = (): void => {
 }
 
 // 节点点击事件
-const onNodeClick = (data: any, node: any, e: Event): void => {
-  emit('node-click', data, node, e)
+const onNodeClick = (data: any, node: TreeNode, nodeInstance: ComponentInternalInstance | null, e: MouseEvent): void => {
+  emit('node-click', data, node, nodeInstance, e)
 }
 
 // 复选框选中事件
@@ -362,13 +369,13 @@ const onCheck = (data: any, checkedInfo: any): void => {
 }
 
 // 节点展开事件
-const onNodeExpand = (data: any, node: any, e: Event): void => {
-  emit('node-expand', data, node, e)
+const onNodeExpand = (data: any, node: TreeNode, nodeInstance: ComponentInternalInstance | null): void => {
+  emit('node-expand', data, node, nodeInstance)
 }
 
 // 节点折叠事件
-const onNodeCollapse = (data: any, node: any, e: Event): void => {
-  emit('node-collapse', data, node, e)
+const onNodeCollapse = (data: any, node: TreeNode, nodeInstance: ComponentInternalInstance | null): void => {
+  emit('node-collapse', data, node, nodeInstance)
 }
 
 const setCurrentKey = (key: string | number): void => {
