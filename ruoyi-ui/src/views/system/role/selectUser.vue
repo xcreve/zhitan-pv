@@ -62,7 +62,7 @@
 
 <script setup lang="ts" name="SelectUser">
 import { authUserSelectAll, unallocatedUserList } from "@/api/system/role"
-import type { SysUser, UserQueryParams } from '@/types/api/system/user'
+import type { SysUser, UserQueryParams, AuthUserQueryParams } from '@/types/api/system/user'
 import { useProxy } from '@/composables/useProxy'
 
 const props = defineProps({
@@ -79,17 +79,17 @@ const visible = ref<boolean>(false)
 const total = ref<number>(0)
 const userIds = ref<number[]>([])
 
-const queryParams = reactive<UserQueryParams>({
+const queryParams = reactive<AuthUserQueryParams>({
   pageNum: 1,
   pageSize: 10,
-  roleId: undefined,
   userName: undefined,
-  phonenumber: undefined
+  phonenumber: undefined,
+  roleId: undefined
 })
 
 // 显示弹框
 function show() {
-  queryParams.roleId = props.roleId
+  queryParams.roleId = props.roleId != null ? Number(props.roleId) : undefined
   getList()
   visible.value = true
 }
@@ -107,7 +107,7 @@ function handleSelectionChange(selection: SysUser[]) {
 // 查询表数据
 function getList() {
   unallocatedUserList(queryParams).then(res => {
-    userList.value = res.rows
+    userList.value = res.rows as unknown as SysUser[]
     total.value = res.total
   })
 }
@@ -128,12 +128,11 @@ const emit = defineEmits(["ok"])
 /** 选择授权用户操作 */
 function handleSelectUser() {
   const roleId = queryParams.roleId
-  const uIds = userIds.value.join(",")
-  if (uIds == "") {
+  if (!userIds.value.length) {
     proxy.$modal.msgError("请选择要分配的用户")
     return
   }
-  authUserSelectAll({ roleId: roleId!, userIds: uIds }).then(res => {
+  authUserSelectAll({ roleId: roleId!, userIds: userIds.value }).then(res => {
     proxy.$modal.msgSuccess(res.msg)
     visible.value = false
     emit("ok")

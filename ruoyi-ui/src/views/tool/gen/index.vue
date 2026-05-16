@@ -42,7 +42,7 @@
           plain
           icon="Download"
           :disabled="multiple"
-          @click="handleGenTable"
+          @click="handleGenTable()"
           v-hasPermi="['tool:gen:code']"
         >生成</el-button>
       </el-col>
@@ -70,7 +70,7 @@
           plain
           icon="Edit"
           :disabled="single"
-          @click="handleEditTable"
+          @click="handleEditTable()"
           v-hasPermi="['tool:gen:edit']"
         >修改</el-button>
       </el-col>
@@ -80,7 +80,7 @@
           plain
           icon="Delete"
           :disabled="multiple"
-          @click="handleDelete"
+          @click="handleDelete()"
           v-hasPermi="['tool:gen:remove']"
         >删除</el-button>
       </el-col>
@@ -101,14 +101,14 @@
       <el-table-column label="更新时间" align="center" prop="updateTime" width="160" sortable="custom" :sort-orders="['descending', 'ascending']" />
       <el-table-column label="操作" align="center" width="330" class-name="small-padding fixed-width">
         <template #default="scope">
-          <el-tooltip content="预览" placement="top">
-            <el-button link type="primary" icon="View" @click="handlePreview(scope.row)" v-hasPermi="['tool:gen:preview']"></el-button>
-          </el-tooltip>
+<el-tooltip content="预览" placement="top">
+              <el-button link type="primary" icon="View" @click="handlePreview()" v-hasPermi="['tool:gen:preview']"></el-button>
+            </el-tooltip>
           <el-tooltip content="编辑" placement="top">
-            <el-button link type="primary" icon="Edit" @click="handleEditTable(scope.row)" v-hasPermi="['tool:gen:edit']"></el-button>
+            <el-button link type="primary" icon="Edit" @click="handleEditTable()" v-hasPermi="['tool:gen:edit']"></el-button>
           </el-tooltip>
           <el-tooltip content="删除" placement="top">
-            <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['tool:gen:remove']"></el-button>
+            <el-button link type="primary" icon="Delete" @click="handleDelete()" v-hasPermi="['tool:gen:remove']"></el-button>
           </el-tooltip>
           <el-tooltip content="同步" placement="top">
             <el-button link type="primary" icon="Refresh" @click="handleSynchDb(scope.row)" v-hasPermi="['tool:gen:edit']"></el-button>
@@ -165,7 +165,7 @@ const total = ref<number>(0)
 const tableNames = ref<string[]>([])
 const dateRange = ref<string[]>([])
 const uniqueId = ref<string>("")
-const defaultSort = ref({ prop: "createTime", order: "descending" })
+const defaultSort = ref({ prop: "createTime", order: "descending" as const })
 
 const data = reactive({
   queryParams: {
@@ -188,9 +188,9 @@ const { queryParams, preview } = toRefs(data)
 
 onActivated(() => {
   const time = route.query.t
-  if (time != null && time != uniqueId.value) {
-    uniqueId.value = time
-    queryParams.value.pageNum = Number(route.query.pageNum)
+  if (time != null && time !== uniqueId.value) {
+    uniqueId.value = String(time)
+    queryParams.value.pageNum = Number(Array.isArray(route.query.pageNum) ? route.query.pageNum[0] : route.query.pageNum)
     dateRange.value = []
     proxy.resetForm("queryForm")
     getList()
@@ -214,13 +214,13 @@ function handleQuery() {
 }
 
 /** 生成代码操作 */
-function handleGenTable(row: GenTable) {
-  const tbNames = row.tableName || tableNames.value
+function handleGenTable(row?: GenTable) {
+  const tbNames = row?.tableName || tableNames.value
   if (tbNames == "") {
     proxy.$modal.msgError("请选择要生成的数据")
     return
   }
-  if (row.genType === "1") {
+  if (row?.genType === "1") {
     genCode(row.tableName!).then(() => {
       proxy.$modal.msgSuccess("成功生成到自定义路径：" + row.genPath)
     })
@@ -259,12 +259,15 @@ function resetQuery() {
 }
 
 /** 预览按钮 */
-function handlePreview(row: GenTable) {
-  previewTable(row.tableId!).then(response => {
-    preview.value.data = response.data
-    preview.value.open = true
-    preview.value.activeName = "domain.java"
-  })
+function handlePreview() {
+  const tableId = ids.value[0]
+  if (tableId) {
+    previewTable(tableId).then(response => {
+      preview.value.data = response.data
+      preview.value.open = true
+      preview.value.activeName = "domain.java"
+    })
+  }
 }
 
 /** 复制代码成功 */
@@ -274,8 +277,8 @@ function copyTextSuccess() {
 
 // 多选框选中数据
 function handleSelectionChange(selection: GenTable[]) {
-  ids.value = selection.map(item => item.tableId)
-  tableNames.value = selection.map(item => item.tableName)
+  ids.value = selection.map(item => item.tableId).filter((id): id is number => id !== undefined)
+  tableNames.value = selection.map(item => item.tableName).filter((name): name is string => name !== undefined)
   single.value = selection.length != 1
   multiple.value = !selection.length
 }

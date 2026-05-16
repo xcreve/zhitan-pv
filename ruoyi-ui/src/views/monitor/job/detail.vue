@@ -191,6 +191,12 @@ import { useProxy } from '@/composables/useProxy'
 
 type DetailType = 'job' | 'log'
 
+// 本地扩展类型：SysJobLog 运行时可能带 startTime/endTime（后端接口返回额外字段）
+type LocalJobLog = SysJobLog & {
+  startTime?: string
+  endTime?: string
+}
+
 const props = defineProps<{
   visible: boolean
   row: SysJob | SysJobLog
@@ -210,7 +216,7 @@ const proxy = useProxy()
 const { sys_job_group } = useDict('sys_job_group')
 
 const jobForm = computed<SysJob>(() => props.row as SysJob)
-const logForm = computed<SysJobLog>(() => props.row as SysJobLog)
+const logForm = computed<LocalJobLog>(() => props.row as LocalJobLog)
 
 const costTime = computed<number>(() => {
   const { startTime, endTime } = logForm.value
