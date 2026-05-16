@@ -101,7 +101,7 @@ const isChecked = computed({
   set: () => {}
 })
 const isIndeterminate = computed(() => Array.isArray(props.columns) ? props.columns.some((col: TableShowColumns) => col.visible) && !isChecked.value : Object.values(props.columns).some((col) => (col as TableShowColumns).visible) && !isChecked.value)
-const transferData = computed(() => Array.isArray(props.columns) ? props.columns.map((item: TableShowColumns, index: number) => ({ key: index, label: item.label })) : Object.keys(props.columns).map((key, index) => ({ key: index, label: props.columns[key].label })))
+const transferData = computed(() => Array.isArray(props.columns) ? props.columns.map((item: TableShowColumns, index: number) => ({ key: index, label: item.label })) : Object.keys(props.columns).map((key, index) => ({ key: index, label: (props.columns as Record<string, any>)[key].label })))
 
 // 搜索
 const proxy = useProxy()
@@ -150,7 +150,7 @@ function dataChange(value: TransferKey[]): void {
     }
   } else {
     Object.keys(props.columns).forEach((key, index) => {
-      props.columns[key].visible = !numericValue.includes(index)
+      (props.columns as Record<string, any>)[key].visible = !numericValue.includes(index)
     })
   }
   saveStorage()
@@ -172,7 +172,7 @@ if (props.storageKey) {
         })
       } else {
         Object.keys(props.columns).forEach(key => {
-          if (saved[key] !== undefined) props.columns[key].visible = saved[key]
+          if (saved[key] !== undefined) (props.columns as Record<string, any>)[key].visible = saved[key]
         })
       }
     }
@@ -188,7 +188,7 @@ if (props.showColumnsType == "transfer") {
     }
   } else {
     Object.keys(props.columns).forEach((key, index) => {
-      if (props.columns[key].visible === false) {
+      if ((props.columns as Record<string, any>)[key].visible === false) {
         value.value.push(index)
       }
     })
@@ -227,7 +227,7 @@ function saveStorage(): void {
     if (Array.isArray(props.columns)) {
       props.columns.forEach((col: TableShowColumns, index: number) => { state[index] = col.visible })
     } else {
-      Object.keys(props.columns).forEach(key => { state[key] = props.columns[key].visible })
+      Object.keys(props.columns).forEach(key => { state[key] = (props.columns as Record<string, any>)[key].visible })
     }
     cache.local.setJSON(props.storageKey, state)
   } catch (e) {}

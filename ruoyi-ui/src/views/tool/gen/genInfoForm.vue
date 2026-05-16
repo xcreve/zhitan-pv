@@ -227,8 +227,8 @@
               <el-option
                 v-for="(table, index) in tables"
                 :key="index"
-                :label="table.tableName + '：' + table.tableComment"
-                :value="table.tableName"
+                :label="(table as any).tableName + '：' + (table as any).tableComment"
+                :value="(table as any).tableName"
               ></el-option>
             </el-select>
           </el-form-item>
@@ -300,9 +300,9 @@ function tplSelectChange(value: string): void {
 
 function setSubTableColumns(value: string): void {
   for (const item of props.tables || []) {
-    const name = item.tableName
+    const name = (item as any).tableName
     if (value === name) {
-      subColumns.value = item.columns || []
+      subColumns.value = (item as any).columns || []
       break
     }
   }
