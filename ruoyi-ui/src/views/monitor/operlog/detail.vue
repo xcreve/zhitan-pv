@@ -19,7 +19,7 @@
           <el-col :span="12">
             <div class="detail-item">
               <span class="detail-label">执行状态</span>
-              <el-tag v-if="form.status === 0" type="success" size="small">正常</el-tag>
+              <el-tag v-if="form.status === '0'" type="success" size="small">正常</el-tag>
               <el-tag v-else type="danger" size="small">异常</el-tag>
             </div>
           </el-col>
@@ -100,7 +100,7 @@
       </div>
 
       <!-- 异常信息 -->
-      <div class="detail-card" v-if="form.status !== 0">
+      <div class="detail-card" v-if="form.status !== '0'">
         <div class="detail-card-title error-title"><el-icon><Warning /></el-icon> 异常信息</div>
         <div class="error-body">
           <div class="error-msg">{{ form.errorMsg }}</div>

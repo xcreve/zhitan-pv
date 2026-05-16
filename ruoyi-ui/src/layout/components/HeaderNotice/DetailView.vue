@@ -62,7 +62,7 @@ const detail: Ref<SysNotice | null> = ref<SysNotice | null>(null)
 
 const isStatusNormal = computed<boolean>(() => {
   const status = detail.value && detail.value.status
-  return status === '0' || status === 0
+  return String(status) === '0'
 })
 
 const hasContent = computed<boolean>(() => {

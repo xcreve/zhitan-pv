@@ -14,7 +14,7 @@
             <el-col :span="12">
               <div class="detail-item">
                 <span class="detail-label">执行状态</span>
-                <el-tag v-if="logForm.status == 0" type="success" size="small">正常</el-tag>
+                <el-tag v-if="logForm.status == '0'" type="success" size="small">正常</el-tag>
                 <el-tag v-else type="danger" size="small">失败</el-tag>
               </div>
             </el-col>
@@ -68,7 +68,7 @@
           </div>
         </div>
         <!-- 异常信息 -->
-        <div class="detail-card" v-if="logForm.status == 1">
+        <div class="detail-card" v-if="logForm.status == '1'">
           <div class="detail-card-title error-title">
             <el-icon><Warning /></el-icon> 异常信息
           </div>
@@ -100,7 +100,7 @@
             <el-col :span="12">
               <div class="detail-item">
                 <span class="detail-label">执行状态</span>
-                <el-tag v-if="jobForm.status == 0" type="success" size="small">正常</el-tag>
+                <el-tag v-if="jobForm.status == '0'" type="success" size="small">正常</el-tag>
                 <el-tag v-else type="info" size="small">暂停</el-tag>
               </div>
             </el-col>
@@ -123,16 +123,16 @@
             <el-col :span="12">
               <div class="detail-item">
                 <span class="detail-label">执行策略</span>
-                <el-tag v-if="jobForm.misfirePolicy == 0" type="info" size="small">默认策略</el-tag>
-                <el-tag v-else-if="jobForm.misfirePolicy == 1" type="warning" size="small">立即执行</el-tag>
-                <el-tag v-else-if="jobForm.misfirePolicy == 2" type="primary" size="small">执行一次</el-tag>
-                <el-tag v-else-if="jobForm.misfirePolicy == 3" type="danger" size="small">放弃执行</el-tag>
+                <el-tag v-if="(jobForm.misfirePolicy as string) == '0'" type="info" size="small">默认策略</el-tag>
+                <el-tag v-else-if="jobForm.misfirePolicy == '1'" type="warning" size="small">立即执行</el-tag>
+                <el-tag v-else-if="jobForm.misfirePolicy == '2'" type="primary" size="small">执行一次</el-tag>
+                <el-tag v-else-if="jobForm.misfirePolicy == '3'" type="danger" size="small">放弃执行</el-tag>
               </div>
             </el-col>
             <el-col :span="12">
               <div class="detail-item">
                 <span class="detail-label">并发执行</span>
-                <el-tag v-if="jobForm.concurrent == 0" type="success" size="small">允许</el-tag>
+                <el-tag v-if="jobForm.concurrent == '0'" type="success" size="small">允许</el-tag>
                 <el-tag v-else type="danger" size="small">禁止</el-tag>
               </div>
             </el-col>
