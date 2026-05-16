@@ -29,13 +29,13 @@ import draggable from "vuedraggable/dist/vuedraggable.common"
 import render from '@/utils/generator/render'
 
 const props = defineProps({
-  element: Object,
+  element: { type: Object, required: true },
   index: Number,
   drawingList: Array,
   activeId: {
     type: [String, Number]
   },
-  formConf: Object
+  formConf: { type: Object, required: true }
 })
 const className = ref('')
 const draggableItemRef = ref(null)
