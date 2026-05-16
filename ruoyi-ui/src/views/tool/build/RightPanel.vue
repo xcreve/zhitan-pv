@@ -73,11 +73,11 @@
           </el-form-item>
           <el-form-item v-if="activeData.tag === 'el-checkbox-group'" label="至少应选">
             <el-input-number :value="activeData.min" :min="0" placeholder="至少应选"
-              @input="$set(activeData, 'min', $event ? $event : undefined)" />
+              @input="activeData.min = $event ? $event : undefined" />
           </el-form-item>
           <el-form-item v-if="activeData.tag === 'el-checkbox-group'" label="最多可选">
             <el-input-number :value="activeData.max" :min="0" placeholder="最多可选"
-              @input="$set(activeData, 'max', $event ? $event : undefined)" />
+              @input="activeData.max = $event ? $event : undefined" />
           </el-form-item>
           <el-form-item v-if="activeData.prepend !== undefined" label="前缀">
             <el-input v-model="activeData.prepend" placeholder="请输入前缀" />
@@ -490,12 +490,15 @@ const props = defineProps<{
   formConf: any
 }>()
 
+type SliderChangeValue = number | number[]
+type SwitchChangeValue = string | number | boolean
+
 const data = reactive({
   currentTab: 'field',
-  currentNode: null,
+  currentNode: null as any[] | null,
   dialogVisible: false,
   iconsVisible: false,
-  currentIconModel: null,
+  currentIconModel: '',
   dateTypeOptions: [
     {
       label: '日(date)',
@@ -726,28 +729,32 @@ function setTimeValue(val: string, type?: string): void {
   props.activeData.format = val
 }
 
-function spanChange(val: number): void {
-  props.formConf.span = val
+function normalizeSwitchValue(val: SwitchChangeValue): boolean {
+  return val === true || val === 1 || val === 'true' || val === '1'
 }
 
-function multipleChange(val: boolean): void {
-  props.activeData.defaultValue = val ? [] : ''
+function spanChange(val: SliderChangeValue): void {
+  props.formConf.span = Array.isArray(val) ? val[0] : val
+}
+
+function multipleChange(val: SwitchChangeValue): void {
+  props.activeData.defaultValue = normalizeSwitchValue(val) ? [] : ''
 }
 
 function dateTypeChange(val: string): void {
   setTimeValue(dateTimeFormat[val], val)
 }
 
-function rangeChange(val: boolean): void {
-  props.activeData.defaultValue = val ? [props.activeData.min, props.activeData.max] : props.activeData.min
+function rangeChange(val: SwitchChangeValue): void {
+  props.activeData.defaultValue = normalizeSwitchValue(val) ? [props.activeData.min, props.activeData.max] : props.activeData.min
 }
 
-function rateTextChange(val: boolean): void {
-  if (val) props.activeData['show-score'] = false
+function rateTextChange(val: SwitchChangeValue): void {
+  if (normalizeSwitchValue(val)) props.activeData['show-score'] = false
 }
 
-function rateScoreChange(val: boolean): void {
-  if (val) props.activeData['show-text'] = false
+function rateScoreChange(val: SwitchChangeValue): void {
+  if (normalizeSwitchValue(val)) props.activeData['show-text'] = false
 }
 
 function colorFormatChange(val: string): void {
