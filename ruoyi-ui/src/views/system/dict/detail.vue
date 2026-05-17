@@ -50,7 +50,7 @@
           <div class="dict-cell">
             <div class="dict-cell-key">标签</div>
             <div class="dict-cell-val">
-              <el-tag v-if="item.listClass && item.listClass !== 'default'" :type="item.listClass === 'primary' ? undefined : item.listClass" size="small">{{ item.dictLabel }}</el-tag>
+              <el-tag v-if="item.listClass && item.listClass !== 'default'" :type="(item.listClass === 'primary' ? undefined : item.listClass) as any" size="small">{{ item.dictLabel }}</el-tag>
               <span v-else>{{ item.dictLabel }}</span>
             </div>
           </div>
@@ -102,7 +102,7 @@ function loadData() {
   loading.value = true
   dataList.value = []
   listData({ dictType: props.row.dictType, pageSize: 100, pageNum: 1 }).then(response => {
-    dataList.value = response.rows || []
+    dataList.value = (response.rows || []) as unknown as SysDictData[]
   }).catch(() => {}).finally(() => {
     loading.value = false
   })

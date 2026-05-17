@@ -28,7 +28,7 @@
         <el-col :lg="2" :md="2">
           <el-upload
             action="#"
-            :http-request="requestUpload"
+            :http-request="requestUpload as any"
             :show-file-list="false"
             :before-upload="beforeUpload"
           >
@@ -178,4 +178,4 @@ function closeDialog() {
   line-height: 110px;
   border-radius: 50%;
 }
-</style>
+</style>

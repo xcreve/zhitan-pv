@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-popover ref="noticePopover" placement="bottom-end" :width="320" trigger="manual" v-model:visible="noticeVisible" popper-class="notice-popover">
+    <el-popover ref="noticePopover" placement="bottom-end" :width="320" :trigger="('manual' as any)" v-model:visible="noticeVisible" popper-class="notice-popover">
       <!-- 弹出内容 -->
       <div class="notice-header">
         <span class="notice-title">通知公告</span>

@@ -1,5 +1,5 @@
 <template>
-   <el-form ref="userRef" :model="form" :rules="rules" label-width="80px">
+   <el-form ref="userRef" :model="form" :rules="rules as any" label-width="80px">
       <el-form-item label="用户昵称" prop="nickName">
          <el-input v-model="form.nickName" maxlength="30" />
       </el-form-item>
@@ -63,7 +63,7 @@ function close() {
 }
 
 // 回显当前登录用户信息
-watch(() => props.user, (user: SysUser) => {
+watch(() => props.user, (user: SysUser | undefined) => {
   if (user) {
     form.value = { nickName: user.nickName, phonenumber: user.phonenumber, email: user.email, sex: user.sex }
   }

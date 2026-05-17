@@ -12,7 +12,7 @@
         :key="tag.path"
         :data-path="tag.path"
         :class="{ 'active': isActive(tag), 'has-icon': tagsIcon }"
-        :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
+        :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath } as any"
         class="tags-view-item"
         :style="tagActiveStyle(tag)"
         @click.middle="!isAffix(tag) ? closeSelectedTag(tag) : ''"
@@ -711,4 +711,4 @@ $tags-bar-height: 34px;
   min-height: calc(100vh - 34px) !important;
   overflow: auto;
 }
-</style>
+</style>

@@ -1,5 +1,5 @@
 <template>
-  <el-menu class="topbar-menu" :ellipsis="false" :default-active="activeMenu" :active-text-color="theme" mode="horizontal">
+  <el-menu class="topbar-menu" :ellipsis="false" :default-active="activeMenu" :active-text-color="(theme as string)" mode="horizontal">
     <sidebar-item :key="route.path + index" v-for="(route, index) in topMenus" :item="route" :base-path="route.path" />
 
     <el-sub-menu index="more" class="el-sub-menu__hide-arrow" v-if="moreRoutes.length > 0">
@@ -23,12 +23,12 @@ const settingsStore = useSettingsStore()
 const permissionStore = usePermissionStore()
 
 const sidebarRouters = computed(() => permissionStore.sidebarRouters)
-const theme = computed(() => settingsStore.theme)
+const theme = computed<string>(() => settingsStore.theme)
 const device = computed(() => appStore.device)
-const activeMenu = computed(() => {
+const activeMenu = computed<string>(() => {
   const { meta, path } = route
   if (meta.activeMenu) {
-    return meta.activeMenu
+    return meta.activeMenu as string
   }
   return path
 })

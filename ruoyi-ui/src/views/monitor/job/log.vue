@@ -175,7 +175,7 @@ const { queryParams, form } = toRefs(data)
 function getList() {
   loading.value = true
   listJobLog(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
-    jobLogList.value = response.rows
+    jobLogList.value = response.rows as unknown as SysJobLog[]
     total.value = response.total
     loading.value = false
   })

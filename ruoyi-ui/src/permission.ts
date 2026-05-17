@@ -55,7 +55,7 @@ router.beforeEach(async (to, from) => {
         return { ...to, replace: true }
       } catch (err) {
         await useUserStore().logOut()
-        ElMessage.error(err)
+        ElMessage.error(String(err))
         return { path: '/' }
       }
     }

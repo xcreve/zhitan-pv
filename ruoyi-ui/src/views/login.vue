@@ -159,8 +159,10 @@ function getCookie(): void {
   const rememberMe = Cookies.get("rememberMe")
   loginForm.value = {
     username: username === undefined ? loginForm.value.username : username,
-    password: password === undefined ? loginForm.value.password : decrypt(password),
-    rememberMe: rememberMe === undefined ? false : Boolean(rememberMe)
+    password: password === undefined ? loginForm.value.password : (decrypt(password) || ''),
+    rememberMe: rememberMe === undefined ? false : Boolean(rememberMe),
+    code: loginForm.value.code,
+    uuid: loginForm.value.uuid
   }
 }
 

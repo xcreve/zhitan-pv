@@ -79,7 +79,7 @@ const queryParams = ref<OnlineQueryParams>({
 function getList() {
   loading.value = true
   initData(queryParams.value).then(response => {
-    onlineList.value = response.rows
+    onlineList.value = response.rows as unknown as SysUserOnline[]
     total.value = response.total
     loading.value = false
   })

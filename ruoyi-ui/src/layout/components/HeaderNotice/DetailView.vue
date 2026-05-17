@@ -93,7 +93,7 @@ function open(payload: any) {
   loading.value = true
   detail.value = null
   getNotice(id).then(res => {
-    detail.value = res.data
+    detail.value = res.data ?? null
   }).catch(() => {
     detail.value = null
   }).finally(() => {

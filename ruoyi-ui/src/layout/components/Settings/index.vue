@@ -49,7 +49,7 @@
     <div class="drawer-item">
       <span>主题颜色</span>
       <span class="comp-style">
-        <el-color-picker v-model="theme" :predefine="predefineColors" @change="themeChange"/>
+        <el-color-picker v-model="theme" :predefine="predefineColors" @change="themeChange as any"/>
       </span>
     </div>
     <el-divider />
@@ -66,7 +66,7 @@
     <div class="drawer-item">
       <span>持久化标签页</span>
       <span class="comp-style">
-        <el-switch v-model="settingsStore.tagsViewPersist" :disabled="!settingsStore.tagsView" @change="tagsViewPersistChange" class="drawer-switch" />
+        <el-switch v-model="settingsStore.tagsViewPersist" :disabled="!settingsStore.tagsView" @change="tagsViewPersistChange as any" class="drawer-switch" />
       </span>
     </div>
 
@@ -344,4 +344,4 @@ defineExpose({
     }
   }
 }
-</style>
+</style>

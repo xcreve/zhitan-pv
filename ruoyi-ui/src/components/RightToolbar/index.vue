@@ -101,7 +101,7 @@ const isChecked = computed({
   set: () => {}
 })
 const isIndeterminate = computed(() => Array.isArray(props.columns) ? props.columns.some((col: TableShowColumns) => col.visible) && !isChecked.value : Object.values(props.columns).some((col) => (col as TableShowColumns).visible) && !isChecked.value)
-const transferData = computed(() => Array.isArray(props.columns) ? props.columns.map((item: TableShowColumns, index: number) => ({ key: index, label: item.label })) : Object.keys(props.columns).map((key, index) => ({ key: index, label: (props.columns as Record<string, any>)[key].label })))
+const transferData = computed(() => Array.isArray(props.columns) ? (props.columns as any[]).map((item: any, index: number) => ({ key: index, label: item.label })) : Object.keys(props.columns).map((key, index) => ({ key: index, label: (props.columns as Record<string, any>)[key].label })))
 
 // 搜索
 const proxy = useProxy()

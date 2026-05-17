@@ -126,8 +126,8 @@ function handleSelect(key: string, keyPath: string[]): void {
   } else if (!route || !route.children) {
     // 没有子路由路径内部打开
     const routeMenu = childrenMenus.value.find((item: any) => item.path === key)
-    if (routeMenu && routeMenu.query) {
-      const query = JSON.parse(routeMenu.query)
+    if (routeMenu && (routeMenu as any).query) {
+      const query = JSON.parse((routeMenu as any).query)
       router.push({ path: key, query: query })
     } else {
       router.push({ path: key })

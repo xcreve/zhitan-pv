@@ -4,7 +4,7 @@
     :key="item.path"
     :iframeId="'iframe' + index"
     v-show="route.path === item.path"
-    :src="iframeUrl(item.meta.link, item.query)"
+    :src="iframeUrl(item.meta.link || '', item.query || {}) || ''"
   ></inner-link>
 </template>
 

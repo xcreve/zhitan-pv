@@ -21,12 +21,12 @@
 </template>
 
 <script setup lang="ts">
-const open = defineModel()
+const open = defineModel<boolean>()
 const props = defineProps({
   showFileName: Boolean
 })
 const emit = defineEmits(['confirm'])
-const formData = ref({
+const formData = ref<{ fileName?: string; type: string }>({
   fileName: undefined,
   type: 'file'
 })

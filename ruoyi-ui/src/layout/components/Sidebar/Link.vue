@@ -15,7 +15,7 @@ const props = defineProps({
 })
 
 const isExt = computed(() => {
-  return isExternal(props.to)
+  return isExternal(props.to as string)
 })
 
 const type = computed(() => {

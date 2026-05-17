@@ -115,6 +115,7 @@
 import { useProxy } from '@/composables/useProxy'
 const proxy = useProxy()
 import type { SysOperLog } from '@/types/api/monitor/operlog'
+import { CopyDocument } from '@element-plus/icons-vue'
 
 const props = defineProps<{
   visible: boolean

@@ -245,7 +245,7 @@ function clearCron(): void {
 }
 onMounted(() => {
     expression.value = props.expression
-    hideComponent.value = props.hideComponent
+    hideComponent.value = props.hideComponent as string[]
 })
 </script>
 
@@ -312,4 +312,4 @@ onMounted(() => {
     height: 10em;
     overflow-y: auto;
 }
-</style>
+</style>
