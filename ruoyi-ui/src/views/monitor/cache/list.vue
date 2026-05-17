@@ -184,7 +184,7 @@ const tableHeight = ref<number>(window.innerHeight - 200)
 function getCacheNames(): void {
   loading.value = true
   listCacheName().then(response => {
-    cacheNames.value = response.data!
+    cacheNames.value = response.data as unknown as CacheName[]
     loading.value = false
   })
 }
@@ -205,7 +205,7 @@ function handleClearCacheName(row: SysCache): void {
 
 /** 查询缓存键名列表 */
 function getCacheKeys(row?: SysCache): void {
-  const cacheName = row !== undefined ? row.cacheName : nowCacheName.value
+  const cacheName = row !== undefined ? (row.cacheName ?? '') : (nowCacheName.value ?? '')
   if (cacheName === "") {
     return
   }

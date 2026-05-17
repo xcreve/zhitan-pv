@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog title="添加选项" v-model="open" width="800px" :close-on-click-modal="false" :modal-append-to-body="false"
+    <el-dialog title="添加选项" :model-value="open" width="800px"
       @open="onOpen" @close="onClose">
       <el-form ref="treeNodeForm" :model="formData" :rules="rules" label-width="100px">
         <el-col :span="24">
@@ -32,9 +32,9 @@
   </div>
 </template>
 <script setup lang="ts">
-const open = defineModel()
-const emit = defineEmits(['confirm'])
-const formData = ref({
+const open = defineModel<boolean>()
+const emit = defineEmits(['confirm', 'commit'])
+const formData = ref<{ label?: string; value?: string | number; id?: number }>({
   label: undefined,
   value: undefined
 })

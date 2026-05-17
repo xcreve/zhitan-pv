@@ -84,8 +84,8 @@ function handleSelectionChange(selection: SysRole[]) {
 }
 
 /** 保存选中的数据编号 */
-function getRowKey(row: SysRole): number {
-  return row.roleId!
+function getRowKey(row: SysRole): string {
+  return String(row.roleId)
 }
 
 // 检查角色状态
@@ -102,8 +102,7 @@ function close() {
 /** 提交按钮 */
 function submitForm() {
   const userId = form.value.userId
-  const rIds = roleIds.value.join(",")
-  updateAuthRole({ userId: userId!, roleIds: rIds }).then(() => {
+  updateAuthRole({ userId: userId!, roleIds: roleIds.value }).then(() => {
     proxy.$modal.msgSuccess("授权成功")
     close()
   })
@@ -115,7 +114,7 @@ function submitForm() {
     loading.value = true
     getAuthRole(userId).then(response => {
       form.value = response.user
-      roles.value = response.roles
+      roles.value = response.roles as unknown as SysRoleWithFlag[]
       total.value = roles.value.length
       nextTick(() => {
         roles.value.forEach((row: SysRoleWithFlag) => {

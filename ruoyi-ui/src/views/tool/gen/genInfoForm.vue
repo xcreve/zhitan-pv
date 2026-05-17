@@ -118,7 +118,7 @@
           <el-tree-select
             v-model="info.parentMenuId"
             :data="menuOptions"
-            :props="{ value: 'menuId', label: 'menuName', children: 'children' }"
+            :props="{ label: 'menuName', children: 'children' }"
             placeholder="请选择系统菜单"
             check-strictly
           />
@@ -261,7 +261,7 @@
 import { listMenu } from "@/api/system/menu"
 import { useProxy } from '@/composables/useProxy'
 
-const subColumns = ref([])
+const subColumns = ref<{ columnName: string; columnComment: string }[]>([])
 const menuOptions = ref([])
 const proxy = useProxy()
 
