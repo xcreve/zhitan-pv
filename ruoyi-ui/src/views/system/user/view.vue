@@ -131,9 +131,14 @@ import type { SysUser } from '@/types/api/system/user'
 import type { SysRole } from '@/types/api/system/role'
 import type { SysPost } from '@/types/api/system/post'
 
+type UserViewInfo = SysUser & {
+  loginIp?: string
+  loginDate?: string
+}
+
 const visible = ref<boolean>(false)
 const loading = ref<boolean>(false)
-const info = reactive<SysUser>({})
+const info = reactive<UserViewInfo>({})
 const postOptions = ref<SysPost[]>([])
 const roleOptions = ref<SysRole[]>([])
 
@@ -142,13 +147,15 @@ const { sys_user_sex } = useDict("sys_user_sex")
 const sexLabel = computed(() => selectDictLabel(sys_user_sex.value, info.sex) || '-')
 
 const postNames = computed<string>(() => {
-  if (!postOptions.value.length || !info.postIds) return ''
-  return postOptions.value.filter((p: SysPost) => info.postIds?.includes(p.postId)).map((p: SysPost) => p.postName).join('、') || ''
+  const postIds = info.postIds
+  if (!postOptions.value.length || !postIds) return ''
+  return postOptions.value.filter((p: SysPost) => p.postId !== undefined && postIds.includes(p.postId)).map((p: SysPost) => p.postName).join('、') || ''
 })
 
 const roleNames = computed<string>(() => {
-  if (!roleOptions.value.length || !info.roleIds) return ''
-  return roleOptions.value.filter((r: SysRole) => info.roleIds?.includes(r.roleId)).map((r: SysRole) => r.roleName).join('、') || ''
+  const roleIds = info.roleIds
+  if (!roleOptions.value.length || !roleIds) return ''
+  return roleOptions.value.filter((r: SysRole) => r.roleId !== undefined && roleIds.includes(r.roleId)).map((r: SysRole) => r.roleName).join('、') || ''
 })
 
 const open = async (userId: number): Promise<void> => {

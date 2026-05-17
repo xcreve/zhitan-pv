@@ -32,7 +32,7 @@
                type="primary"
                plain
                icon="Plus"
-               @click="handleAdd"
+               @click="() => handleAdd()"
                v-hasPermi="['system:menu:add']"
             >新增</el-button>
          </el-col>
@@ -109,7 +109,7 @@
                      <el-tree-select
                         v-model="form.parentId"
                         :data="menuOptions"
-                        :props="{ value: 'menuId', label: 'menuName', children: 'children' }"
+                        :props="{ label: 'menuName', children: 'children' }"
                         value-key="menuId"
                         placeholder="选择上级菜单"
                         check-strictly
@@ -462,7 +462,11 @@ function submitForm() {
 /** 递归记录原始排序 */
 function recordOriginalOrders(list: SysMenu[]) {
   list.forEach(item => {
-    originalOrders.value[item.menuId] = item.orderNum
+    const menuId = item.menuId
+    const orderNum = item.orderNum
+    if (menuId !== undefined && orderNum !== undefined) {
+      originalOrders.value[menuId] = orderNum
+    }
     if (item.children && item.children.length) {
       recordOriginalOrders(item.children)
     }
@@ -475,9 +479,11 @@ function handleSaveSort() {
   const changedOrderNums: number[] = []
   const collectChanged = (list: SysMenu[]) => {
     list.forEach(item => {
-      if (String(originalOrders.value[item.menuId!]) !== String(item.orderNum)) {
-        changedMenuIds.push(item.menuId!)
-        changedOrderNums.push(item.orderNum!)
+      const menuId = item.menuId
+      const orderNum = item.orderNum
+      if (menuId !== undefined && orderNum !== undefined && String(originalOrders.value[menuId]) !== String(orderNum)) {
+        changedMenuIds.push(menuId)
+        changedOrderNums.push(orderNum)
       }
       if (item.children && item.children.length) {
         collectChanged(item.children)

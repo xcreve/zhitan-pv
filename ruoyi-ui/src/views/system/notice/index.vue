@@ -51,7 +51,7 @@
                plain
                icon="Edit"
                :disabled="single"
-               @click="handleUpdate"
+               @click="handleUpdate()"
                v-hasPermi="['system:notice:edit']"
             >修改</el-button>
          </el-col>
@@ -61,7 +61,7 @@
                plain
                icon="Delete"
                :disabled="multiple"
-               @click="handleDelete"
+               @click="handleDelete()"
                v-hasPermi="['system:notice:remove']"
             >删除</el-button>
          </el-col>
@@ -201,7 +201,7 @@ const { queryParams, form, rules } = toRefs(data)
 function getList() {
   loading.value = true
   listNotice(queryParams.value).then(response => {
-    noticeList.value = response.rows
+    noticeList.value = response.rows as unknown as SysNotice[]
     total.value = response.total
     loading.value = false
   })
@@ -220,7 +220,8 @@ function reset() {
     noticeTitle: undefined,
     noticeType: undefined,
     noticeContent: undefined,
-    status: "0"
+    status: "0",
+    isRead: false
   }
   proxy.resetForm("noticeRef")
 }

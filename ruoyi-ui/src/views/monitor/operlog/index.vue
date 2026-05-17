@@ -82,7 +82,7 @@
                plain
                icon="Delete"
                :disabled="multiple"
-               @click="handleDelete"
+               @click="handleDelete()"
                v-hasPermi="['monitor:operlog:remove']"
             >删除</el-button>
          </el-col>
@@ -135,7 +135,7 @@
          </el-table-column>
          <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
             <template #default="scope">
-               <el-button link type="primary" icon="View" @click="handleDetail(scope.row, scope.index)" v-hasPermi="['monitor:operlog:query']">详细</el-button>
+               <el-button link type="primary" icon="View" @click="handleDetail(scope.row)" v-hasPermi="['monitor:operlog:query']">详细</el-button>
             </template>
          </el-table-column>
       </el-table>
@@ -172,7 +172,7 @@ const multiple = ref<boolean>(true)
 const total = ref<number>(0)
 const title = ref<string>("")
 const dateRange = ref<string[]>([])
-const defaultSort = ref({ prop: "operTime", order: "descending" })
+const defaultSort = ref({ prop: "operTime", order: "descending" as const })
 
 const data = reactive({
   form: {} as SysOperLog,
@@ -193,7 +193,7 @@ const { queryParams, form } = toRefs(data)
 function getList() {
   loading.value = true
   list(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
-    operlogList.value = response.rows
+    operlogList.value = response.rows as unknown as SysOperLog[]
     total.value = response.total
     loading.value = false
   })

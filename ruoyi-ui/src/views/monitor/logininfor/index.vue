@@ -58,7 +58,7 @@
                plain
                icon="Delete"
                :disabled="multiple"
-               @click="handleDelete"
+               @click="handleDelete()"
                v-hasPermi="['monitor:logininfor:remove']"
             >删除</el-button>
          </el-col>
@@ -141,7 +141,7 @@ const multiple = ref<boolean>(true)
 const selectName = ref<string[]>([])
 const total = ref<number>(0)
 const dateRange = ref<string[]>([])
-const defaultSort = ref({ prop: "loginTime", order: "descending" })
+const defaultSort = ref({ prop: "loginTime", order: "descending" as const })
 
 // 查询参数
 const queryParams = ref<LogininforQueryParams>({
@@ -158,7 +158,7 @@ const queryParams = ref<LogininforQueryParams>({
 function getList() {
   loading.value = true
   list(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
-    logininforList.value = response.rows
+    logininforList.value = response.rows as unknown as SysLogininfor[]
     total.value = response.total
     loading.value = false
   })
@@ -216,7 +216,7 @@ function handleClean() {
 
 /** 解锁按钮操作 */
 function handleUnlock() {
-  const username = selectName.value
+  const username = selectName.value.join(",")
   proxy.$modal.confirm('是否确认解锁用户"' + username + '"数据项?').then(function () {
     return unlockLogininfor(username)
   }).then(() => {

@@ -51,7 +51,7 @@
                plain
                icon="Edit"
                :disabled="single"
-               @click="handleUpdate"
+               @click="handleUpdate()"
                v-hasPermi="['system:post:edit']"
             >修改</el-button>
          </el-col>
@@ -61,7 +61,7 @@
                plain
                icon="Delete"
                :disabled="multiple"
-               @click="handleDelete"
+               @click="handleDelete()"
                v-hasPermi="['system:post:remove']"
             >删除</el-button>
          </el-col>
@@ -184,7 +184,7 @@ const { queryParams, form, rules } = toRefs(data)
 function getList() {
   loading.value = true
   listPost(queryParams.value).then(response => {
-    postList.value = response.rows
+    postList.value = response.rows as unknown as SysPost[]
     total.value = response.total
     loading.value = false
   })

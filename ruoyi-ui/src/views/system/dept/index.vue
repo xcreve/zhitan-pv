@@ -32,7 +32,7 @@
                type="primary"
                plain
                icon="Plus"
-               @click="handleAdd"
+               @click="() => handleAdd()"
                v-hasPermi="['system:dept:add']"
             >新增</el-button>
          </el-col>
@@ -98,7 +98,7 @@
                      <el-tree-select
                         v-model="form.parentId"
                         :data="deptOptions"
-                        :props="{ value: 'deptId', label: 'deptName', children: 'children' }"
+                        :props="{ label: 'deptName', children: 'children' }"
                         value-key="deptId"
                         placeholder="选择上级部门"
                         check-strictly
@@ -158,6 +158,7 @@ import { listDept, getDept, delDept, addDept, updateDept, updateDeptSort, listDe
 import type { SysDept, DeptQueryParams } from '@/types/api/system/dept'
 import type { TreeSelect } from '@/types/api/common'
 import { useProxy } from '@/composables/useProxy'
+import type { FormRules } from 'element-plus'
 
 const proxy = useProxy()
 const { sys_normal_disable } = useDict("sys_normal_disable")
@@ -184,7 +185,7 @@ const data = reactive({
     orderNum: [{ required: true, message: "显示排序不能为空", trigger: "blur" }],
     email: [{ type: "email", message: "请输入正确的邮箱地址", trigger: ["blur", "change"] }],
     phone: [{ pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: "请输入正确的手机号码", trigger: "blur" }]
-  },
+  } as FormRules,
 })
 
 const { queryParams, form, rules } = toRefs(data)
@@ -290,7 +291,11 @@ function submitForm() {
 /** 递归记录原始排序 */
 function recordOriginalOrders(list: SysDept[]) {
   list.forEach(item => {
-    originalOrders.value[item.deptId] = item.orderNum
+    const deptId = item.deptId
+    const orderNum = item.orderNum
+    if (deptId !== undefined && orderNum !== undefined) {
+      originalOrders.value[deptId] = orderNum
+    }
     if (item.children && item.children.length) {
       recordOriginalOrders(item.children)
     }
@@ -303,9 +308,11 @@ function handleSaveSort() {
   const changedOrderNums: number[] = []
   const collectChanged = (list: SysDept[]) => {
     list.forEach(item => {
-      if (String(originalOrders.value[item.deptId!]) !== String(item.orderNum)) {
-        changedDeptIds.push(item.deptId!)
-        changedOrderNums.push(item.orderNum!)
+      const deptId = item.deptId
+      const orderNum = item.orderNum
+      if (deptId !== undefined && orderNum !== undefined && String(originalOrders.value[deptId]) !== String(orderNum)) {
+        changedDeptIds.push(deptId)
+        changedOrderNums.push(orderNum)
       }
       if (item.children && item.children.length) {
         collectChanged(item.children)
