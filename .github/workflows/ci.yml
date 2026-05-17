@@ -47,6 +47,6 @@ jobs:
         working-directory: ruoyi-ui
         run: npm ci
 
-      - name: Build
+      - name: Build (含 vue-tsc 类型检查)
         working-directory: ruoyi-ui
-        run: npm run build
+        run: npm run build:strict
